@@ -1,4 +1,4 @@
-ARG WF_VERSION=latest
+ARG WF_VERSION=20.0.0.Final
 FROM jboss/wildfly:${WF_VERSION}
 
 ARG WEBCTX_PATH=tresor-transformator
