@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.bund.bsi.tr-esor</groupId>
+		<artifactId>tresor-etsi-ts119512-transformator</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>de.bund.bsi.tr-esor</groupId>
+	<artifactId>tresor-etsi-ts119512-transformator-wsdl</artifactId>
+	<packaging>jar</packaging>
+	<name>TR-ESOR/PS Schema</name>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${version.cxf}</version>
+				<configuration>
+					<disableDirectoryScan>true</disableDirectoryScan>
+					<disableDependencyScan>true</disableDependencyScan>
+					<defaultOptions>
+						<suppressGeneratedDate>true</suppressGeneratedDate>
+						<validateWsdl>true</validateWsdl>
+					</defaultOptions>
+					<wsdlOptions>
+						<wsdlOption>
+							<!--wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl-->
+							<wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl>
+							<bindingFiles>
+								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
+								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
+								<bindingFile>${basedir}/src/main/resources/wsdl/ResultMajorRestriction_binding.jxb</bindingFile>
+							</bindingFiles>
+							<extraargs>
+								<extraarg>-xjc-Xfluent-builder</extraarg>
+								<extraarg>-xjc-Xwildcard</extraarg>
+								<!--extraarg>-xjc-Xmeta</extraarg-->
+							</extraargs>
+						</wsdlOption>
+						<wsdlOption>
+							<!--wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl-->
+							<wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl>
+							<bindingFiles>
+								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
+								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
+							</bindingFiles>
+							<extraargs>
+								<extraarg>-xjc-Xfluent-builder</extraarg>
+								<extraarg>-xjc-Xwildcard</extraarg>
+								<!--extraarg>-xjc-Xmeta</extraarg-->
+							</extraargs>
+						</wsdlOption>
+					</wsdlOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>net.codesup.util</groupId>
+						<artifactId>jaxb2-rich-contract-plugin</artifactId>
+						<version>2.0.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jvnet.jaxb2_commons</groupId>
+						<artifactId>jaxb2-basics</artifactId>
+						<version>0.12.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>io.github.zlika</groupId>
+				<artifactId>reproducible-build-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>strip-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>${version.jee}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.xml</groupId>
+		    <artifactId>webservices-api</artifactId>
+		    <version>2.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.migesok</groupId>
+			<artifactId>jaxb-java-time-adapters</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+	</dependencies>
+
+</project>

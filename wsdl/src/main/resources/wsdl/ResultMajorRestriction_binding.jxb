@@ -1,0 +1,12 @@
+<jaxb:bindings
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc"
+    version="2.1">
+    <jaxb:bindings schemaLocation="deps/oasis-dss-base-schema.xsd">
+        <jaxb:bindings node="//xs:element[@name='ResultMajor']/xs:simpleType">
+               <jaxb:typesafeEnumClass name="ResultMajor" />
+        </jaxb:bindings>
+   </jaxb:bindings>
+</jaxb:bindings>

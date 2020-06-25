@@ -1,0 +1,8 @@
+version: '3'
+services:
+  transformator:
+    image: public.docker.ecsec.de/tresor/transformator:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker-config:/opt/jboss/.tr-esor-transformator

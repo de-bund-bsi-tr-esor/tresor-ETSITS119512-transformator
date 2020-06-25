@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pres:Profile xmlns:pres="http://uri.etsi.org/19512/v1.1.1#"
+	xmlns:md="http://docs.oasis-open.org/dss-x/ns/metadata"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://uri.etsi.org/19512/v1.1.1# https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.1/19512-Preservation-API.xsd">
+
+	<!-- ================================================ -->
+	<!-- Profile of BSI-TS119512-S.4-V1.2.2_Transformator -->
+	<!-- ================================================ -->
+	<!-- Version of 05.07.2020                            -->
+	<!-- ================================================ -->
+
+	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.1</md:ProfileIdentifier>
+
+	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2.pdf</md:Specification>
+	<md:Specification>https://www.etsi.org/deliver/etsi_ts/119500_119599/119512/01.01.01_60/ts_119512v010101p.pdf</md:Specification>
+	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+
+	<md:Description xml:lang="EN">The present Profile describes the interface of the BSI-TS119512-S.4-Transformator.</md:Description>
+
+	<md:Operation>
+		<md:Name>RetrieveInfo</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.1.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>PreservePO</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.2.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>UpdatePOC</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.3.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>RetrievePO</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.4.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>DeletePO</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.5.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>ValidateEvidence</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.6.</md:Description>
+	</md:Operation>
+
+	<md:Operation>
+		<md:Name>Search</md:Name>
+		<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
+		<md:Description xml:lang="EN">See Clause 2.7.</md:Description>
+	</md:Operation>
+
+	<md:Policy>
+		<md:PolicyByRef>
+			<md:PolicyID>http://www.bsi.bund.de/tr-esor/prespolicy/default/1.0</md:PolicyID>
+		</md:PolicyByRef>
+	</md:Policy>
+	<md:Policy>
+		<md:PolicyByRef>
+			<md:PolicyID>http://www.bsi.bund.de/tr-esor/sigpolicy/verify-xaip</md:PolicyID>
+		</md:PolicyByRef>
+	</md:Policy>
+	<md:Policy>
+		<md:PolicyByRef>
+			<md:PolicyID>http://www.bsi.bund.de/tr-esor/sigpolicy/verify-timestamp</md:PolicyID>
+		</md:PolicyByRef>
+	</md:Policy>
+
+	<pres:SchemeIdentifier>http://uri.etsi.org/19512/scheme/pds+pgd+aug+wst+ers</pres:SchemeIdentifier>
+
+	<pres:ProfileValidityPeriod>
+		<pres:ValidFrom>2020-01-01T00:00:00Z</pres:ValidFrom>
+	</pres:ProfileValidityPeriod>
+
+	<pres:PreservationStorageModel>WithStorage</pres:PreservationStorageModel>
+
+	<pres:PreservationGoal>http://uri.etsi.org/19512/goal/pds</pres:PreservationGoal>
+	<pres:PreservationGoal>http://uri.etsi.org/19512/goal/pgd</pres:PreservationGoal>
+	<pres:PreservationGoal>http://uri.etsi.org/19512/goal/aug</pres:PreservationGoal>
+
+	<pres:EvidenceFormat>
+		<md:FormatID>urn:ietf:rfc:4998</md:FormatID>
+		<md:Specification>https://ietf.org/rfc/rfc4998.txt</md:Specification>
+	</pres:EvidenceFormat>
+
+	<pres:EvidenceFormat>
+		<md:FormatID>urn:ietf:rfc:6283</md:FormatID>
+		<md:Specification>https://ietf.org/rfc/rfc6283.txt</md:Specification>
+	</pres:EvidenceFormat>
+
+</pres:Profile>
