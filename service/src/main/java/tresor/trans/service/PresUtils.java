@@ -751,7 +751,7 @@ public class PresUtils {
 	}
 
 	public Optional<POType> convertRetrievePoOutput(Object tresorOptOut, ResponseType res) throws OutputAssertionFailed {
-		if (isWrappedType(tresorOptOut, POType.class, new QName("http://uri.etsi.org/19512/v1.1.1#", "PO"))) {
+		if (isWrappedType(tresorOptOut, POType.class, new QName(TypeConstants.ETSI_512_API_NS, "PO"))) {
 			var poElem = (JAXBElement<POType>) tresorOptOut;
 			return Optional.of(poElem.getValue());
 		} else {
@@ -938,7 +938,7 @@ public class PresUtils {
 	public void filterDefaults(RequestType archReq) {
 		archReq.getOptionalInputs().getAny()
 			.removeIf(el -> {
-			    if (isWrappedType(el, String.class, new QName("http://uri.etsi.org/19512/v1.1.1#", "POFormat"))
+			    if (isWrappedType(el, String.class, new QName(TypeConstants.ETSI_512_API_NS, "POFormat"))
 					&& ((JAXBElement<String>) el).getValue().equals(TypeConstants.XAIP_TYPE)) {
 					return true;
 			    }

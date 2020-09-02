@@ -68,7 +68,7 @@ import org.etsi.uri._19512.v1_1.UpdatePOCResponseType;
 import org.etsi.uri._19512.v1_1.UpdatePOCType;
 import org.etsi.uri._19512.v1_1.ValidateEvidenceResponseType;
 import org.etsi.uri._19512.v1_1.ValidateEvidenceType;
-import org.etsi.uri._19512.v1_1_1_.Preservation;
+import org.etsi.uri._19512.v1_1_2_.Preservation;
 import org.oasis_open.docs.dss_x.ns.base.OptionalOutputsType;
 import org.oasis_open.docs.dss_x.ns.base.ResultType;
 import org.slf4j.Logger;
@@ -79,7 +79,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
-@WebService(serviceName = "ws/PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_1_.Preservation")
+@WebService(serviceName = "ws/PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
 @MTOM
 @BindingType(SOAPBinding.SOAP12HTTP_MTOM_BINDING)
 public class PreservationService implements Preservation {
