@@ -23,12 +23,12 @@ The configuration of the test environemnt consist of two steps:
     - tst_500M.bin
 
 * import the both SoapUI projects into your running SoapUI instance:
-    * **S4-soapui-project.xml** - consists the mock service *S4-Mock-Service* which checks the incoming requests ans simulate a responses of a TR-ESOR-System.
-    * **S512-soapui-project.xml** - consist three test suits, correpnding for functional, throughput and last tests.
+    * **S4-soapui-project.xml** - consists the mock service *S4-Mock-Service* which checks the incoming requests and simulate a responses of a TR-ESOR-System.
+    * **S512-soapui-project.xml** - consist three test suits, corresponding to functional *S512-TestSuite*, throughput *S512-TestSuite-LT* and last tests *S512-TestSuite-Load*.
 
 * configure the access urls:
     * TR-ESOR Transformator - per default ist set to: *http://bsi-transformator:8080/tresor-transformator-service/ws/PreservationService*, you can change it in the SoapUI and assign the new URL to all test cases (please consult the SoapUI documentation, how to do that)
-    * S4-Mock - you can spacify which network interface should the mock service bind to (it could be localhost or the real IP adress of the host SoapUI isr running on). Per default, following settings will be used:
+    * S4-Mock - you can specify which network interface should the mock service bind to (it could be localhost or the real IP adress of the host SoapUI isr running on). Per default, following settings will be used:
         * Host: bsi-transformator
         * Port: 8888
         * Path: /mockS4  
@@ -41,18 +41,18 @@ The tests are divied into three separated categories:
 
 Test suite: **S512-TestSuite**
 
-In order to proof the functional correctness of the TR-ESOR Transformator (according to the current specification), a set of functional tests have to be executed. Before you execute the tests. plase be sure the TR-ESOR Transformator and the S4-mock-service are both up and running.
+In order to proof the functional correctness of the TR-ESOR Transformator (according to the current specification), a set of functional tests have to be executed. Before you execute the tests, plase be sure the TR-ESOR Transformator and the S4-mock-service are both up and running.
 
 ### Throughput tests
 
 Test suite: **S512-TestSuite-LT**
 
-This test suite proofs the ability of the TR-ESOR Transformator to deal with payload of a increased size. The tests use the payload data generated while the configuration step.
+This test suite proofs the ability of the TR-ESOR Transformator to deal with payload of an increased size. The tests use the payload data generated while the configuration step.
 
-Be sure you have configured your application server properly, in order to receive a big request. The test suite sends request of more than 500 MB in size. 
+Be sure you have configured your application server properly, in order to be able handle requests containing huge data. The test suite sends (among others) requests of more than 500 MB in size. Furthermore, it is important to increase the max stack size of SOAP-UI's JVM.    
 
 ### Load tests
 
 Test suite: **S512-TestSuite-Load**
 
-By using this test, you can check the behaviour of the TR-ESOR Transformator while sending multiple requests in parallele.
+By using this tests, you can check the behaviour of the TR-ESOR Transformator while sending multiple requests in parallel.
