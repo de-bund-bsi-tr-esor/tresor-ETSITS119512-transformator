@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pres:Profile xmlns:pres="http://uri.etsi.org/19512/v1.1.1#"
+<pres:Profile xmlns:pres="http://uri.etsi.org/19512/v1.1.2#"
 	xmlns:md="http://docs.oasis-open.org/dss-x/ns/metadata"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://uri.etsi.org/19512/v1.1.1# https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.1/19512-Preservation-API.xsd">
+	xsi:schemaLocation="http://uri.etsi.org/19512/v1.1.2# https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.2/19512-Preservation-API.xsd">
 
-	<!-- ================================================ -->
-	<!-- Profile of BSI-TS119512-S.4-V1.2.2_Transformator -->
-	<!-- ================================================ -->
-	<!-- Version of 05.07.2020                            -->
-	<!-- ================================================ -->
+	<!-- ======================================================= -->
+	<!-- Profile of BSI-TS119512 V1.1.2-S.4-V1.2.2_Transformator -->
+	<!-- ======================================================= -->
+	<!-- Version of 09.09.2020                                   -->
+	<!-- ======================================================= -->
 
-	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.1</md:ProfileIdentifier>
+	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</md:ProfileIdentifier>
 
 	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2.pdf</md:Specification>
-	<md:Specification>https://www.etsi.org/deliver/etsi_ts/119500_119599/119512/01.01.01_60/ts_119512v010101p.pdf</md:Specification>
+	<md:Specification>https://www.etsi.org/deliver/etsi_ts/119500_119599/119512/01.01.01_60/ts_119512v010102p.pdf</md:Specification>
 	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
 
-	<md:Description xml:lang="EN">The present Profile describes the interface of the BSI-TS119512-S.4-Transformator.</md:Description>
+	<md:Description xml:lang="EN">The present Profile describes the interface of the ETSI TS119512 TR-ESOR Transformator.</md:Description>
 
 	<md:Operation>
 		<md:Name>RetrieveInfo</md:Name>
