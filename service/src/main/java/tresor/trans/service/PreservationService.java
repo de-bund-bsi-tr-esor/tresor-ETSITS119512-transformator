@@ -785,6 +785,7 @@ public class PreservationService implements Preservation {
 
 			var dl = new DataLocation();
 			var xPathQuery = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXPathFilter(filterObj.getXPath());
+			dl.setType("http://www.w3.org/TR/2007/REC-xpath20-20070123/");
 			dl.getAny().add(xPathQuery);
 			archReq.getDataLocation().add(dl);
 
