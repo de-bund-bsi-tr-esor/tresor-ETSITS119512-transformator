@@ -4,19 +4,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://uri.etsi.org/19512/v1.1.2# https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.2/19512-Preservation-API.xsd">
 
-	<!-- ======================================================= -->
-	<!-- Profile of BSI-TS119512 V1.1.2-S.4-V1.2.2_Transformator -->
-	<!-- ======================================================= -->
-	<!-- Version of 09.09.2020                                   -->
-	<!-- ======================================================= -->
+	<!-- ========================================================= -->
+	<!-- Profile of BSI-TR_03125 TR-ESOR V1.2.2 TS119512 interface -->
+	<!-- and                                                       -->
+	<!-- Profile of BSI-TS119512 V1.1.2-S.4-V1.2.2_Transformator   -->
+	<!-- ========================================================= -->
+	<!-- Version of 09.09.2020                                     -->
+	<!-- ========================================================= -->
 
 	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</md:ProfileIdentifier>
 
 	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2.pdf</md:Specification>
+	<md:Specification> https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/TechGuidelines/TR03125/TR-03125_E_v1_2_2.pdf</md:Specification>
+
 	<md:Specification>https://www.etsi.org/deliver/etsi_ts/119500_119599/119512/01.01.01_60/ts_119512v010102p.pdf</md:Specification>
 	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_E_V1_2_2-Appendix.pdf</md:Specification>
 
-	<md:Description xml:lang="EN">The present Profile describes the interface of the ETSI TS119512 TR-ESOR Transformator.</md:Description>
+	<md:Description xml:lang="EN">The present Profile describes the TR-ESOR V1.2.2 TS119512-interface and the interface of the ETSI TS119512 TR-ESOR Transformator.</md:Description>
 
 	<md:Operation>
 		<md:Name>RetrieveInfo</md:Name>
@@ -62,17 +66,17 @@
 
 	<md:Policy>
 		<md:PolicyByRef>
-			<md:PolicyID>http://www.bsi.bund.de/tr-esor/prespolicy/default/1.0</md:PolicyID>
+			<md:PolicyID>http://www.bsi.bund.de/DE/tr-esor/prespolicy/default/1.0</md:PolicyID>
+	    </md:PolicyByRef>
+	</md:Policy>
+	<md:Policy>
+		<md:PolicyByRef>
+			<md:PolicyID>http://www.bsi.bund.de/DE/tr-esor/sigpolicy/verify-xaip</md:PolicyID>
 		</md:PolicyByRef>
 	</md:Policy>
 	<md:Policy>
 		<md:PolicyByRef>
-			<md:PolicyID>http://www.bsi.bund.de/tr-esor/sigpolicy/verify-xaip</md:PolicyID>
-		</md:PolicyByRef>
-	</md:Policy>
-	<md:Policy>
-		<md:PolicyByRef>
-			<md:PolicyID>http://www.bsi.bund.de/tr-esor/sigpolicy/verify-timestamp</md:PolicyID>
+			<md:PolicyID>http://www.bsi.bund.de/DE/tr-esor/sigpolicy/verify-timestamp</md:PolicyID>
 		</md:PolicyByRef>
 	</md:Policy>
 
