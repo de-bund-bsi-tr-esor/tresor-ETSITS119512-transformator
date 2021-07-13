@@ -21,9 +21,11 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
 import java.io.File;
+import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +39,9 @@ public class ConfigLoader {
 
 	private final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
+	@ConfigProperty(name = "transformator.config")
+	private Optional<String> confFile;
+
 	private Config config;
 	private S4ClientConfig s4ClientCfg;
 
@@ -44,7 +49,7 @@ public class ConfigLoader {
 	void init() {
 		LOG.info("Loading TR-ESOR Transformator configuration.");
 		// load config from disc
-		LOG.debug("Loading user config from home directory.");
+		LOG.debug("Loading user config.");
 		var homeCfgFile = getConfigFile();
 		var userCfg = ConfigFactory.parseFile(homeCfgFile);
 		// merge with bundled values
@@ -56,8 +61,15 @@ public class ConfigLoader {
 	}
 
 	File getConfigFile() {
-		var home = new File(System.getProperty("user.home"));
-		var cfgFile = new File(new File(home, ".tr-esor-transformator"), "application.conf");
+		var cfgFile = this.confFile.map(File::new).orElseGet(() -> {
+		    if (Boolean.parseBoolean(System.getProperty("docker.build"))) {
+			return new File("/config/application.conf");
+		    } else {
+			var home = new File(System.getProperty("user.home"));
+			return new File(new File(home, ".tr-esor-transformator"), "application.conf");
+		    }
+		});
+		LOG.info("Using config file: {}", cfgFile);
 		return cfgFile;
 	}
 
