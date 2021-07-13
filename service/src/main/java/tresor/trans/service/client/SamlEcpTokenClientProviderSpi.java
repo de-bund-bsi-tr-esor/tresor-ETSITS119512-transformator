@@ -20,6 +20,7 @@ package tresor.trans.service.client;
 import tresor.trans.service.S4ClientConfig;
 import de.bund.bsi.tr_esor.api._1_2.S4;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
+@ApplicationScoped
 @S4ClientProvider("ecp-token")
 public class SamlEcpTokenClientProviderSpi extends BaseTresorClientProviderSpi {
 

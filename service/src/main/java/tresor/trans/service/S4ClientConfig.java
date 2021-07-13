@@ -31,6 +31,7 @@ public class S4ClientConfig {
 	private String profileFile;
 	private boolean clientLogging;
 	private boolean schemaValidationClient;
+	private boolean clientMtom;
 	private Config typeSpecific;
 
 	public String getType() {
@@ -79,6 +80,14 @@ public class S4ClientConfig {
 
 	public void setSchemaValidationClient(boolean schemaValidationClient) {
 		this.schemaValidationClient = schemaValidationClient;
+	}
+
+	public boolean isClientMtom() {
+		return clientMtom;
+	}
+
+	public void setClientMtom(boolean clientMtom) {
+		this.clientMtom = clientMtom;
 	}
 
 }

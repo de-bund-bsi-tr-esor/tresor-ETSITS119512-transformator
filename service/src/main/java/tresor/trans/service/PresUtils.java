@@ -49,6 +49,7 @@ import java.util.concurrent.FutureTask;
 import java.util.function.Predicate;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -88,6 +89,7 @@ import org.w3c.dom.Element;
  *
  * @author Tobias Wich
  */
+@ApplicationScoped
 public class PresUtils {
 
 	private class Lut extends HashMap<String, String> {

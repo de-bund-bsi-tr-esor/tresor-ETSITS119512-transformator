@@ -79,7 +79,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
-@WebService(serviceName = "ws/PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
+@WebService(serviceName = "PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
 @MTOM
 @BindingType(SOAPBinding.SOAP12HTTP_MTOM_BINDING)
 public class PreservationService implements Preservation {

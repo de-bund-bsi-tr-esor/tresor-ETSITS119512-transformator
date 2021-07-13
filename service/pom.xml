@@ -10,29 +10,21 @@
 
 	<groupId>de.bund.bsi.tr-esor</groupId>
 	<artifactId>tresor-etsi-ts119512-transformator-service</artifactId>
-	<packaging>war</packaging>
 	<name>Transformator Service</name>
 
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<attachClasses>true</attachClasses>
-					<archiveClasses>true</archiveClasses>
-					<warName>tresor-transformator-service</warName>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>io.github.zlika</groupId>
-				<artifactId>reproducible-build-maven-plugin</artifactId>
+				<groupId>io.quarkus</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<extensions>true</extensions>
 				<executions>
 					<execution>
 						<goals>
-							<goal>strip-jar</goal>
+							<goal>build</goal>
+							<!--goal>generate-code</goal>
+							<goal>generate-code-tests</goal-->
 						</goals>
 					</execution>
 				</executions>
@@ -42,35 +34,31 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${version.jee}</version>
-			<scope>provided</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-arc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${version.cxf}</version>
-			<scope>provided</scope>
-		</dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jsonb</artifactId>
+        </dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>${version.cxf}</version>
-			<scope>provided</scope>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-features-logging</artifactId>
 			<version>${version.cxf}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.30</version>
-			<scope>provided</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-container-image-jib</artifactId>
 		</dependency>
 
 		<dependency>

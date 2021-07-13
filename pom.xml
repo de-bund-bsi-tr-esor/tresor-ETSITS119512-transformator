@@ -50,7 +50,12 @@
 		<maven.min.version>3.6.0</maven.min.version>
 
 		<version.jee>8.0.1</version.jee>
-		<version.cxf>3.3.6</version.cxf>
+		<version.cxf>3.4.4</version.cxf>
+
+		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+		<quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+		<quarkus.platform.version>2.0.1.Final</quarkus.platform.version>
+		<quarkus-plugin.version>2.0.1.Final</quarkus-plugin.version>
 
 		<!-- fix for netbeans as it executes the surefire:test task directly -->
 		<argLine>-Djdk.attach.allowAttachSelf</argLine>
@@ -120,9 +125,9 @@
 					<version>3.2.0</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>3.2.3</version>
+					<groupId>io.quarkus</groupId>
+					<artifactId>quarkus-maven-plugin</artifactId>
+					<version>${quarkus-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -138,12 +143,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>3.0.0-M1</version>
-				</plugin>
-
-				<plugin>
-					<groupId>io.github.zlika</groupId>
-					<artifactId>reproducible-build-maven-plugin</artifactId>
-					<version>0.12</version>
 				</plugin>
 
 				<plugin>
@@ -179,6 +178,23 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>${quarkus.platform.artifact-id}</artifactId>
+				<version>${quarkus.platform.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.quarkiverse.cxf</groupId>
+				<artifactId>quarkus-cxf</artifactId>
+				<version>0.9</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<profiles>
 		<profile>

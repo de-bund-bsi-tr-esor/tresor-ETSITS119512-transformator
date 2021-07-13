@@ -20,6 +20,7 @@ package tresor.trans.service.client;
 import tresor.trans.service.S4ClientConfig;
 import de.bund.bsi.tr_esor.api._1_2.S4;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
+@ApplicationScoped
 @S4ClientProvider("plain")
 public class PlainClientProviderSpi extends BaseTresorClientProviderSpi {
 

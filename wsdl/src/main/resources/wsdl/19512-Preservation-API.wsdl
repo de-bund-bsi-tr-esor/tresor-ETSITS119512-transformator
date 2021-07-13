@@ -167,7 +167,7 @@
 	<!-- ===================== -->
 
 	<wsdl:binding name="Preservation" type="pres:Preservation">
-		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<soap12:binding style="document" transport="http://www.w3.org/2003/05/soap/bindings/HTTP/?mtom=true" />
 
 		<wsdl:operation name="RetrieveInfo">
 			<soap12:operation soapAction="http://uri.etsi.org/19512/v1.1.2#RetrieveInfo" />

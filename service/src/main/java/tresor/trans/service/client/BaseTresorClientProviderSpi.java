@@ -70,7 +70,9 @@ public abstract class BaseTresorClientProviderSpi {
 		var features = new ArrayList<>(Optional.ofNullable(factory.getFeatures()).orElse(List.of()));
 
 		if (conf.isClientLogging()) {
-			features.add(new LoggingFeature());
+			var logFeature = new LoggingFeature();
+			logFeature.setLogMultipart(false);
+			features.add(logFeature);
 		}
 
 		factory.setFeatures(features);
@@ -86,7 +88,7 @@ public abstract class BaseTresorClientProviderSpi {
 		ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, conf.getEndptUrl());
 
 		SOAPBinding sb = (SOAPBinding) bp.getBinding();
-		sb.setMTOMEnabled(true);
+		sb.setMTOMEnabled(conf.isClientMtom());
 
 		Client cl = (Client) proxy;
 		HTTPConduit http = (HTTPConduit) cl.getConduit();

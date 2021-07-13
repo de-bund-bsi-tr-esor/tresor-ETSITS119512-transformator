@@ -29,6 +29,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -46,10 +47,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
+@ApplicationScoped
 @S4ClientProvider("tls")
 public class TLSClientProviderSpi extends BaseTresorClientProviderSpi {
 
-	private final Logger LOG = LoggerFactory.getLogger(TLSClientProviderSpi.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TLSClientProviderSpi.class);
 
 	@Inject
 	S4ClientConfig conf;
