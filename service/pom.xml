@@ -13,6 +13,9 @@
 	<name>Transformator Service</name>
 
 	<properties>
+		<quarkus.container-image.group>tresor</quarkus.container-image.group>
+		<quarkus.container-image.name>transformator</quarkus.container-image.name>
+		<quarkus.container-image.additional-tags>latest</quarkus.container-image.additional-tags>
 		<quarkus.jib.jvm-arguments>-Ddocker.build=true</quarkus.jib.jvm-arguments>
 	</properties>
 
