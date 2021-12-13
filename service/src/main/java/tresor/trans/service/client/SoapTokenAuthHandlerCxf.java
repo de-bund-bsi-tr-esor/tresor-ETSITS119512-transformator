@@ -38,18 +38,18 @@ public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessag
 	private static final QName TOKEN_HEADER_NAME = new QName("urn:procilon:soap", "IdentityToken");
 	private final Logger LOG = LoggerFactory.getLogger(SoapTokenAuthHandlerCxf.class);
 
-	private final String token;
+	private SamlEcpTokenProvider ecpTokenProv;
 
-	public SoapTokenAuthHandlerCxf(String token) {
+	public SoapTokenAuthHandlerCxf(ClientConfig.ProcilonConfig config) {
 		super(Phase.PRE_PROTOCOL);
-		this.token = token;
+		this.ecpTokenProv = new SamlEcpTokenProvider(config);
 	}
 
-    @Override
+	@Override
     public void handleMessage(SoapMessage m) throws Fault {
         try {
 			SoapTokenAuthHeader myheader = new SoapTokenAuthHeader();
-			myheader.setToken(token);
+			myheader.setToken(ecpTokenProv.getToken());
             Header header = new Header(TOKEN_HEADER_NAME, myheader, new JAXBDataBinding(SoapTokenAuthHeader.class));
             m.getHeaders().add(header);
         } catch (JAXBException ex) {

@@ -17,19 +17,14 @@
 
 package tresor.trans.service.client;
 
-import tresor.trans.service.S4ClientConfig;
-import com.typesafe.config.ConfigBeanFactory;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,32 +33,23 @@ import org.slf4j.LoggerFactory;
  *
  * @author Tobias Wich
  */
-@ApplicationScoped
 public class SamlEcpTokenProvider {
 
 	private final Logger LOG = LoggerFactory.getLogger(SamlEcpTokenProvider.class);
 
-	@Inject
-	S4ClientConfig config;
-
-	private SamlEcpTokenConfig pConfig;
+	private ClientConfig.ProcilonConfig config;
 
 	private Instant fetchedAt;
 	private String token;
 
-	private SamlEcpTokenConfig getEcpTokenConfig() {
-		synchronized (this) {
-			if (pConfig == null) {
-				pConfig = ConfigBeanFactory.create(config.getTypeSpecific(), SamlEcpTokenConfig.class);
-			}
-		}
-		return pConfig;
+	public SamlEcpTokenProvider(ClientConfig.ProcilonConfig config) {
+		this.config = config;
 	}
 
 	public String getToken() {
 		synchronized (this) {
 			// if we have no token or the validity is expired
-			if (fetchedAt == null || fetchedAt.plus(getEcpTokenConfig().getTokenValidity()).isBefore(Instant.now())) {
+			if (fetchedAt == null || fetchedAt.plus(config.tokenValidity()).isBefore(Instant.now())) {
 				token = getNewToken();
 				fetchedAt = Instant.now();
 			}
@@ -74,13 +60,13 @@ public class SamlEcpTokenProvider {
 
 	private String getNewToken() {
 		LOG.info("Retrieving new token from SAML IdP.");
-		SamlEcpTokenConfig procCfg = getEcpTokenConfig();
-		Client c = ClientBuilder.newClient();
+		var c = ResteasyClientBuilder.newBuilder()
+			.build();
 
 		try {
-			String authnReq = performAuthnReq(procCfg, c);
-			String authnRes = performEcpAuth(procCfg, c, authnReq);
-			String newToken = performAcsReq(procCfg, c, authnRes);
+			String authnReq = performAuthnReq(c);
+			String authnRes = performEcpAuth(c, authnReq);
+			String newToken = performAcsReq(c, authnRes);
 
 			return newToken;
 		} catch (WebApplicationException | ProcessingException ex) {
@@ -90,35 +76,25 @@ public class SamlEcpTokenProvider {
 		}
 	}
 
-	private String performAuthnReq(SamlEcpTokenConfig procCfg, Client c) throws WebApplicationException, ProcessingException {
+	private String performAuthnReq(Client c) throws WebApplicationException, ProcessingException {
 		LOG.debug("Requesting SAML AuthnRequest.");
-		String samlReq = c.target(URI.create(procCfg.getAuthnUrl()))
-				.request()
-				.accept("application/vnd.paos+xml")
-				.get(String.class);
+		String samlReq = c.target(config.authnUrl()).request().accept("application/vnd.paos+xml").get(String.class);
 		return samlReq;
 	}
 
-	private String performEcpAuth(SamlEcpTokenConfig procCfg, Client c, String authnReq) throws WebApplicationException, ProcessingException {
+	private String performEcpAuth(Client c, String authnReq) throws WebApplicationException, ProcessingException {
 		LOG.debug("Requesting authentication at IdP.");
 		// calculate authentication value
-		String userPassword = procCfg.getUser() + ":" + procCfg.getPass();
+		String userPassword = config.user() + ":" + config.pass();
 		String basicAuth = Base64.getEncoder().encodeToString(userPassword.getBytes(StandardCharsets.UTF_8));
 
-		String samlRes = c.target(URI.create(procCfg.getEcpUrl()))
-				.request()
-				.accept("text/xml")
-				.header("Authorization", "Basic " + basicAuth)
-				.post(Entity.entity(authnReq, "text/xml"), String.class);
+		String samlRes = c.target(config.ecpUrl()).request().accept("text/xml").header("Authorization", "Basic " + basicAuth)				.post(Entity.entity(authnReq, "text/xml"), String.class);
 		return samlRes;
 	}
 
-	private String performAcsReq(SamlEcpTokenConfig procCfg, Client c, String authnRes) throws WebApplicationException, ProcessingException {
+	private String performAcsReq(Client c, String authnRes) throws WebApplicationException, ProcessingException {
 		LOG.debug("Requesting auth token at ACS url.");
-		String authTok = c.target(URI.create(procCfg.getAcsUrl()))
-				.request()
-				.accept("text/plain")
-				.post(Entity.entity(authnRes, "application/vnd.paos+xml"), String.class);
+		String authTok = c.target(config.acsUrl()).request().accept("text/plain").post(Entity.entity(authnRes, "application/vnd.paos+xml"), String.class);
 		return authTok;
 	}
 

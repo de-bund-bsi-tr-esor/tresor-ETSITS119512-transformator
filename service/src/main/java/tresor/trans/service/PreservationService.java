@@ -28,10 +28,12 @@ import de.bund.bsi.tr_esor.api._1.DataLocation;
 import de.bund.bsi.tr_esor.api._1.ObjectFactory;
 import de.bund.bsi.tr_esor.api._1.ReasonOfDeletion;
 import de.bund.bsi.tr_esor.api._1_2.S4;
+import io.quarkiverse.cxf.annotation.CXFClient;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Future;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.xml.bind.JAXBElement;
@@ -73,6 +75,8 @@ import org.oasis_open.docs.dss_x.ns.base.OptionalOutputsType;
 import org.oasis_open.docs.dss_x.ns.base.ResultType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tresor.trans.service.client.S4ClientConfigurator;
+import tresor.trans.service.client.TresorTransClientConfigException;
 
 
 /**
@@ -87,7 +91,16 @@ public class PreservationService implements Preservation {
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
 
 	@Inject
+	@CXFClient
 	S4 client;
+
+	@Inject
+	S4ClientConfigurator clientConfigurator;
+
+	@PostConstruct
+	void configuresClient() throws TresorTransClientConfigException {
+		clientConfigurator.configure(client);
+	}
 
 	@Inject
 	ProfileSupplier profileSupplier;
