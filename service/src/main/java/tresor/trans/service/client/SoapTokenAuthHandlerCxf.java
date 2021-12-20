@@ -40,7 +40,7 @@ public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessag
 	private SamlEcpTokenProvider ecpTokenProv;
 	private final QName tokenHeaderName;
 
-	public SoapTokenAuthHandlerCxf(ClientConfig.ProcilonConfig config) {
+	public SoapTokenAuthHandlerCxf(ClientConfig.SamlEcpConfig config) {
 		super(Phase.PRE_PROTOCOL);
 		this.tokenHeaderName = new QName(config.tokenHeaderName(), "IdentityToken");
 		this.ecpTokenProv = new SamlEcpTokenProvider(config);

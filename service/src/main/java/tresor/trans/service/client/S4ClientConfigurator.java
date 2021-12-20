@@ -37,8 +37,8 @@ public class S4ClientConfigurator {
 	public void configure(S4 client) throws TresorTransClientConfigException {
 		if (config.tlsConfig().isPresent()) {
 			TLSProvisioning.configure(client, config.tlsConfig().get());
-		} else if (config.procilonConfig().isPresent()) {
-			ProcilonProvisioning.configure(client, config.procilonConfig().get());
+		} else if (config.samlEcpConfig().isPresent()) {
+			SamlEcpProvisioning.configure(client, config.samlEcpConfig().get());
 		}
 	}
 

@@ -23,17 +23,17 @@ import de.bund.bsi.tr_esor.api._1_2.S4;
 import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tresor.trans.service.client.ClientConfig.ProcilonConfig;
+import tresor.trans.service.client.ClientConfig.SamlEcpConfig;
 
 
 /**
  *
  * @author Florian Otto
  */
-public class ProcilonProvisioning {
-	private static final Logger LOG = LoggerFactory.getLogger(ProcilonProvisioning.class);
+public class SamlEcpProvisioning {
+	private static final Logger LOG = LoggerFactory.getLogger(SamlEcpProvisioning.class);
 
-	public static void configure(S4 client, ProcilonConfig config) throws TresorTransClientConfigException {
+	public static void configure(S4 client, SamlEcpConfig config) throws TresorTransClientConfigException {
 
 		Client cl = (Client) client;
 		cl.getOutInterceptors().add(new SoapTokenAuthHandlerCxf(config));

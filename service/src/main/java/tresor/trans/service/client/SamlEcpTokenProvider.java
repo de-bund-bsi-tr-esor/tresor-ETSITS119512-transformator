@@ -37,12 +37,12 @@ public class SamlEcpTokenProvider {
 
 	private final Logger LOG = LoggerFactory.getLogger(SamlEcpTokenProvider.class);
 
-	private ClientConfig.ProcilonConfig config;
+	private ClientConfig.SamlEcpConfig config;
 
 	private Instant fetchedAt;
 	private String token;
 
-	public SamlEcpTokenProvider(ClientConfig.ProcilonConfig config) {
+	public SamlEcpTokenProvider(ClientConfig.SamlEcpConfig config) {
 		this.config = config;
 	}
 

@@ -33,9 +33,9 @@ public interface ClientConfig {
 
 	public Optional<TLSConfig> tlsConfig();
 
-	public Optional<ProcilonConfig> procilonConfig();
+	public Optional<SamlEcpConfig> samlEcpConfig();
 
-	public static interface ProcilonConfig {
+	public static interface SamlEcpConfig {
 
 		String tokenHeaderName();
 
