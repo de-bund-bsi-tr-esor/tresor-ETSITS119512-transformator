@@ -151,9 +151,9 @@ If the S4 service requires SAML Ecp tokens the following parameters have to be c
 
   URL for the SAML Assertion Consumer Service endpoint.
 
-* `tresor.trans.client.saml-ecp-config.token-header-name`
+* `tresor.trans.client.saml-ecp-config.token-element`
 
-  URL for the SAML Assertion Consumer Service endpoint.
+  Qualified name of the token element in the form {NAMESPACE}LOCALPART
 
 * `tresor.trans.client.saml-ecp-config.user`
 

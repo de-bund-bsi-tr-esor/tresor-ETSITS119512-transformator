@@ -37,7 +37,7 @@ public interface ClientConfig {
 
 	public static interface SamlEcpConfig {
 
-		String tokenHeaderName();
+		String tokenElement();
 
 		String authnUrl();
 

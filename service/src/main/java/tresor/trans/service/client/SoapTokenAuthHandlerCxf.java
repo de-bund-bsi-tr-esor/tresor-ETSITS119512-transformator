@@ -37,12 +37,12 @@ public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessag
 
 	private final Logger LOG = LoggerFactory.getLogger(SoapTokenAuthHandlerCxf.class);
 
-	private SamlEcpTokenProvider ecpTokenProv;
+	private final SamlEcpTokenProvider ecpTokenProv;
 	private final QName tokenHeaderName;
 
 	public SoapTokenAuthHandlerCxf(ClientConfig.SamlEcpConfig config) {
 		super(Phase.PRE_PROTOCOL);
-		this.tokenHeaderName = new QName(config.tokenHeaderName(), "IdentityToken");
+		this.tokenHeaderName = QName.valueOf(config.tokenElement());
 		this.ecpTokenProv = new SamlEcpTokenProvider(config);
 	}
 
