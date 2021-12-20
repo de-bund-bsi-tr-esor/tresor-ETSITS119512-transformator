@@ -64,9 +64,9 @@ public class SamlEcpTokenProvider {
 			.build();
 
 		try {
-			String authnReq = performAuthnReq(c);
-			String authnRes = performEcpAuth(c, authnReq);
-			String newToken = performAcsReq(c, authnRes);
+			var authnReq = performAuthnReq(c);
+			var authnRes = performEcpAuth(c, authnReq);
+			var newToken = performAcsReq(c, authnRes);
 
 			return newToken;
 		} catch (WebApplicationException | ProcessingException ex) {
@@ -78,8 +78,10 @@ public class SamlEcpTokenProvider {
 
 	private String performAuthnReq(Client c) throws WebApplicationException, ProcessingException {
 		LOG.debug("Requesting SAML AuthnRequest.");
-		String samlReq = c.target(config.authnUrl()).request().accept("application/vnd.paos+xml").get(String.class);
-		return samlReq;
+		return c.target(config.authnUrl())
+			.request()
+			.accept("application/vnd.paos+xml")
+			.get(String.class);
 	}
 
 	private String performEcpAuth(Client c, String authnReq) throws WebApplicationException, ProcessingException {
@@ -88,14 +90,25 @@ public class SamlEcpTokenProvider {
 		String userPassword = config.user() + ":" + config.pass();
 		String basicAuth = Base64.getEncoder().encodeToString(userPassword.getBytes(StandardCharsets.UTF_8));
 
-		String samlRes = c.target(config.ecpUrl()).request().accept("text/xml").header("Authorization", "Basic " + basicAuth)				.post(Entity.entity(authnReq, "text/xml"), String.class);
-		return samlRes;
+		return c.target(config.ecpUrl())
+			.request()
+			.accept("text/xml")
+			.header("Authorization", "Basic " + basicAuth)
+			.post(
+				Entity.entity(authnReq, "text/xml"),
+				String.class
+			);
 	}
 
 	private String performAcsReq(Client c, String authnRes) throws WebApplicationException, ProcessingException {
 		LOG.debug("Requesting auth token at ACS url.");
-		String authTok = c.target(config.acsUrl()).request().accept("text/plain").post(Entity.entity(authnRes, "application/vnd.paos+xml"), String.class);
-		return authTok;
+		return c.target(config.acsUrl())
+			.request()
+			.accept("text/plain")
+			.post(
+				Entity.entity(authnRes, "application/vnd.paos+xml"),
+				String.class
+			);
 	}
 
 }
