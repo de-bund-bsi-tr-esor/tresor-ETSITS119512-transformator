@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,41 +15,21 @@
  *
  ***************************************************************************/
 
-package tresor.trans.service.client;
+
+
+package tresor.trans.service;
+
+import io.smallrye.config.ConfigMapping;
+import java.util.Optional;
 
 
 /**
  *
- * @author Tobias Wich
+ * @author Florian Otto
  */
-public class TLSClientConfig {
+@ConfigMapping(prefix = "tresor.trans.service")
+public interface ApplicationConfig {
 
-	private String truststore;
-	private String keystore;
-	private String keystorePass;
-
-	public String getTruststore() {
-		return truststore;
-	}
-
-	public void setTruststore(String truststore) {
-		this.truststore = truststore;
-	}
-
-	public String getKeystore() {
-		return keystore;
-	}
-
-	public void setKeystore(String keystore) {
-		this.keystore = keystore;
-	}
-
-	public String getKeystorePass() {
-		return keystorePass;
-	}
-
-	public void setKeystorePass(String keystorePass) {
-		this.keystorePass = keystorePass;
-	}
+	Optional<String> profileFilepath();
 
 }

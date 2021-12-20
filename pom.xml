@@ -50,11 +50,18 @@
 
 		<version.cxf>3.4.5</version.cxf>
 
-		<quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-		<quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.version>2.5.0.Final</quarkus.platform.version>
 		<quarkus-plugin.version>2.5.0.Final</quarkus-plugin.version>
 		<quarkus.cxf.version>0.11.0</quarkus.cxf.version>
+
+
+		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+		<compiler-plugin.version>3.8.1</compiler-plugin.version>
+		<testcontainers.version>1.15.1</testcontainers.version>
+
+
 
 		<!-- fix for netbeans as it executes the surefire:test task directly -->
 		<argLine>-Djdk.attach.allowAttachSelf</argLine>
@@ -124,7 +131,7 @@
 					<version>3.3.0</version>
 				</plugin>
 				<plugin>
-					<groupId>io.quarkus</groupId>
+					<groupId>${quarkus.platform.group-id}</groupId>
 					<artifactId>quarkus-maven-plugin</artifactId>
 					<version>${quarkus-plugin.version}</version>
 				</plugin>
@@ -192,6 +199,18 @@
 				<version>${quarkus.platform.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>testcontainers</artifactId>
+				<version>${testcontainers.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.testcontainers</groupId>
+				<artifactId>junit-jupiter</artifactId>
+				<version>${testcontainers.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>io.quarkiverse.cxf</groupId>

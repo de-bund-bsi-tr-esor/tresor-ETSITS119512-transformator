@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,51 @@
  *
  ***************************************************************************/
 
+
+
 package tresor.trans.service.client;
+
+import io.smallrye.config.ConfigMapping;
+import java.time.Duration;
+import java.util.Optional;
 
 
 /**
  *
- * @author Tobias Wich
+ * @author Florian Otto
  */
-public class ClientConfigException extends RuntimeException {
+@ConfigMapping(prefix = "tresor.trans.client")
+public interface ClientConfig {
 
-	public ClientConfigException(String msg) {
-		super(msg);
+	public Optional<TLSConfig> tlsConfig();
+
+	public Optional<SamlEcpConfig> samlEcpConfig();
+
+	public static interface SamlEcpConfig {
+
+		String tokenElement();
+
+		String authnUrl();
+
+		String ecpUrl();
+
+		String acsUrl();
+
+		String user();
+
+		String pass();
+
+		Duration tokenValidity();
 	}
 
-	public ClientConfigException(String msg, Throwable cause) {
-		super(msg, cause);
+	public static interface TLSConfig {
+
+		public String keystoreFilepath();
+
+		public String keystoreSecret();
+
+		public String truststoreFilepath();
+
 	}
 
 }

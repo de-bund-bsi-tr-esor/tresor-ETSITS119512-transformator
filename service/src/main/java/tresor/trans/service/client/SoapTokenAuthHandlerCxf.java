@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,22 +35,23 @@ import org.slf4j.LoggerFactory;
  */
 public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessage> {
 
-	private static final QName TOKEN_HEADER_NAME = new QName("urn:procilon:soap", "IdentityToken");
 	private final Logger LOG = LoggerFactory.getLogger(SoapTokenAuthHandlerCxf.class);
 
-	private final String token;
+	private final SamlEcpTokenProvider ecpTokenProv;
+	private final QName tokenHeaderName;
 
-	public SoapTokenAuthHandlerCxf(String token) {
+	public SoapTokenAuthHandlerCxf(ClientConfig.SamlEcpConfig config) {
 		super(Phase.PRE_PROTOCOL);
-		this.token = token;
+		this.tokenHeaderName = QName.valueOf(config.tokenElement());
+		this.ecpTokenProv = new SamlEcpTokenProvider(config);
 	}
 
-    @Override
+	@Override
     public void handleMessage(SoapMessage m) throws Fault {
         try {
 			SoapTokenAuthHeader myheader = new SoapTokenAuthHeader();
-			myheader.setToken(token);
-            Header header = new Header(TOKEN_HEADER_NAME, myheader, new JAXBDataBinding(SoapTokenAuthHeader.class));
+			myheader.setToken(ecpTokenProv.getToken());
+			Header header = new Header(tokenHeaderName, myheader, new JAXBDataBinding(SoapTokenAuthHeader.class));
             m.getHeaders().add(header);
         } catch (JAXBException ex) {
 			LOG.error("Failed to create JAXB Binding.", ex);

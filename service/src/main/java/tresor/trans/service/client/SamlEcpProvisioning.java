@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,38 +15,29 @@
  *
  ***************************************************************************/
 
+
+
 package tresor.trans.service.client;
 
-import tresor.trans.service.S4ClientConfig;
 import de.bund.bsi.tr_esor.api._1_2.S4;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tresor.trans.service.client.ClientConfig.SamlEcpConfig;
 
 
 /**
  *
- * @author Tobias Wich
+ * @author Florian Otto
  */
-@ApplicationScoped
-@S4ClientProvider("plain")
-public class PlainClientProviderSpi extends BaseTresorClientProviderSpi {
+public class SamlEcpProvisioning {
+	private static final Logger LOG = LoggerFactory.getLogger(SamlEcpProvisioning.class);
 
-	private final Logger LOG = LoggerFactory.getLogger(PlainClientProviderSpi.class);
+	public static void configure(S4 client, SamlEcpConfig config) throws TresorTransClientConfigException {
 
-	@Inject
-	S4ClientConfig conf;
+		Client cl = (Client) client;
+		cl.getOutInterceptors().add(new SoapTokenAuthHandlerCxf(config));
 
-	@PostConstruct
-	void init() {
-		super.init(conf);
-	}
-
-	@Override
-	protected void specificConfig(S4 proxy) {
-		// everything covered by the base case
 	}
 
 }

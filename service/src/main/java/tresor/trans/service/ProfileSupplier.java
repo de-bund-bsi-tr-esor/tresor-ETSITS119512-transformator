@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ public class ProfileSupplier {
 	private ProfileType profile;
 
 	@Inject
-	S4ClientConfig cfg;
+	ApplicationConfig cfg;
 
 	@PostConstruct
 	void initJaxb() {
@@ -65,17 +65,19 @@ public class ProfileSupplier {
 	}
 
 	private Optional<InputStream> getUserProfile() {
-		return Optional.ofNullable(cfg.getProfileFile())
-				.map(v -> v.isBlank() ? null : v)
-				.map(File::new)
-				.map(f -> {
-					try {
-						return new FileInputStream(f);
-					} catch (FileNotFoundException ex) {
-						LOG.warn("User defined profile not found. Falling back to integrated profile definition.");
-						return null;
-					}
-				});
+
+		return cfg.profileFilepath()
+			.map(v -> v.isBlank() ? null : v)
+			.map(File::new)
+			.map(f -> {
+				try {
+					return new FileInputStream(f);
+				} catch (FileNotFoundException ex) {
+					LOG.warn("User defined profile not found. Falling back to integrated profile definition.");
+					return null;
+				}
+			});
+
 	}
 
 	private InputStream getDefaultProfile() {

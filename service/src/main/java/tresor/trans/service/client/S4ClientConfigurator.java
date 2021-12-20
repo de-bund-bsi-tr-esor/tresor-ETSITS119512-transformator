@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,31 @@
  *
  ***************************************************************************/
 
-package tresor.trans.service;
 
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
+
+package tresor.trans.service.client;
+
+import de.bund.bsi.tr_esor.api._1_2.S4;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 
 /**
  *
- * @author Tobias Wich
+ * @author Florian Otto
  */
-public class S4ConfigVeto implements Extension {
+@ApplicationScoped
+public class S4ClientConfigurator {
 
-	public void disableBeans(@Observes ProcessAnnotatedType<S4ClientConfig> pat) {
-		pat.veto();
-    }
+	@Inject
+	ClientConfig config;
+
+	public void configure(S4 client) throws TresorTransClientConfigException {
+		if (config.tlsConfig().isPresent()) {
+			TLSProvisioning.configure(client, config.tlsConfig().get());
+		} else if (config.samlEcpConfig().isPresent()) {
+			SamlEcpProvisioning.configure(client, config.samlEcpConfig().get());
+		}
+	}
 
 }

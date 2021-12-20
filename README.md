@@ -103,89 +103,75 @@ $ docker-compose  -f docker-compose.yml -f docker-compose.dev.yml up --build
 
 # Configuration
 
-Before the TR-ESOR Transformator can be started, it needs to be configured by placing the configuration file to `$HOME/.tr-esor-transformator/application.conf` and by providing additional parameters such as a keystore.
+Before the TR-ESOR Transformator can be started, it needs to be configured by adjusting the configuration file `application.properties` and by providing additional parameters such as a keystore if needed.
 
-The config file uses the JSON like HOCON syntax described in the TypeSafe Config project (<https://github.com/lightbend/config>).
-It must be named application.conf in order to be picked up by the system.
-
-Example config files can be found in the folder `service/src/test/config` in the source tree.
 
 The following configuration options are required in order to run the service.
 
-* `endpt-url`
+* `quarkus.cxf.client."s4-client".client-endpoint-url`
 
   URL of the S4 endpoint.
 
-* `type`
+* `tresor.trans.service.profile-filepath`
 
-  Type of the S4 JAX-WS client factory (one of `plain`, `tls`, `ecp-token`).
-  Types other than plain require additional configuration in the `type-specific` parameter as described below.
+  Path to an XML file containing the profile returned in the `RetrieveInfoResponse` message of the 512 interface.
+  The builtin profile located in the source tree (`service/src/main/resources/config/profile.xml`) can be used as starting point for modifications.
+  The bundled file is also used if no path is configured.
 
-The `type-specific` parameter is an object containing configuration specific to the selected JAX-WS client factory type used to obtain a webservice client to the S4 endpoint.
 
-When `type` is `tls`, the following options must be provided.
+For authentication of the S4 webservice client module, credentials have to be provided which fit the S4 service used.
 
-* `truststore`
+If the S4 service requires TLS client certificates the following parameters have to be configured:
+
+* `tresor.trans.client.tls-config.truststore-filepath`
 
   Path to a JKS truststore used to validate the S4 endpoint's TLS certificate.
 
-* `keystore`
+* `tresor.trans.client.tls-config.keystore-filepath`
 
   Path to a JKS or PKCS12 keystore containing the client certificate needed to authenticate the webservice client at the S4 endpoint.
 
-* `keystore-pass`
+* `tresor.trans.client.tls-config.keystore-secret`
 
   Password of the keystore and the key entry.
 
-When `type` is `ecp-token`, the following options must be provided.
 
-* `authn-url`
+
+If the S4 service requires SAML Ecp tokens the following parameters have to be configured:
+
+* `tresor.trans.client.saml-ecp-config.authn-url`
 
   URL for the SAML-ECP AuthnRequest.
 
-* `ecp-url`
+* `tresor.trans.client.saml-ecp-config.ecp-url`
 
   URL for the ECP authentication endpoint.
 
-* `acs-url`
+* `tresor.trans.client.saml-ecp-config.acs-url`
 
   URL for the SAML Assertion Consumer Service endpoint.
 
-* `user`
+* `tresor.trans.client.saml-ecp-config.token-element`
+
+  Qualified name of the token element in the form {NAMESPACE}LOCALPART
+
+* `tresor.trans.client.saml-ecp-config.user`
 
   Username used during the authentication process.
 
-* `pass`
+* `tresor.trans.client.saml-ecp-config.pass`
 
   Password used during the authentication process.
 
-* `token-validity`
+* `tresor.trans.client.saml-ecp-config.token-validity`
 
   Duration value such as 12h.
   Access tokens are renewed automatically after this period is elapsed.
 
 
-The config file can optionally contain the following parameters.
-
-* `client-logging`
-
-  Boolean value (default: `false`) controlling whether the JAX-WS S4 client should log the plain request and response messages.
-
-* `schema-validation-client`
-
-  Boolean value (default: `false`) controlling whether the JAX-WS S4 client shall perform XML schema validation of the messages.
-
-* `profile-file`
-
-  Path to an XML file containing the profile returned in the `RetrieveInfoResponse` message of the 512 interface.
-  The builtin profile located in the source tree (`service/src/main/resources/config/profile.xml`) can be used as starting point for modifications.
-
-
-
 # Test
 
 A SoapUI Testsuite and instructions on how to use it can be found in the [tests](tests) directory.
-
 
 
 # License
