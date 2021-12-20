@@ -35,13 +35,14 @@ import org.slf4j.LoggerFactory;
  */
 public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessage> {
 
-	private static final QName TOKEN_HEADER_NAME = new QName("urn:procilon:soap", "IdentityToken");
 	private final Logger LOG = LoggerFactory.getLogger(SoapTokenAuthHandlerCxf.class);
 
 	private SamlEcpTokenProvider ecpTokenProv;
+	private final QName tokenHeaderName;
 
 	public SoapTokenAuthHandlerCxf(ClientConfig.ProcilonConfig config) {
 		super(Phase.PRE_PROTOCOL);
+		this.tokenHeaderName = new QName(config.tokenHeaderName(), "IdentityToken");
 		this.ecpTokenProv = new SamlEcpTokenProvider(config);
 	}
 
@@ -50,7 +51,7 @@ public class SoapTokenAuthHandlerCxf extends AbstractPhaseInterceptor<SoapMessag
         try {
 			SoapTokenAuthHeader myheader = new SoapTokenAuthHeader();
 			myheader.setToken(ecpTokenProv.getToken());
-            Header header = new Header(TOKEN_HEADER_NAME, myheader, new JAXBDataBinding(SoapTokenAuthHeader.class));
+			Header header = new Header(tokenHeaderName, myheader, new JAXBDataBinding(SoapTokenAuthHeader.class));
             m.getHeaders().add(header);
         } catch (JAXBException ex) {
 			LOG.error("Failed to create JAXB Binding.", ex);

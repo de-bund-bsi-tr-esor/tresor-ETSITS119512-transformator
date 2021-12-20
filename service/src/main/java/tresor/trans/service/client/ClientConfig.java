@@ -36,6 +36,9 @@ public interface ClientConfig {
 	public Optional<ProcilonConfig> procilonConfig();
 
 	public static interface ProcilonConfig {
+
+		String tokenHeaderName();
+
 		String authnUrl();
 
 		String ecpUrl();
