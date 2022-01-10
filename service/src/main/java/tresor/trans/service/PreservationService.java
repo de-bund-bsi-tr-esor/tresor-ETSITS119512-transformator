@@ -202,9 +202,9 @@ public class PreservationService implements Preservation {
 				dataBuilder = dataBuilder.withType(s4FormatId);
 
 				var elem = utils.buildBinaryElement(s4MimeType, po.getBinaryData().getValue(), res);
-				dataBuilder = dataBuilder.withAny(elem);
+				dataBuilder.addRelatedObjects(elem);
 
-				archReq.setArchiveData(dataBuilder.build());
+				archReq.getOptionalInputs().getAny().add(dataBuilder.build());
 			}
 
 			// process optional inputs
@@ -402,7 +402,7 @@ public class PreservationService implements Preservation {
 
 			if (utils.isXaip(po)) {
 				var xaip = utils.assertXaipPresent(po, res);
-				var xaipOf = new de.bund.bsi.tr_esor.xaip._1.ObjectFactory();
+				var xaipOf = new de.bund.bsi.tr_esor.xaip.ObjectFactory();
 				var inXml = new InlineXMLType();
 				inXml.setAny(xaipOf.createXAIP(xaip));
 				inputDoc.setInlineXML(inXml);
@@ -696,8 +696,7 @@ public class PreservationService implements Preservation {
 					.withFormatId(poFormat)
 					.withMimeType("application/xml")
 					.withXmlData(POType.XmlData.builder()
-							.withAny(new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createXAIP(archRes.getXAIP()))
-							.build())
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createXAIP(archRes.getXAIP())).build())
 					.build();
 			utils.assertReturnedXaipPresent(po, res);
 			res.getPO().add(po);
@@ -756,8 +755,7 @@ public class PreservationService implements Preservation {
 				.map(e -> POType.builder()
 					.withFormatId(defaultedEvidenceFormat)
 					.withXmlData(POType.XmlData.builder()
-							.withAny(new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createEvidenceRecord(e))
-							.build())
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createEvidenceRecord(e)).build())
 					.build())
 				.forEachOrdered(res.getPO()::add);
 

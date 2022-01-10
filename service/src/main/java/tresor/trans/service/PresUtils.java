@@ -24,6 +24,11 @@ import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateResponse;
 import de.bund.bsi.tr_esor.api._1.ImportEvidenceType;
 import de.bund.bsi.tr_esor.api._1.RequestType;
+import de.bund.bsi.tr_esor.xaip.BinaryDataType;
+import de.bund.bsi.tr_esor.xaip.DXAIPType;
+import de.bund.bsi.tr_esor.xaip.EvidenceRecordType;
+import de.bund.bsi.tr_esor.xaip.ObjectFactory;
+import de.bund.bsi.tr_esor.xaip.XAIPType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,6 +64,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import oasis.names.tc.dss._1_0.core.schema.ResponseBaseType;
+import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.EvidenceRecordValidityType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.ReturnVerificationReport;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
 import org.apache.cxf.attachment.AttachmentDataSource;
@@ -397,17 +403,17 @@ public class PresUtils {
 				.isPresent();
 	}
 
-	public ArchiveDataResponse.XAIPData assertXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
-		return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
+	public XAIPType assertXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
+		return assertSpecificTypePresentInt(po, res, XAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
 	}
 
-	public ArchiveDataResponse.XAIPData assertDXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
-		return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
+	public DXAIPType assertDXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
+		return assertSpecificTypePresentInt(po, res, DXAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
 	}
 
-	public ArchiveDataResponse.XAIPData assertReturnedXaipPresent(POType po, ResponseType res) throws OutputAssertionFailed {
+	public XAIPType assertReturnedXaipPresent(POType po, ResponseType res) throws OutputAssertionFailed {
 		try {
-			return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
+			return assertSpecificTypePresentInt(po, res, XAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
 		} catch (InputAssertionFailed ex) {
 			throw new OutputAssertionFailed(ex.getMessage(), ex.getCause());
 		}
@@ -870,7 +876,7 @@ public class PresUtils {
 		var binData = new BinaryDataType();
 		mimeType.ifPresent(binData::setMimeType);
 		binData.setValue(binValue);
-		return new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createBinaryData(binData);
+		return new de.bund.bsi.tr_esor.xaip.ObjectFactory().createBinaryData(binData);
 	}
 
 
