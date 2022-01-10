@@ -52,6 +52,7 @@
 							<bindingFiles>
 								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
 								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
+								<bindingFile>${basedir}/src/main/resources/wsdl/ResultMajorRestriction_binding.jxb</bindingFile>
 							</bindingFiles>
 							<extraargs>
 								<extraarg>-xjc-Xfluent-builder</extraarg>

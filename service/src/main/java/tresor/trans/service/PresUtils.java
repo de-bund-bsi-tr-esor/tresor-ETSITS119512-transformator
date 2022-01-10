@@ -526,9 +526,11 @@ public class PresUtils {
 				.orElseThrow(() -> {
 					String msg = "No proper result received from TR-ESOR system.";
 					presRes.setResult(ResultType.builder()
-						.withResultMajor(ResultType.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+					    .withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					    .withResultMinor(PresCodes.INT_ERROR)
+					    .withResultMessage(makeMsg(msg))
+					    .build()
+					);
 					return new OutputAssertionFailed(msg);
 				});
 
