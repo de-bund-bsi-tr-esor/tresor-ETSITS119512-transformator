@@ -23,14 +23,7 @@ import de.bund.bsi.tr_esor.api._1.ArchiveRetrievalResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateResponse;
 import de.bund.bsi.tr_esor.api._1.ImportEvidenceType;
-import de.bund.bsi.tr_esor.api._1.XAIPDataType;
 import de.bund.bsi.tr_esor.api._1.RequestType;
-import de.bund.bsi.tr_esor.vr._1.EvidenceRecordValidityType;
-import de.bund.bsi.tr_esor.xaip._1.BinaryDataType;
-import de.bund.bsi.tr_esor.xaip._1.DXAIPType;
-import de.bund.bsi.tr_esor.xaip._1.EvidenceRecordType;
-import de.bund.bsi.tr_esor.xaip._1.ObjectFactory;
-import de.bund.bsi.tr_esor.xaip._1.XAIPType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -404,17 +397,17 @@ public class PresUtils {
 				.isPresent();
 	}
 
-	public XAIPType assertXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
-		return assertSpecificTypePresentInt(po, res, XAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
+	public ArchiveDataResponse.XAIPData assertXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
+		return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
 	}
 
-	public DXAIPType assertDXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
-		return assertSpecificTypePresentInt(po, res, DXAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
+	public ArchiveDataResponse.XAIPData assertDXaipPresent(POType po, ResponseType res) throws InputAssertionFailed {
+		return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR);
 	}
 
-	public XAIPType assertReturnedXaipPresent(POType po, ResponseType res) throws OutputAssertionFailed {
+	public ArchiveDataResponse.XAIPData assertReturnedXaipPresent(POType po, ResponseType res) throws OutputAssertionFailed {
 		try {
-			return assertSpecificTypePresentInt(po, res, XAIPType.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
+			return assertSpecificTypePresentInt(po, res, ArchiveDataResponse.XAIPData.class, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
 		} catch (InputAssertionFailed ex) {
 			throw new OutputAssertionFailed(ex.getMessage(), ex.getCause());
 		}
@@ -533,8 +526,7 @@ public class PresUtils {
 				.orElseThrow(() -> {
 					String msg = "No proper result received from TR-ESOR system.";
 					presRes.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
+						.withResultMajor(ResultType.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)							.withResultMinor(PresCodes.INT_ERROR)
 							.withResultMessage(makeMsg(msg))
 							.build());
 					return new OutputAssertionFailed(msg);
@@ -907,10 +899,10 @@ public class PresUtils {
 
 	}
 
-	public AnyType convertXAIPData(XAIPDataType xaipData, ResponseType res) throws OutputAssertionFailed {
+	public AnyType convertXAIPData(ArchiveDataResponse.XAIPData xaipData, ResponseType res) throws OutputAssertionFailed {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
+			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createArchiveDataResponseXAIPData();
 			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, baos);
 			return AnyType.builder().withValue(baos.toByteArray()).build();
 		} catch (JAXBException ex) {
