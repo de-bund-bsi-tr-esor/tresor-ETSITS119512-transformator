@@ -27,7 +27,7 @@ import de.bund.bsi.tr_esor.api._1.ArchiveUpdateRequest;
 import de.bund.bsi.tr_esor.api._1.DataLocation;
 import de.bund.bsi.tr_esor.api._1.ObjectFactory;
 import de.bund.bsi.tr_esor.api._1.ReasonOfDeletion;
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1_3.S4;
 import io.quarkiverse.cxf.annotation.CXFClient;
 import java.io.IOException;
 import java.util.List;

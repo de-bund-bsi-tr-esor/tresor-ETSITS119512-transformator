@@ -19,7 +19,7 @@
 
 package tresor.trans.service.client;
 
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1_3.S4;
 import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

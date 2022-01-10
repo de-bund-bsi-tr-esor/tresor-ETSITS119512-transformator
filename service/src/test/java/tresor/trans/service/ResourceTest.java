@@ -21,7 +21,7 @@ package tresor.trans.service;
 
 import de.bund.bsi.tr_esor.api._1.ArchiveDataRequest;
 import de.bund.bsi.tr_esor.api._1.DataLocation;
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1_3.S4;
 import io.quarkiverse.cxf.annotation.CXFClient;
 import io.quarkus.test.junit.QuarkusTest;
 import javax.inject.Inject;

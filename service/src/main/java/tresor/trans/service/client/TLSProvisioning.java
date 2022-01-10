@@ -18,7 +18,7 @@
 
 
 package tresor.trans.service.client;
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1_3.S4;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

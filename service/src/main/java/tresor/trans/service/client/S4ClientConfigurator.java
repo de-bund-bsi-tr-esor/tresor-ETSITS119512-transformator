@@ -19,7 +19,7 @@
 
 package tresor.trans.service.client;
 
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1_3.S4;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
