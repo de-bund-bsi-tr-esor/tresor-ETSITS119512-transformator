@@ -10,7 +10,7 @@
 	<!--        21.03.2011        -->
 	<!-- ======================== -->
 
-
+	
 	<include schemaLocation="ISO24727-3.xsd" />
 	<include schemaLocation="ISOIFD.xsd" />
 
@@ -391,7 +391,7 @@
 					maxOccurs="1" minOccurs="1" />
 				<element name="FixedProcedure"
 					type="iso:CardCallSequenceType" />
-			</choice>
+			</choice>			
 			<element name="UpdateCounter" maxOccurs="2" minOccurs="0" type="iso:UpdateCounterType" />
 		</sequence>
 		<attribute name="TargetState" type="IDREF" use="optional" />

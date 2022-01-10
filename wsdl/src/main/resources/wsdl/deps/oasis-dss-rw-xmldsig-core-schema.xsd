@@ -11,7 +11,7 @@
 <!--DOCTYPE schema
   PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
  [
-   <!ATTLIST schema
+   <!ATTLIST schema 
      xmlns:ds CDATA #FIXED "http://www.w3.org/2000/09/xmldsig#">
    <!ENTITY dsig 'http://www.w3.org/2000/09/xmldsig#'>
    <!ENTITY % p ''>
@@ -39,9 +39,9 @@ Important Remark:
 This schema and its declared namespace are changed!
 It is NOT compatible with the original schema!
 
-Version 2.0 of the DSS/X specification introduces a multi-syntax approach to
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
 support both JSON and XML. Therefore it is neccessary to limit the use of
-syntax elements to a common base. Another goal is to support implementors
+syntax elements to a common base. Another goal is to support implementors 
 using mapping frameworks.These requirements affect the XML syntax and resulted
 in the modification of existing scheme. These major topics are identified:
 
@@ -50,31 +50,31 @@ in the modification of existing scheme. These major topics are identified:
 - inline namespace declarations usede within XPath expressions
 - 'choice' constructs that maybe mapped by frameworks in an untyped way
 
-This schema is rewritten to fulfil the requirements mentioned above. The
-functionalities intended by the initial authors is preserved as good as
-possible. For details regarding the multi-syntax approach and the DSS-X
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
 specification in general see [@ToDo].
 
 -->
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-
-
+        
+        
         xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList"
         xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core"
         xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base"
         xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten"
         xmlns:saml2-rw="http://docs.oasis-open.org/dss-x/ns/saml2/rewritten"
-
-
-
+        
+        
+        
         targetNamespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten"
         version="0.1"
         elementFormDefault="qualified">
    <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/nsList"
               schemaLocation="oasis-dss-nslist-schema.xsd"/>
    <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/base"
-              schemaLocation="oasis-dss-base-schema.xsd"/>
+              schemaLocation="oasis-dss-base-schema.xsd"/> 
 
    <!-- Basic Types Defined for Signatures -->
 
@@ -99,7 +99,7 @@ specification in general see [@ToDo].
       <xs:attribute name="ID" type="ID" use="optional"/>
    </xs:complexType>
 
-  <element name="SignatureValue" type="ds-rw:SignatureValueType"/>
+  <element name="SignatureValue" type="ds-rw:SignatureValueType"/> 
   <complexType name="SignatureValueType">
       <simpleContent>
          <extension base="base64Binary">
@@ -112,15 +112,15 @@ specification in general see [@ToDo].
 
    <element name="SignedInfo" type="ds-rw:SignedInfoType"/>
    <complexType name="SignedInfoType">
-      <sequence>
-         <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/>
-         <element name="SignatureMethod" type="ds-rw:SignatureMethodType"/>
-         <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/>
-      </sequence>
-      <attribute name="Id" type="ID" use="optional"/>
+      <sequence> 
+         <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/> 
+         <element name="SignatureMethod" type="ds-rw:SignatureMethodType"/> 
+         <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/> 
+      </sequence>  
+      <attribute name="Id" type="ID" use="optional"/> 
    </complexType>
 
-  <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/>
+  <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/> 
   <xs:complexType name="CanonicalizationMethodType">
       <xs:sequence>
          <xs:element name="value" type="string" minOccurs="0" maxOccurs="1"/>
@@ -158,23 +158,23 @@ specification in general see [@ToDo].
 
    <element name="Reference" type="ds-rw:ReferenceType"/>
    <complexType name="ReferenceType">
-      <sequence>
-         <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
-         <element name="DigestMethod" type="ds-rw:DigestMethodType"/>
+      <sequence> 
+         <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/> 
+         <element name="DigestMethod" type="ds-rw:DigestMethodType"/> 
          <xs:element name="DigestValue"
                      type="xs:base64Binary"
                      minOccurs="0"
-                     maxOccurs="1"/>
+                     maxOccurs="1"/> 
       </sequence>
-      <attribute name="Id" type="ID" use="optional"/>
-      <attribute name="URI" type="anyURI" use="optional"/>
-      <attribute name="Type" type="anyURI" use="optional"/>
+      <attribute name="Id" type="ID" use="optional"/> 
+      <attribute name="URI" type="anyURI" use="optional"/> 
+      <attribute name="Type" type="anyURI" use="optional"/> 
    </complexType>
 
   <element name="Transforms" type="ds-rw:TransformsType"/>
   <complexType name="TransformsType">
       <sequence>
-         <xs:element name="Transform" type="ds-rw:TransformType" maxOccurs="unbounded"/>
+         <xs:element name="Transform" type="ds-rw:TransformType" maxOccurs="unbounded"/>  
       </sequence>
   </complexType>
 
@@ -217,14 +217,14 @@ specification in general see [@ToDo].
 
    <!-- Start KeyInfo -->
 
-   <element name="KeyInfo" type="ds-rw:KeyInfoType"/>
+   <element name="KeyInfo" type="ds-rw:KeyInfoType"/> 
    <complexType name="KeyInfoType" mixed="true">
-      <choice maxOccurs="unbounded">
-         <element name="KeyName" type="string"/>
-         <element name="KeyValue" type="ds-rw:KeyValueType"/>
-         <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/>
-         <element name="X509Data" type="ds-rw:X509DataType"/>
-         <element name="PGPData" type="ds-rw:PGPDataType"/>
+      <choice maxOccurs="unbounded">     
+         <element name="KeyName" type="string"/> 
+         <element name="KeyValue" type="ds-rw:KeyValueType"/> 
+         <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/> 
+         <element name="X509Data" type="ds-rw:X509DataType"/> 
+         <element name="PGPData" type="ds-rw:PGPDataType"/> 
          <element name="SPKIData" type="ds-rw:SPKIDataType"/>
          <element name="MgmtData" type="string"/>
          <xs:element name="Base64Content"
@@ -233,13 +233,13 @@ specification in general see [@ToDo].
                      maxOccurs="1"/>
          <!-- (1,1) elements from (0,unbounded) namespaces -->
       </choice>
-      <attribute name="Id" type="ID" use="optional"/>
+      <attribute name="Id" type="ID" use="optional"/> 
    </complexType>
 
   <element name="KeyName" type="string"/>
   <element name="MgmtData" type="string"/>
 
-  <element name="KeyValue" type="ds-rw:KeyValueType"/>
+  <element name="KeyValue" type="ds-rw:KeyValueType"/> 
   <complexType name="KeyValueType" mixed="true">
       <choice>
          <element name="DSAKeyValue" type="ds-rw:DSAKeyValueType"/>
@@ -251,18 +251,18 @@ specification in general see [@ToDo].
       </choice>
   </complexType>
 
-  <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/>
+  <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/> 
   <complexType name="RetrievalMethodType">
       <sequence>
-         <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
-      </sequence>
+         <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/> 
+      </sequence>  
       <attribute name="URI" type="anyURI"/>
       <attribute name="Type" type="anyURI" use="optional"/>
   </complexType>
 
    <!-- Start X509Data -->
 
-   <element name="X509Data" type="ds-rw:X509DataType"/>
+   <element name="X509Data" type="ds-rw:X509DataType"/> 
    <xs:complexType name="X509DataType">
       <xs:sequence>
          <xs:sequence>
@@ -298,10 +298,10 @@ specification in general see [@ToDo].
       </xs:sequence>
    </xs:complexType>
 
-   <complexType name="X509IssuerSerialType">
-      <sequence>
-         <element name="X509IssuerName" type="string"/>
-         <element name="X509SerialNumber" type="integer"/>
+   <complexType name="X509IssuerSerialType"> 
+      <sequence> 
+         <element name="X509IssuerName" type="string"/> 
+         <element name="X509SerialNumber" type="integer"/> 
       </sequence>
    </complexType>
 
@@ -309,19 +309,19 @@ specification in general see [@ToDo].
 
    <!-- Begin PGPData -->
 
-   <element name="PGPData" type="ds-rw:PGPDataType"/>
-   <complexType name="PGPDataType">
+   <element name="PGPData" type="ds-rw:PGPDataType"/> 
+   <complexType name="PGPDataType"> 
       <choice>
          <sequence>
-            <element name="PGPKeyID" type="base64Binary"/>
-            <element name="PGPKeyPacket" type="base64Binary" minOccurs="0"/>
+            <element name="PGPKeyID" type="base64Binary"/> 
+            <element name="PGPKeyPacket" type="base64Binary" minOccurs="0"/> 
             <any namespace="##other"
                  processContents="lax"
                  minOccurs="0"
                  maxOccurs="unbounded"/>
          </sequence>
          <sequence>
-            <element name="PGPKeyPacket" type="base64Binary"/>
+            <element name="PGPKeyPacket" type="base64Binary"/> 
             <any namespace="##other"
                  processContents="lax"
                  minOccurs="0"
@@ -334,7 +334,7 @@ specification in general see [@ToDo].
 
    <!-- Begin SPKIData -->
 
-   <element name="SPKIData" type="ds-rw:SPKIDataType"/>
+   <element name="SPKIData" type="ds-rw:SPKIDataType"/> 
    <complexType name="SPKIDataType">
       <sequence maxOccurs="unbounded">
          <element name="SPKISexp" type="base64Binary"/>
@@ -343,7 +343,7 @@ specification in general see [@ToDo].
                      minOccurs="0"
                      maxOccurs="1"/>
       </sequence>
-   </complexType>
+   </complexType> 
 
    <!-- End SPKIData -->
 
@@ -351,7 +351,7 @@ specification in general see [@ToDo].
 
    <!-- Start Object (Manifest, SignatureProperty) -->
 
-   <element name="Object" type="ds-rw:ObjectType"/>
+   <element name="Object" type="ds-rw:ObjectType"/> 
    <complexType name="ObjectType" mixed="true">
       <sequence minOccurs="0" maxOccurs="unbounded">
          <xs:element name="Base64Content"
@@ -359,31 +359,31 @@ specification in general see [@ToDo].
                      minOccurs="0"
                      maxOccurs="1"/>
       </sequence>
-      <attribute name="Id" type="ID" use="optional"/>
-      <attribute name="MimeType" type="string" use="optional"/>
+      <attribute name="Id" type="ID" use="optional"/> 
+      <attribute name="MimeType" type="string" use="optional"/> 
       <!-- add a grep facet -->
-      <attribute name="Encoding" type="anyURI" use="optional"/>
+      <attribute name="Encoding" type="anyURI" use="optional"/> 
    </complexType>
 
-   <element name="Manifest" type="ds-rw:ManifestType"/>
+   <element name="Manifest" type="ds-rw:ManifestType"/> 
    <complexType name="ManifestType">
       <sequence>
-         <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/>
+         <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/> 
       </sequence>
-      <attribute name="Id" type="ID" use="optional"/>
+      <attribute name="Id" type="ID" use="optional"/> 
    </complexType>
 
-   <element name="SignatureProperties" type="ds-rw:SignaturePropertiesType"/>
+   <element name="SignatureProperties" type="ds-rw:SignaturePropertiesType"/> 
    <complexType name="SignaturePropertiesType">
       <sequence>
          <element name="SignatureProperty"
                   type="ds-rw:SignaturePropertyType"
-                  maxOccurs="unbounded"/>
+                  maxOccurs="unbounded"/> 
       </sequence>
-      <attribute name="Id" type="ID" use="optional"/>
+      <attribute name="Id" type="ID" use="optional"/> 
    </complexType>
 
-   <element name="SignatureProperty" type="ds-rw:SignaturePropertyType"/>
+   <element name="SignatureProperty" type="ds-rw:SignaturePropertyType"/> 
    <complexType name="SignaturePropertyType" mixed="true">
      <choice maxOccurs="unbounded">
          <xs:element name="Base64Content"
@@ -392,8 +392,8 @@ specification in general see [@ToDo].
                      maxOccurs="1"/>
          <!-- (1,1) elements from (1,unbounded) namespaces -->
      </choice>
-     <attribute name="Target" type="anyURI" use="required"/>
-     <attribute name="Id" type="ID" use="optional"/>
+     <attribute name="Target" type="anyURI" use="required"/> 
+     <attribute name="Id" type="ID" use="optional"/> 
    </complexType>
 
    <!-- End Object (Manifest, SignatureProperty) -->
@@ -426,10 +426,10 @@ specification in general see [@ToDo].
    <element name="RSAKeyValue" type="ds-rw:RSAKeyValueType"/>
    <complexType name="RSAKeyValueType">
       <sequence>
-         <element name="Modulus" type="ds-rw:CryptoBinary"/>
-         <element name="Exponent" type="ds-rw:CryptoBinary"/>
+         <element name="Modulus" type="ds-rw:CryptoBinary"/> 
+         <element name="Exponent" type="ds-rw:CryptoBinary"/> 
       </sequence>
-   </complexType>
+   </complexType> 
 
    <!-- End KeyValue Element-types -->
 

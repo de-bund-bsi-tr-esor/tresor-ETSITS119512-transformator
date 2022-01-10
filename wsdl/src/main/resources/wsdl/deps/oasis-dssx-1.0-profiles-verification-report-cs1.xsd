@@ -723,7 +723,7 @@
 						<element name="EncryptionInfoType"
 							type="vr:AlgorithmValidityType" />
 						<element name="EncryptionInfoValue"
-							type="dss:AnyType" />
+							type="dss:AnyType" /> 
 					</sequence>
 				</complexType>
 			</element>

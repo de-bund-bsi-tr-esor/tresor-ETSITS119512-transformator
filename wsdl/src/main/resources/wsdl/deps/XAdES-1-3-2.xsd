@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://uri.etsi.org/01903/v1.3.2#" elementFormDefault="qualified">
 	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
-	<!-- Start auxiliary types definitions: AnyType, ObjectIdentifierType,
+	<!-- Start auxiliary types definitions: AnyType, ObjectIdentifierType, 
 		EncapsulatedPKIDataType and containers for time-stamp tokens -->
 	<!-- Start AnyType -->
 	<xsd:element name="Any" type="AnyType"/>
@@ -70,11 +70,11 @@
 	<xsd:complexType name="GenericTimeStampType" abstract="true">
 		<xsd:sequence>
 			<xsd:choice minOccurs="0">
-				<!--
-     Because the derivation of the XAdESTimeStampType below leads
+				<!-- 
+     Because the derivation of the XAdESTimeStampType below leads 
      to a validation error with many XML-Tools, if the original definition
 				<xsd:element ref="Include" maxOccurs="unbounded" />
-     is used (without minOccurs="0"), the following fix was included:
+     is used (without minOccurs="0"), the following fix was included:     
  -->
 				<xsd:element ref="Include" minOccurs="0" maxOccurs="unbounded"/>
 				<xsd:element ref="ReferenceInfo" maxOccurs="unbounded"/>

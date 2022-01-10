@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ================================================ -->
-<!-- This document is part of ETSI TS 119 512 v.1.1.1 -->
-<!-- Angepasst am 21.01.2019 (lokale Imports) -->
+<!-- This document is part of ETSI TS 119 512 v.1.1.2 -->
 <!-- ================================================ -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ex="http://uri.etsi.org/19512/exchange/v1.1.1#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.1#" targetNamespace="http://uri.etsi.org/19512/exchange/v1.1.1#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.1">
-	<import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten"
-		schemaLocation="./deps/oasis-dss-rw-xmldsig-core-schema.xsd"/>
-	<import namespace="http://uri.etsi.org/19512/v1.1.1#"
-		schemaLocation="19512-Preservation-API.xsd"/>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ex="http://uri.etsi.org/19512/exchange/v1.1.2#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" targetNamespace="http://uri.etsi.org/19512/exchange/v1.1.2#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.2">
+	<import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="./deps/oasis-dss-rw-xmldsig-core-schema.xsd"/>
+	<import namespace="http://uri.etsi.org/19512/v1.1.2#" schemaLocation="19512-Preservation-API_V.1.1.2.xsd"/>
 	<!-- ======================================= -->
 	<!-- Evidence Exchange Format				 -->
 	<!-- ======================================= -->
-	<!-- Version 1.0 (12.01.2020)                -->
+	<!-- Version 1.1.2 (24.09.2020)              -->
 	<!-- ======================================= -->
 	<element name="EvidenceExchange" type="ex:EvidenceExchangeType"/>
 	<complexType name="EvidenceExchangeType">

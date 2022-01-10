@@ -31,8 +31,8 @@
 						<wsdlOption>
 							<!--wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
 							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl-->
-							<wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
-							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl>
+							<wsdlLocation>/wsdl/19512-Preservation-API_V.1.1.2.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.wsdl</wsdl>
 							<bindingFiles>
 								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
 								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
@@ -47,8 +47,8 @@
 						<wsdlOption>
 							<!--wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
 							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl-->
-							<wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
-							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl>
+							<wsdlLocation>/wsdl/tr-esor-S-4-v1.3.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.3.wsdl</wsdl>
 							<bindingFiles>
 								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
 								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
