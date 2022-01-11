@@ -30,31 +30,24 @@
   <con:entry key="Domain" value=""/>
   <con:entry key="Tool Args" value=""/>
   <con:entry key="Save Project" value="false"/>
-</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="82f71a17-0943-464f-8bd5-bac6da35f51f" wsaVersion="NONE" name="Preservation" type="wsdl" bindingName="{http://uri.etsi.org/19512/v1.1.2#}Preservation" soapVersion="1_2" anonymous="optional" definition="${projectDir}/Schema-1.2.2-512-update/19512-Preservation-API.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Projects/BSI/GIT-HUB/80.Work/tresor-ETSITS119512-transformator/tests/Schema-1.2.2-512-update/19512-Preservation-API.wsdl"><con:part><con:url>file:/C:/Projects/BSI/GIT-HUB/80.Work/tresor-ETSITS119512-transformator/tests/Schema-1.2.2-512-update/19512-Preservation-API.wsdl</con:url><con:content><![CDATA[<!--===============================================-->
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="82f71a17-0943-464f-8bd5-bac6da35f51f" wsaVersion="NONE" name="Preservation" type="wsdl" bindingName="{http://uri.etsi.org/19512/v1.1.2#}Preservation" soapVersion="1_2" anonymous="optional" definition="file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.wsdl"><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.wsdl</con:url><con:content><![CDATA[<!--===============================================-->
 <!--This document is part of ETSI TS 119 512 v1.1.2-->
 <!--===============================================-->
 <wsdl:definitions name="Preservation-API.wsdl" targetNamespace="http://uri.etsi.org/19512/v1.1.2#" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
-  <!--===================-->
-  <!--Definition of types-->
-  <!--(only include XSDs)-->
-  <!--===================-->
   <wsdl:types>
     <xsd:schema elementFormDefault="qualified" targetNamespace="http://uri.etsi.org/19512/v1.1.2#">
-      <xsd:include schemaLocation="19512-Preservation-API.xsd"/>
+      <xsd:include schemaLocation="19512-Preservation-API_V.1.1.2.xsd"/>
     </xsd:schema>
-    <!--Additional types for evidence exchange-->
-    <!--xsd:schema elementFormDefault="qualified"
-					targetNamespace="http://uri.etsi.org/19512/exchange/v1.1.1#">
-			<xsd:include schemaLocation="19512-EvidenceExchange.xsd" />
-		</xsd:schema-->
+    <!--Additional types for evidence exchange 
+		<xsd:schema elementFormDefault="qualified"
+					targetNamespace="http://uri.etsi.org/19512/exchange/v1.1.2#">
+			<xsd:include schemaLocation="https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.2/19512-EvidenceExchange.xsd" />
+		</xsd:schema>-->
     <!--TR-ESOR schemas for use in optional in- and outputs-->
-    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.2">
-      <xsd:include schemaLocation="tr-esor-interfaces-v1.2+xmlmime.xsd"/>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3">
+      <xsd:include schemaLocation="tr-esor-interfaces-v1.3.xsd"/>
     </xsd:schema>
   </wsdl:types>
-  <!--======================-->
-  <!--Definition of messages-->
-  <!--======================-->
   <wsdl:message name="RetrieveInfoRequest">
     <wsdl:part name="req" element="pres:RetrieveInfo"/>
   </wsdl:message>
@@ -103,9 +96,6 @@
   <wsdl:message name="SearchResponse">
     <wsdl:part name="res" element="pres:SearchResponse"/>
   </wsdl:message>
-  <!--======================-->
-  <!--Definition of portType-->
-  <!--======================-->
   <wsdl:portType name="Preservation">
     <wsdl:operation name="RetrieveInfo">
       <wsdl:input message="pres:RetrieveInfoRequest"/>
@@ -140,9 +130,6 @@
       <wsdl:output message="pres:SearchResponse"/>
     </wsdl:operation>
   </wsdl:portType>
-  <!--=====================-->
-  <!--Definition of Binding-->
-  <!--=====================-->
   <wsdl:binding name="Preservation" type="pres:Preservation">
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="RetrieveInfo">
@@ -218,13 +205,26 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <!--Definition of Publish-Service-->
   <wsdl:service name="Preservation">
     <wsdl:port name="Preservation" binding="pres:Preservation">
       <soap12:address location="http://127.0.0.1:18080"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\19512-Preservation-API.xsd</con:url><con:content><![CDATA[<!--================================================-->
+  <!--===================-->
+  <!--Definition of types-->
+  <!--(only include XSDs)-->
+  <!--===================-->
+  <!--======================-->
+  <!--Definition of messages-->
+  <!--======================-->
+  <!--======================-->
+  <!--Definition of portType-->
+  <!--======================-->
+  <!--=====================-->
+  <!--Definition of Binding-->
+  <!--=====================-->
+  <!--Definition of Publish-Service-->
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.xsd</con:url><con:content><![CDATA[<!--================================================-->
 <!--This document is part of ETSI TS 119 512 v.1.1.2-->
 <!--================================================-->
 <!--Imported schemes and their namespaces are rewritten!
@@ -247,14 +247,14 @@
 	specification in general see the OASIS DSS-X homepage at 
 	https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
 <schema targetNamespace="http://uri.etsi.org/19512/v1.1.2#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.2" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:info="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core" xmlns:saml2-rw="http://docs.oasis-open.org/dss-x/ns/saml2/rewritten" xmlns:md="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:XAdESv141="http://uri.etsi.org/01903/v1.4.1#" xmlns:xades-rw="urn:oasis:names:tc:dss-x:2.0:xades:rewritten" xmlns:xadesv141-rw="urn:oasis:names:tc:dss-x:2.0:xadesv141:rewritten" xmlns:ades="http://docs.oasis-open.org/dss/ns/ades">
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="./deps/xml.xsd"/>
+  <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="./deps/xml.xsd"/>
   <import namespace="http://docs.oasis-open.org/dss-x/ns/base" schemaLocation="./deps/oasis-dss-base-schema.xsd"/>
   <import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="./deps/oasis-dss-rw-xmldsig-core-schema.xsd"/>
-  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/metadata" schemaLocation="./deps/oasis-dss-metadata-schema.xsd"/>
+  <import namespace="http://docs.oasis-open.org/dss-x/ns/metadata" schemaLocation="./deps/oasis-dss-metadata-schema.xsd"/>
   <!--=======================================-->
   <!--Preservation API-->
   <!--=======================================-->
-  <!--Version 1.1.2 (21.08.2020)-->
+  <!--Version 1.1.2 (24.09.2020)-->
   <!--=======================================-->
   <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
   <!--5.3 Operations-->
@@ -283,8 +283,8 @@
     <complexContent>
       <extension base="pres:RequestType">
         <sequence>
-          <element name="Profile" type="anyURI" minOccurs="0" maxOccurs="1"/>
-          <element name="Status" type="pres:StatusType" minOccurs="0" maxOccurs="1"/>
+          <element name="Profile" type="anyURI" minOccurs="0"/>
+          <element name="Status" type="pres:StatusType" minOccurs="0"/>
         </sequence>
       </extension>
     </complexContent>
@@ -318,7 +318,7 @@
     <complexContent>
       <extension base="pres:ResponseType">
         <sequence>
-          <element ref="pres:POID" minOccurs="0" maxOccurs="1"/>
+          <element ref="pres:POID" minOccurs="0"/>
           <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
       </extension>
@@ -334,9 +334,9 @@
         <sequence>
           <element ref="pres:POID"/>
           <element ref="pres:VersionID" minOccurs="0" maxOccurs="unbounded"/>
-          <element name="SubjectOfRetrieval" type="pres:SubjectOfRetrievalType" minOccurs="0" maxOccurs="1"/>
-          <element name="POFormat" type="anyURI" minOccurs="0" maxOccurs="1"/>
-          <element name="EvidenceFormat" type="anyURI" minOccurs="0" maxOccurs="1"/>
+          <element name="SubjectOfRetrieval" type="pres:SubjectOfRetrievalType" minOccurs="0"/>
+          <element name="POFormat" type="anyURI" minOccurs="0"/>
+          <element name="EvidenceFormat" type="anyURI" minOccurs="0"/>
         </sequence>
       </extension>
     </complexContent>
@@ -362,9 +362,9 @@
       <extension base="pres:RequestType">
         <sequence>
           <element ref="pres:POID"/>
-          <element name="Mode" type="pres:DeletionModeType" minOccurs="0" maxOccurs="1"/>
-          <element name="ClaimedRequestorName" type="string" minOccurs="0" maxOccurs="1"/>
-          <element name="Reason" type="string" minOccurs="0" maxOccurs="1"/>
+          <element name="Mode" type="pres:DeletionModeType" minOccurs="0"/>
+          <element name="ClaimedRequestorName" type="string" minOccurs="0"/>
+          <element name="Reason" type="string" minOccurs="0"/>
         </sequence>
       </extension>
     </complexContent>
@@ -379,7 +379,7 @@
       <extension base="pres:RequestType">
         <sequence>
           <element ref="pres:POID"/>
-          <element ref="pres:DeltaPOC" maxOccurs="unbounded" minOccurs="1"/>
+          <element ref="pres:DeltaPOC" maxOccurs="unbounded"/>
         </sequence>
       </extension>
     </complexContent>
@@ -390,7 +390,7 @@
     <complexContent>
       <extension base="pres:ResponseType">
         <sequence>
-          <element ref="pres:VersionID" minOccurs="0" maxOccurs="1"/>
+          <element ref="pres:VersionID" minOccurs="0"/>
         </sequence>
       </extension>
     </complexContent>
@@ -426,7 +426,7 @@
     <complexContent>
       <extension base="pres:RequestType">
         <sequence>
-          <element ref="pres:Evidence" maxOccurs="1" minOccurs="0"/>
+          <element ref="pres:Evidence" minOccurs="0"/>
           <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
       </extension>
@@ -437,8 +437,8 @@
     <complexContent>
       <extension base="pres:ResponseType">
         <sequence>
-          <element ref="pres:ValidationReport" minOccurs="0" maxOccurs="1"/>
-          <element name="ProofOfExistence" type="dateTime" minOccurs="0" maxOccurs="1"/>
+          <element ref="pres:ValidationReport" minOccurs="0"/>
+          <element name="ProofOfExistence" type="dateTime" minOccurs="0"/>
         </sequence>
       </extension>
     </complexContent>
@@ -489,8 +489,8 @@
       <element name="Time" type="dateTime"/>
       <element name="Subject" type="string"/>
       <element name="Operation" type="string"/>
-      <element name="Object" type="string" maxOccurs="1" minOccurs="0"/>
-      <element name="Detail" type="string" maxOccurs="1" minOccurs="0"/>
+      <element name="Object" type="string" minOccurs="0"/>
+      <element name="Detail" type="string" minOccurs="0"/>
     </sequence>
   </complexType>
   <!--===================================-->
@@ -557,16 +557,16 @@
     <complexContent>
       <extension base="info:ProfileType">
         <sequence>
-          <element name="SchemeIdentifier" type="anyURI" maxOccurs="1" minOccurs="0"/>
+          <element name="SchemeIdentifier" type="anyURI" minOccurs="0"/>
           <element name="ProfileValidityPeriod" type="pres:ProfileValidityPeriodType"/>
           <element name="PreservationStorageModel" type="pres:PreservationStorageModelType"/>
-          <element name="PreservationGoal" type="anyURI" maxOccurs="unbounded" minOccurs="1"/>
+          <element name="PreservationGoal" type="anyURI" maxOccurs="unbounded"/>
           <!--Note: The current version of TS 119 512 defines the following to goals:
 						http://uri.etsi.org/19512/goal/pgd - preservation of general data
 						http://uri.etsi.org/19512/goal/pds - preservation of digital signatures			 
 						http://uri.etsi.org/19512/goal/aug - augmentation of submitted evidences						
 						Future versions or other documents may define additional goals.-->
-          <element name="EvidenceFormat" type="info:FormatType" minOccurs="1" maxOccurs="unbounded"/>
+          <element name="EvidenceFormat" type="info:FormatType" maxOccurs="unbounded"/>
           <element name="ExpectedEvidenceDuration" type="duration" minOccurs="0"/>
           <element name="PreservationEvidenceRetentionPeriod" type="duration" minOccurs="0"/>
         </sequence>
@@ -576,7 +576,7 @@
   <complexType name="ProfileValidityPeriodType">
     <sequence>
       <element name="ValidFrom" type="dateTime"/>
-      <element name="ValidUntil" type="dateTime" minOccurs="0" maxOccurs="1"/>
+      <element name="ValidUntil" type="dateTime" minOccurs="0"/>
     </sequence>
   </complexType>
   <!--===================================-->
@@ -597,8 +597,8 @@
       <enumeration value="PO"/>
       <enumeration value="Evidence"/>
       <enumeration value="POwithEmbeddedEvidence"/>
-      <!--this is the default, if SubjectOfRetrieval-parameter is omitted-->
       <enumeration value="POwithDetachedEvidence"/>
+      <!--this is the default, if SubjectOfRetrieval-parameter is omitted-->
     </restriction>
   </simpleType>
   <!--===================================-->
@@ -607,7 +607,7 @@
   <element name="Trace" type="pres:TraceType"/>
   <complexType name="TraceType">
     <sequence>
-      <element ref="pres:Event" maxOccurs="unbounded" minOccurs="0"/>
+      <element ref="pres:Event" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
   <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
@@ -623,7 +623,7 @@
   <complexType name="ContainerIDType">
     <sequence>
       <element ref="pres:POID"/>
-      <element ref="pres:VersionID" minOccurs="0" maxOccurs="1"/>
+      <element ref="pres:VersionID" minOccurs="0"/>
     </sequence>
   </complexType>
   <element name="POID" type="string"/>
@@ -657,8 +657,8 @@
   <complexType name="DigestListType">
     <sequence>
       <element ref="ds-rw:DigestMethod"/>
-      <element ref="ds-rw:DigestValue" minOccurs="1" maxOccurs="unbounded"/>
-      <element ref="pres:Evidence" maxOccurs="1" minOccurs="0"/>
+      <element ref="ds-rw:DigestValue" maxOccurs="unbounded"/>
+      <element ref="pres:Evidence" minOccurs="0"/>
     </sequence>
   </complexType>
   <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%-->
@@ -676,7 +676,7 @@
   <!--H.4 preservation-profile attribute-->
   <!--===================================-->
   <element name="PreservationProfile" type="anyURI"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
 			http://www.w3.org/TR/REC-xml for information about this
@@ -807,7 +807,7 @@
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-base-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-base-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
      Committee Specification 02
      11 December 2019
      Copyright (c) OASIS Open 2019. All Rights Reserved.
@@ -925,7 +925,7 @@
   </xs:complexType>
   <xs:element name="ServicePolicy" type="xs:anyURI"/>
   <xs:element name="ServiceDescription" type="xs:anyURI"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-nslist-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-nslist-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
      Committee Specification 02
      11 December 2019
      Copyright (c) OASIS Open 2019. All Rights Reserved.
@@ -948,7 +948,7 @@
       <xs:element name="NamespacePrefix" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-rw-xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-rw-xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
      Committee Specification 02
      11 December 2019
      Copyright (c) OASIS Open 2019. All Rights Reserved.
@@ -1252,7 +1252,7 @@ specification in general see [@ToDo].-->
   </complexType>
   <!--End KeyValue Element-types-->
   <!--End Signature-->
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-metadata-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Metadata Version 1.0
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-metadata-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Metadata Version 1.0
      Committee Specification 02
      11 December 2019
      Copyright (c) OASIS Open 2019. All Rights Reserved.
@@ -1412,17 +1412,17 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\tr-esor-interfaces-v1.2+xmlmime.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-interfaces-v1.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#">
   <!--=======================================-->
-  <!--Version 1.2 (+xmlmime) vom 20.12.2018 +Anpassungen für-->
-  <!--ETSI TS 119 512 Transformator vom 21.01.2020-->
-  <!--+ Anpassungen vom 3.4.2020 - Entferenen des Elements "ASiC", Abwicklung mit Hilfe vom Element "xaip:binaryData"-->
+  <!--Version 1.3.0 vom 30.11.2020-->
   <!--=======================================-->
-  <import namespace="http://www.bsi.bund.de/tr-esor/xaip/1.2" schemaLocation="tr-esor-xaip-v1.2+xmlmime.xsd"/>
+  <import namespace="http://www.bsi.bund.de/tr-esor/xaip" schemaLocation="tr-esor-xaip-v1.3.xsd"/>
   <import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="./deps/oasis-dss-core-schema-v1.0-os.xsd"/>
   <import namespace="urn:ietf:params:xml:ns:ers" schemaLocation="./deps/xml-ers-rfc6283.xsd"/>
   <import namespace="http://www.bsi.bund.de/ecard/api/1.1" schemaLocation="./deps/eCard.xsd"/>
   <import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="./deps/saml-schema-assertion-2.0.xsd"/>
+  <import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./deps/xmlmime.xsd"/>
+  <import namespace="http://uri.etsi.org/19512/v1.1.2#" schemaLocation="19512-Preservation-API_V.1.1.2.xsd"/>
   <!--===================================-->
   <!--Uebergreifende Definitionen-->
   <!--===================================-->
@@ -1446,18 +1446,52 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexContent>
   </complexType>
   <element name="AOID" type="string"/>
-  <!--zusätzliche Elemente gem. der Absprache vom 08.01.2020-->
   <element name="VerifyUnderSignaturePolicy" type="anyURI"/>
   <element name="XPathFilter" type="string"/>
+  <element name="ContinueOnSignatureVerificationFailure" type="tr:ContinueOnSignatureVerificationFailureType"/>
+  <complexType name="ContinueOnSignatureVerificationFailureType">
+    <sequence>
+      <element name="ObjectReference" type="string" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
   <!--================================-->
-  <!--ArchiveSubmissionRequest-->
+  <!--RetrieveInfo-->
   <!--================================-->
-  <complexType name="ArchiveDataType">
-    <complexContent>
-      <extension base="anyType">
-        <attribute name="Type" type="anyURI"/>
+  <element name="RetrieveInfoRequest">
+    <complexType>
+      <complexContent>
+        <extension base="tr:RequestType">
+          <sequence>
+            <element name="ProfileIdentifier" type="anyURI" minOccurs="0"/>
+            <element name="Status" type="pres:StatusType" minOccurs="0"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="RetrieveInfoResponse">
+    <complexType>
+      <complexContent>
+        <extension base="tr:ResponseType">
+          <sequence>
+            <element ref="pres:Profile" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <!--================================-->
+  <!--ArchiveSubmission-->
+  <!--================================-->
+  <complexType name="ArchiveDataType" xmime:expectedContentTypes="*/*">
+    <simpleContent>
+      <extension base="base64Binary">
+        <attribute name="Type" type="anyURI" use="required"/>
+        <attribute name="archiveDataID" type="ID" use="required"/>
+        <attribute name="MimeType" type="string" use="optional"/>
+        <attribute name="relatedObjects" type="IDREFS" use="optional"/>
       </extension>
-    </complexContent>
+    </simpleContent>
   </complexType>
   <element name="ImportEvidence" type="tr:ImportEvidenceType"/>
   <complexType name="ImportEvidenceType">
@@ -1472,7 +1506,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
         <extension base="tr:RequestType">
           <choice>
             <element ref="xaip:XAIP"/>
-            <element name="ArchiveData" type="tr:ArchiveDataType"/>
+            <element name="ArchiveData" type="tr:ArchiveDataType" maxOccurs="unbounded"/>
           </choice>
         </extension>
       </complexContent>
@@ -1490,7 +1524,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexType>
   </element>
   <!--==========================-->
-  <!--ArchiveUpdateRequest-->
+  <!--ArchiveUpdate-->
   <!--==========================-->
   <element name="ArchiveUpdateRequest">
     <complexType>
@@ -1515,7 +1549,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveRetrievalRequest-->
+  <!--ArchiveRetrieval-->
   <!--================================-->
   <element name="ArchiveRetrievalRequest">
     <complexType>
@@ -1542,7 +1576,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveEvidenceRequest-->
+  <!--ArchiveEvidence-->
   <!--================================-->
   <element name="ArchiveEvidenceRequest">
     <complexType>
@@ -1569,7 +1603,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveDeletionRequest-->
+  <!--ArchiveDeletion-->
   <!--================================-->
   <element name="ArchiveDeletionRequest">
     <complexType>
@@ -1592,7 +1626,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   </element>
   <element name="ArchiveDeletionResponse" type="tr:ResponseType"/>
   <!--==========================-->
-  <!--ArchiveDataRequest-->
+  <!--ArchiveData-->
   <!--==========================-->
   <element name="ArchiveDataRequest">
     <complexType>
@@ -1615,38 +1649,60 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </complexContent>
     </complexType>
   </element>
-  <element name="XAIPData" type="tr:XAIPDataType"/>
-  <complexType name="XAIPDataType">
-    <sequence>
-      <element ref="dss:Result"/>
-      <element ref="tr:DataLocation"/>
-      <element name="Value" type="anyType" minOccurs="0"/>
-    </sequence>
-  </complexType>
   <element name="ArchiveDataResponse">
     <complexType>
       <complexContent>
         <extension base="tr:ResponseType">
           <sequence>
-            <element ref="tr:XAIPData" maxOccurs="unbounded"/>
+            <element name="XAIPData" maxOccurs="unbounded">
+              <complexType>
+                <sequence>
+                  <element ref="dss:Result"/>
+                  <element ref="tr:DataLocation"/>
+                  <element name="Value" type="anyType" minOccurs="0"/>
+                </sequence>
+              </complexType>
+            </element>
           </sequence>
         </extension>
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\tr-esor-xaip-v1.2+xmlmime.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.bsi.bund.de/tr-esor/xaip/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <!--==========================-->
+  <!--ArchiveTrace-->
+  <!--==========================-->
+  <element name="ArchiveTraceRequest">
+    <complexType>
+      <complexContent>
+        <extension base="tr:RequestType">
+          <sequence>
+            <element ref="tr:AOID"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="ArchiveTraceResponse">
+    <complexType>
+      <complexContent>
+        <extension base="tr:ResponseType">
+          <sequence>
+            <element ref="pres:Trace"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-xaip-v1.3.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.bsi.bund.de/tr-esor/xaip" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.3.0" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="./deps/xmldsig-core-schema.xsd"/>
   <xs:import namespace="http://uri.etsi.org/01903/v1.3.2#" schemaLocation="./deps/XAdES-1-3-2.xsd"/>
   <xs:import namespace="urn:ietf:params:xml:ns:ers" schemaLocation="./deps/xml-ers-rfc6283.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" schemaLocation="./deps/oasis-dssx-1.0-profiles-verification-report-cs1.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="./deps/oasis-dss-core-schema-v1.0-os.xsd"/>
-  <xs:import namespace="http://www.bsi.bund.de/ecard/api/1.1" schemaLocation="./deps/eCard.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="./deps/saml-schema-assertion-2.0.xsd"/>
   <xs:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./deps/xmlmime.xsd"/>
   <!--============================================================-->
-  <!--Version 1.2 (+xml-mime) vom 20.12.2018 + Erweiterungen für ETSI TS 119512-->
-  <!--Transformator vom 06.02.2020-->
-  <!--+ Anpassungen vom 3.4.2020 - Definition des Elements "binaryData"-->
+  <!--Version 1.3.0 vom 30.11.2021-->
   <!--============================================================-->
   <!--============================================================-->
   <!--XAIP gesamt-->
@@ -1659,6 +1715,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:element name="dataObjectsSection" type="xaip:dataObjectsSectionType" minOccurs="0"/>
       <xs:element name="credentialsSection" type="xaip:credentialsSectionType" minOccurs="0"/>
     </xs:sequence>
+    <xs:attribute name="XAIPVersion" use="required" fixed="1.3.0"/>
   </xs:complexType>
   <!--============================================================-->
   <!--packageHeaderType-->
@@ -1684,6 +1741,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:element name="preservationInfo" type="xaip:preservationInfoType"/>
       <xs:element name="submissionInfo" type="xaip:submissionInfoType" minOccurs="0"/>
       <xs:element name="packageInfoUnit" type="xaip:packageInfoUnitType" maxOccurs="unbounded"/>
+      <xs:element ref="xaip:idAssignmentList" minOccurs="0"/>
       <xs:element name="extension" type="xaip:extensionType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="VersionID" type="xs:ID" use="required"/>
@@ -1695,13 +1753,11 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:element name="extension" type="xaip:extensionType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="otherContentType">
-    <xs:complexContent>
-      <xs:extension base="xs:anyType">
-        <xs:attribute name="Type" type="xs:anyURI"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+  <!--Auskommentiert am 5.3.2021, da keine Stellen gefunden, die den Typ 
+		referenzieren-->
+  <!--<xs:complexType name="otherContentType"> <xs:complexContent> <xs:extension 
+		base="xs:anyType"> <xs:attribute name="Type" type="xs:anyURI"/> </xs:extension> 
+		</xs:complexContent> </xs:complexType>-->
   <xs:complexType name="submissionInfoType">
     <xs:sequence>
       <xs:element name="clientID" type="saml:NameIDType"/>
@@ -1732,17 +1788,27 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   </xs:complexType>
   <xs:element name="metaDataObject" type="xaip:metaDataObjectType"/>
   <xs:complexType name="metaDataObjectType">
-    <xs:complexContent>
-      <xs:extension base="xs:anyType">
-        <xs:attribute name="metaDataID" type="xs:ID" use="required"/>
-        <xs:attribute name="dataObjectID" type="xs:IDREFS" use="required"/>
-        <xs:attribute name="category" type="xs:string"/>
-        <xs:attribute name="classification" type="xs:string"/>
-        <xs:attribute name="type" type="xs:string"/>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="xaip:binaryMetaData"/>
+        <xs:element name="xmlMetaData" type="dss:AnyType"/>
+      </xs:choice>
+      <xs:element ref="xaip:checkSum" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="metaDataID" type="xs:ID" use="required"/>
+    <xs:attribute name="relatedObjects" type="xs:IDREFS" use="required"/>
+    <xs:attribute name="category" type="xs:string"/>
+    <xs:attribute name="classification" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
   </xs:complexType>
-  <xs:element name="dataObjectCheckSum" type="xaip:checkSumType"/>
+  <xs:element name="binaryMetaData" type="xaip:binaryMetaDataType"/>
+  <xs:complexType name="binaryMetaDataType" xmime:expectedContentTypes="*/*">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="MimeType" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <!--============================================================-->
   <!--DataObjectsSection-->
   <!--============================================================-->
@@ -1751,7 +1817,6 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:element ref="xaip:dataObject" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  <!--3.4.2020 begin-->
   <xs:element name="binaryData" type="xaip:binaryDataType"/>
   <xs:complexType name="binaryDataType" xmime:expectedContentTypes="*/*">
     <xs:simpleContent>
@@ -1767,13 +1832,13 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
         <xs:element ref="xaip:binaryData"/>
         <xs:element name="xmlData" type="dss:AnyType"/>
       </xs:choice>
-      <xs:element name="checkSum" type="xaip:checkSumType" minOccurs="0"/>
+      <xs:element ref="xaip:checkSum" minOccurs="0"/>
       <xs:element name="transformInfo" type="xaip:tranformInfoType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="dataObjectID" type="xs:ID" use="required"/>
-    <xs:attribute name="metaDataObjectRefs" type="xs:IDREFS"/>
+    <xs:attribute name="relatedObjects" type="xs:IDREFS"/>
   </xs:complexType>
-  <!--3.4.2020 end-->
+  <xs:element name="checkSum" type="xaip:checkSumType"/>
   <xs:complexType name="checkSumType">
     <xs:sequence>
       <xs:element name="checkSumAlgorithm" type="xs:anyURI"/>
@@ -1815,12 +1880,10 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     <xs:attribute name="credentialID" type="xs:ID" use="required"/>
   </xs:complexType>
   <xs:element name="evidenceRecord" type="xaip:EvidenceRecordType"/>
-  <!--angepasst am 21.01.2020 gem. der Absprache vom 08.01.2020 
-		  Erneut angepasst am 6.2.2020, gem. Abstimmung vom 5.2.2020-->
   <xs:complexType name="EvidenceRecordType">
     <xs:choice>
       <xs:element name="xmlEvidenceRecord" type="ers:EvidenceRecordType"/>
-      <xs:element ref="ec:asn1EvidenceRecord"/>
+      <xs:element name="asn1EvidenceRecord" type="xs:base64Binary"/>
     </xs:choice>
     <xs:attribute name="AOID" type="xs:string"/>
     <xs:attribute name="VersionID" type="xs:string"/>
@@ -1847,7 +1910,21 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   <xs:complexType name="placeHolderType">
     <xs:attribute name="objectID" type="xs:ID" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE schema
+  <xs:element name="idAssignmentList" type="xaip:idAssignmentListType"/>
+  <xs:complexType name="idAssignmentListType">
+    <xs:sequence>
+      <xs:element ref="xaip:idAssignmentPointer" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="idAssignmentListID" type="xs:ID" use="required"/>
+  </xs:complexType>
+  <xs:element name="idAssignmentPointer" type="xaip:idAssignmentPointerType"/>
+  <xs:complexType name="idAssignmentPointerType">
+    <xs:sequence>
+      <xs:element ref="xaip:checkSum"/>
+    </xs:sequence>
+    <xs:attribute name="objectRef" type="xs:IDREF" use="required"/>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE schema
   PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
  [
    <!ATTLIST schema 
@@ -2107,7 +2184,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   </complexType>
   <!--End KeyValue Element-types-->
   <!--End Signature-->
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\XAdES-1-3-2.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uri.etsi.org/01903/v1.3.2#" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/XAdES-1-3-2.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uri.etsi.org/01903/v1.3.2#" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Start auxiliary types definitions: AnyType, ObjectIdentifierType, 
 		EncapsulatedPKIDataType and containers for time-stamp tokens-->
@@ -2575,7 +2652,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   <xsd:element name="AttrAuthoritiesCertValues" type="CertificateValuesType"/>
   <xsd:element name="AttributeRevocationValues" type="RevocationValuesType"/>
   <xsd:element name="ArchiveTimeStamp" type="XAdESTimeStampType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xml-ers-rfc6283.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ietf:params:xml:ns:ers" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:ietf:params:xml:ns:ers">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xml-ers-rfc6283.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ietf:params:xml:ns:ers" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:ietf:params:xml:ns:ers">
   <xs:element name="EvidenceRecord" type="EvidenceRecordType"/>
   <!--TYPE DEFINITIONS-->
   <xs:complexType name="EvidenceRecordType">
@@ -2721,7 +2798,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <xs:minInclusive value="1"/>
     </xs:restriction>
   </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dssx-1.0-profiles-verification-report-cs1.xsd</con:url><con:content><![CDATA[<!--================================================-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dssx-1.0-profiles-verification-report-cs1.xsd</con:url><con:content><![CDATA[<!--================================================-->
 <!--Version corresponding to CS1, 2010-09-27-->
 <!--================================================-->
 <schema targetNamespace="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
@@ -3250,7 +3327,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </sequence>
     <attribute name="HashedObject" type="IDREF" use="optional"/>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-core-schema-v1.0-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:dss:1.0:core:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-core-schema-v1.0-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:dss:1.0:core:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
   <xs:annotation>
     <xs:documentation xml:lang="en">This Schema defines the Digital Signature Service Core
 			Protocols, Elements, and Bindings Committee Specification
@@ -3687,7 +3764,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     <xs:attribute name="AttRefURI" type="xs:anyURI"/>
     <xs:attribute name="MimeType" type="xs:string" use="optional"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\oasis-sstc-saml-schema-protocol-1.1.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:1.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-sstc-saml-schema-protocol-1.1.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:1.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns="http://www.w3.org/2001/XMLSchema">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <annotation>
     <documentation>Document identifier: oasis-sstc-saml-schema-assertion-1.1
@@ -3884,7 +3961,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     </complexContent>
   </complexType>
   <element name="AttributeValue" type="anyType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\saml-schema-assertion-2.0.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:2.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/saml-schema-assertion-2.0.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:2.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Because the "standard" xenc-schema.xsd at http://www.w3.org/TR/xmlenc-core/xenc-schema.xsd 
      refers to a seemingly different version of the xmldsig-core-schema.xsd (at http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd)
@@ -4153,7 +4230,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   </complexType>
   <element name="AttributeValue" type="anyType" nillable="true"/>
   <element name="EncryptedAttribute" type="saml:EncryptedElementType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xenc-schema.xsd</con:url><con:content><![CDATA[<!--<?xml version="1.0" encoding="utf-8"?>-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xenc-schema.xsd</con:url><con:content><![CDATA[<!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<!DOCTYPE schema  PUBLIC "-//W3C//DTD XMLSchema 200102//EN"
 	"http://www.w3.org/2001/XMLSchema.dtd"
 	[
@@ -4269,7 +4346,45 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
     <attribute name="Id" type="ID" use="optional"/>
     <anyAttribute namespace="http://www.w3.org/XML/1998/namespace"/>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\eCard.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/ecard/api/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ers="http://www.setcce.org/schemas/ers" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmlmime.xsd</con:url><con:content><![CDATA[<!--W3C XML Schema defined in the Describing Media Content of Binary Data in XML
+   specification
+     http://www.w3.org/TR/xml-media-types
+
+   Copyright © 2005 World Wide Web Consortium,
+  
+   (Massachusetts Institute of Technology, European Research Consortium for
+   Informatics and Mathematics, Keio University). All Rights Reserved. This
+   work is distributed under the W3C® Software License [1] in the hope that
+   it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  
+   [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+   $Id: xmlmime.xsd,v 1.1 2005/04/25 17:08:35 hugo Exp $-->
+<xs:schema targetNamespace="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <xs:attribute name="contentType">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:minLength value="3"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="expectedContentTypes" type="xs:string"/>
+  <xs:complexType name="base64Binary">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute ref="xmime:contentType"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="hexBinary">
+    <xs:simpleContent>
+      <xs:extension base="xs:hexBinary">
+        <xs:attribute ref="xmime:contentType"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/eCard.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/ecard/api/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ers="http://www.setcce.org/schemas/ers" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Because the "standard" xenc-schema.xsd at http://www.w3.org/TR/xmlenc-core/xenc-schema.xsd 
      refers to a seemingly different version of the xmldsig-core-schema.xsd (at http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd)
@@ -4558,7 +4673,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
   <!--See oasis-dssx-encryption-profile-0.5.xsd-->
   <!--3.3.2	DecryptRequest / DecryptResponse-->
   <!--See oasis-dssx-encryption-profile-0.5.xsd-->
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\ISO24727-Protocols.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISO24727-Protocols.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
   <!--========================-->
   <!--21.03.2011-->
   <!--========================-->
@@ -5684,7 +5799,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </restriction>
     </complexContent>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\ecdsa.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/2001/04/xmldsig-more#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.2" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ecdsa.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/2001/04/xmldsig-more#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.2" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!--ECDSA key value root element-->
   <xs:element name="ECDSAKeyValue">
     <xs:complexType>
@@ -5812,7 +5927,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\ISO24727-3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISO24727-3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
   <include schemaLocation="ISOCommon.xsd"/>
   <include schemaLocation="ISOIFD.xsd"/>
   <!--Define names of card application services-->
@@ -7106,7 +7221,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\ISOCommon.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISOCommon.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
   <import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="oasis-dss-core-schema-v1.0-os.xsd"></import>
   <!--Definition of Basic Types-->
   <simpleType name="SlotHandleType">
@@ -7144,7 +7259,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </restriction>
     </complexContent>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\ISOIFD.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISOIFD.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
   <!--Definition of Basic Types-->
   <include schemaLocation="ISOCommon.xsd"/>
   <!--Card terminal related functions-->
@@ -7724,7 +7839,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xmlers-schema-draft-v0.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.setcce.org/schemas/ers" elementFormDefault="qualified" version="0.3" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ers="http://www.setcce.org/schemas/ers">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmlers-schema-draft-v0.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.setcce.org/schemas/ers" elementFormDefault="qualified" version="0.3" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ers="http://www.setcce.org/schemas/ers">
   <element name="EvidenceRecord" type="ers:EvidenceRecordType"/>
   <complexType name="EvidenceRecordType">
     <sequence>
@@ -7832,45 +7947,7 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
       <any processContents="lax"/>
     </sequence>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\Projects\BSI\GIT-HUB\80.Work\tresor-ETSITS119512-transformator\tests\Schema-1.2.2-512-update\deps\xmlmime.xsd</con:url><con:content><![CDATA[<!--W3C XML Schema defined in the Describing Media Content of Binary Data in XML
-   specification
-     http://www.w3.org/TR/xml-media-types
-
-   Copyright © 2005 World Wide Web Consortium,
-  
-   (Massachusetts Institute of Technology, European Research Consortium for
-   Informatics and Mathematics, Keio University). All Rights Reserved. This
-   work is distributed under the W3C® Software License [1] in the hope that
-   it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  
-   [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
-
-   $Id: xmlmime.xsd,v 1.1 2005/04/25 17:08:35 hugo Exp $-->
-<xs:schema targetNamespace="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
-  <xs:attribute name="contentType">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:minLength value="3"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:attribute>
-  <xs:attribute name="expectedContentTypes" type="xs:string"/>
-  <xs:complexType name="base64Binary">
-    <xs:simpleContent>
-      <xs:extension base="xs:base64Binary">
-        <xs:attribute ref="xmime:contentType"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="hexBinary">
-    <xs:simpleContent>
-      <xs:extension base="xs:hexBinary">
-        <xs:attribute ref="xmime:contentType"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:18080</con:endpoint><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:endpoint>http://bsi-transformator:8080/tresor-transformator-service/ws/PreservationService</con:endpoint></con:endpoints><con:operation id="b59cff5f-ca25-4742-a2a8-2a784f01f2df" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#DeletePO" name="DeletePO" bindingOperationName="DeletePO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e0d3fa75-ab1e-44ee-a1b5-f9faab6c43a5" name="Request 1" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">\r
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:18080</con:endpoint><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:endpoint>http://bsi-transformator:8080/tresor-transformator-service/ws/PreservationService</con:endpoint></con:endpoints><con:operation id="b59cff5f-ca25-4742-a2a8-2a784f01f2df" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#DeletePO" name="DeletePO" bindingOperationName="DeletePO" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e0d3fa75-ab1e-44ee-a1b5-f9faab6c43a5" name="Request 1" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">\r
    <soap:Header/>\r
    <soap:Body>\r
       <v1:DeletePO RequestID="?">\r

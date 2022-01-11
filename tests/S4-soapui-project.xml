@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="9c0e7c64-0649-46ad-8e82-a9c01dfc7b33" activeEnvironment="Default" name="2020-09-11_S4-Transformator" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="9c0e7c64-0649-46ad-8e82-a9c01dfc7b33" activeEnvironment="Default" name="2020-09-11_S4-Transformator" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Report Format(s)" value=""/>
   <con:entry key="Host:Port" value=""/>
   <con:entry key="Export JUnit Results" value="false"/>
@@ -30,79 +30,97 @@
   <con:entry key="Domain" value=""/>
   <con:entry key="Tool Args" value=""/>
   <con:entry key="Save Project" value="false"/>
-</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="ed047a9e-c8bb-4e79-8b55-953b380abe78" wsaVersion="NONE" name="S4" type="wsdl" bindingName="{http://www.bsi.bund.de/tr-esor/api/1.2}S4" soapVersion="1_1" anonymous="optional" definition="${projectDir}/Schema-1.2.2-512-update/tr-esor-S-4-v1.2+xmlmime.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.tcpmon.TcpMonAction@values-local">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="ed047a9e-c8bb-4e79-8b55-953b380abe78" wsaVersion="NONE" name="S4" type="wsdl" bindingName="{http://www.bsi.bund.de/tr-esor/api/1.3}S4" soapVersion="1_1" anonymous="optional" definition="file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-S-4-v1.3.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.tcpmon.TcpMonAction@values-local">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
   &lt;con:entry key="Add local endpoint" value="false"/>
   &lt;con:entry key="Local Port" value=""/>
   &lt;con:entry key="Endpoint" value=""/>
-&lt;/xml-fragment></con:setting></con:settings><con:definitionCache type="TEXT" rootPart="file:/C:/transformator/tests/Schema-1.2.2-512-update/tr-esor-S-4-v1.2+xmlmime.wsdl"><con:part><con:url>file:/C:/transformator/tests/Schema-1.2.2-512-update/tr-esor-S-4-v1.2+xmlmime.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.2">
+&lt;/xml-fragment></con:setting></con:settings><con:definitionCache type="TEXT" rootPart="file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-S-4-v1.3.wsdl"><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-S-4-v1.3.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.3">
   <!--============================================================-->
-  <!--Version 1.2 (+xmlmime) of 20.12.2018-->
+  <!--Version 1.3.0 of 30.11.2020-->
   <!--============================================================-->
-  <!--===================-->
+  <!--========================-->
   <!--Definition of types-->
   <!--(only include XSDs)-->
-  <!--===================-->
+  <!--========================-->
   <wsdl:types>
-    <xsd:schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.2" elementFormDefault="qualified" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2">
-      <xsd:include schemaLocation="tr-esor-interfaces-v1.2+xmlmime.xsd"/>
+    <xsd:schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3" elementFormDefault="qualified" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip">
+      <xsd:include schemaLocation="tr-esor-interfaces-v1.3.xsd"/>
     </xsd:schema>
   </wsdl:types>
-  <!--======================-->
+  <!--========================-->
   <!--Definition of messages-->
-  <!--======================-->
-  <!--ArchiveSubmissionRequest-->
+  <!--========================-->
+  <!--RetrieveInfo-->
+  <wsdl:message name="RetrieveInfoRequest">
+    <wsdl:part name="parameters" element="tr:RetrieveInfoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="RetrieveInfoResponse">
+    <wsdl:part name="parameters" element="tr:RetrieveInfoResponse"/>
+  </wsdl:message>
+  <!--Archivesubmission-->
   <wsdl:message name="ArchiveSubmissionRequest">
     <wsdl:part name="parameters" element="tr:ArchiveSubmissionRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveSubmissionResponse">
     <wsdl:part name="parameters" element="tr:ArchiveSubmissionResponse"/>
   </wsdl:message>
-  <!--ArchiveUpdateRequest-->
+  <!--ArchiveUpdate-->
   <wsdl:message name="ArchiveUpdateRequest">
     <wsdl:part name="parameters" element="tr:ArchiveUpdateRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveUpdateResponse">
     <wsdl:part name="parameters" element="tr:ArchiveUpdateResponse"/>
   </wsdl:message>
-  <!--ArchiveRetrievalRequest-->
+  <!--ArchiveRetrieval-->
   <wsdl:message name="ArchiveRetrievalRequest">
     <wsdl:part name="parameters" element="tr:ArchiveRetrievalRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveRetrievalResponse">
     <wsdl:part name="parameters" element="tr:ArchiveRetrievalResponse"/>
   </wsdl:message>
-  <!--ArchiveEvidenceRequest-->
+  <!--ArchiveEvidence-->
   <wsdl:message name="ArchiveEvidenceRequest">
     <wsdl:part name="parameters" element="tr:ArchiveEvidenceRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveEvidenceResponse">
     <wsdl:part name="parameters" element="tr:ArchiveEvidenceResponse"/>
   </wsdl:message>
-  <!--ArchiveDeletionRequest-->
+  <!--ArchiveDeletion-->
   <wsdl:message name="ArchiveDeletionRequest">
     <wsdl:part name="parameters" element="tr:ArchiveDeletionRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveDeletionResponse">
     <wsdl:part name="parameters" element="tr:ArchiveDeletionResponse"/>
   </wsdl:message>
-  <!--ArchiveDataRequest-->
+  <!--ArchiveData-->
   <wsdl:message name="ArchiveDataRequest">
     <wsdl:part name="parameters" element="tr:ArchiveDataRequest"/>
   </wsdl:message>
   <wsdl:message name="ArchiveDataResponse">
     <wsdl:part name="parameters" element="tr:ArchiveDataResponse"/>
   </wsdl:message>
-  <!--VerifyRequest-->
+  <!--Verify-->
   <wsdl:message name="VerifyRequest">
     <wsdl:part name="parameters" element="dss:VerifyRequest"/>
   </wsdl:message>
   <wsdl:message name="VerifyResponse">
     <wsdl:part name="parameters" element="dss:VerifyResponse"/>
   </wsdl:message>
+  <!--ArchiveTrace-->
+  <wsdl:message name="ArchiveTraceRequest">
+    <wsdl:part name="parameters" element="tr:ArchiveTraceRequest"/>
+  </wsdl:message>
+  <wsdl:message name="ArchiveTraceResponse">
+    <wsdl:part name="parameters" element="tr:ArchiveTraceResponse"/>
+  </wsdl:message>
   <!--======================-->
   <!--Definition of portType-->
   <!--======================-->
   <wsdl:portType name="S4">
+    <wsdl:operation name="RetrieveInfo">
+      <wsdl:input message="tr:RetrieveInfoRequest"/>
+      <wsdl:output message="tr:RetrieveInfoResponse"/>
+    </wsdl:operation>
     <wsdl:operation name="ArchiveSubmission">
       <wsdl:input message="tr:ArchiveSubmissionRequest"/>
       <wsdl:output message="tr:ArchiveSubmissionResponse"/>
@@ -131,12 +149,25 @@
       <wsdl:input message="tr:VerifyRequest"/>
       <wsdl:output message="tr:VerifyResponse"/>
     </wsdl:operation>
+    <wsdl:operation name="ArchiveTrace">
+      <wsdl:input message="tr:ArchiveTraceRequest"/>
+      <wsdl:output message="tr:ArchiveTraceResponse"/>
+    </wsdl:operation>
   </wsdl:portType>
   <!--=====================-->
   <!--Definition of Binding-->
   <!--=====================-->
   <wsdl:binding name="S4" type="tr:S4">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RetrieveInfo">
+      <soap:operation soapAction="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ArchiveSubmission">
       <soap:operation soapAction="http://www.bsi.bund.de/tr-esor/ArchiveSubmission"/>
       <wsdl:input>
@@ -200,24 +231,35 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ArchiveTrace">
+      <soap:operation soapAction="http://www.bsi.bund.de/tr-esor/ArchiveTrace"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
-  <!--Definition of Support-Service-->
+  <!--=====================-->
+  <!--Definition of Service-->
+  <!--=====================-->
   <wsdl:service name="S4">
     <wsdl:port name="S4" binding="tr:S4">
       <soap:address location="http://127.0.0.1:18080"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\tr-esor-interfaces-v1.2+xmlmime.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-interfaces-v1.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.3.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tr="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#">
   <!--=======================================-->
-  <!--Version 1.2 (+xmlmime) vom 20.12.2018 +Anpassungen für-->
-  <!--ETSI TS 119 512 Transformator vom 21.01.2020-->
-  <!--+ Anpassungen vom 3.4.2020 - Entferenen des Elements "ASiC", Abwicklung mit Hilfe vom Element "xaip:binaryData"-->
+  <!--Version 1.3.0 vom 30.11.2020-->
   <!--=======================================-->
-  <import namespace="http://www.bsi.bund.de/tr-esor/xaip/1.2" schemaLocation="tr-esor-xaip-v1.2+xmlmime.xsd"/>
+  <import namespace="http://www.bsi.bund.de/tr-esor/xaip" schemaLocation="tr-esor-xaip-v1.3.xsd"/>
   <import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="./deps/oasis-dss-core-schema-v1.0-os.xsd"/>
   <import namespace="urn:ietf:params:xml:ns:ers" schemaLocation="./deps/xml-ers-rfc6283.xsd"/>
   <import namespace="http://www.bsi.bund.de/ecard/api/1.1" schemaLocation="./deps/eCard.xsd"/>
   <import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="./deps/saml-schema-assertion-2.0.xsd"/>
+  <import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./deps/xmlmime.xsd"/>
+  <import namespace="http://uri.etsi.org/19512/v1.1.2#" schemaLocation="19512-Preservation-API_V.1.1.2.xsd"/>
   <!--===================================-->
   <!--Uebergreifende Definitionen-->
   <!--===================================-->
@@ -241,18 +283,52 @@
     </complexContent>
   </complexType>
   <element name="AOID" type="string"/>
-  <!--zusätzliche Elemente gem. der Absprache vom 08.01.2020-->
   <element name="VerifyUnderSignaturePolicy" type="anyURI"/>
   <element name="XPathFilter" type="string"/>
+  <element name="ContinueOnSignatureVerificationFailure" type="tr:ContinueOnSignatureVerificationFailureType"/>
+  <complexType name="ContinueOnSignatureVerificationFailureType">
+    <sequence>
+      <element name="ObjectReference" type="string" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
   <!--================================-->
-  <!--ArchiveSubmissionRequest-->
+  <!--RetrieveInfo-->
   <!--================================-->
-  <complexType name="ArchiveDataType">
-    <complexContent>
-      <extension base="anyType">
-        <attribute name="Type" type="anyURI"/>
+  <element name="RetrieveInfoRequest">
+    <complexType>
+      <complexContent>
+        <extension base="tr:RequestType">
+          <sequence>
+            <element name="ProfileIdentifier" type="anyURI" minOccurs="0"/>
+            <element name="Status" type="pres:StatusType" minOccurs="0"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="RetrieveInfoResponse">
+    <complexType>
+      <complexContent>
+        <extension base="tr:ResponseType">
+          <sequence>
+            <element ref="pres:Profile" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <!--================================-->
+  <!--ArchiveSubmission-->
+  <!--================================-->
+  <complexType name="ArchiveDataType" xmime:expectedContentTypes="*/*">
+    <simpleContent>
+      <extension base="base64Binary">
+        <attribute name="Type" type="anyURI" use="required"/>
+        <attribute name="archiveDataID" type="ID" use="required"/>
+        <attribute name="MimeType" type="string" use="optional"/>
+        <attribute name="relatedObjects" type="IDREFS" use="optional"/>
       </extension>
-    </complexContent>
+    </simpleContent>
   </complexType>
   <element name="ImportEvidence" type="tr:ImportEvidenceType"/>
   <complexType name="ImportEvidenceType">
@@ -267,7 +343,7 @@
         <extension base="tr:RequestType">
           <choice>
             <element ref="xaip:XAIP"/>
-            <element name="ArchiveData" type="tr:ArchiveDataType"/>
+            <element name="ArchiveData" type="tr:ArchiveDataType" maxOccurs="unbounded"/>
           </choice>
         </extension>
       </complexContent>
@@ -285,7 +361,7 @@
     </complexType>
   </element>
   <!--==========================-->
-  <!--ArchiveUpdateRequest-->
+  <!--ArchiveUpdate-->
   <!--==========================-->
   <element name="ArchiveUpdateRequest">
     <complexType>
@@ -310,7 +386,7 @@
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveRetrievalRequest-->
+  <!--ArchiveRetrieval-->
   <!--================================-->
   <element name="ArchiveRetrievalRequest">
     <complexType>
@@ -337,7 +413,7 @@
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveEvidenceRequest-->
+  <!--ArchiveEvidence-->
   <!--================================-->
   <element name="ArchiveEvidenceRequest">
     <complexType>
@@ -364,7 +440,7 @@
     </complexType>
   </element>
   <!--================================-->
-  <!--ArchiveDeletionRequest-->
+  <!--ArchiveDeletion-->
   <!--================================-->
   <element name="ArchiveDeletionRequest">
     <complexType>
@@ -387,7 +463,7 @@
   </element>
   <element name="ArchiveDeletionResponse" type="tr:ResponseType"/>
   <!--==========================-->
-  <!--ArchiveDataRequest-->
+  <!--ArchiveData-->
   <!--==========================-->
   <element name="ArchiveDataRequest">
     <complexType>
@@ -410,38 +486,60 @@
       </complexContent>
     </complexType>
   </element>
-  <element name="XAIPData" type="tr:XAIPDataType"/>
-  <complexType name="XAIPDataType">
-    <sequence>
-      <element ref="dss:Result"/>
-      <element ref="tr:DataLocation"/>
-      <element name="Value" type="anyType" minOccurs="0"/>
-    </sequence>
-  </complexType>
   <element name="ArchiveDataResponse">
     <complexType>
       <complexContent>
         <extension base="tr:ResponseType">
           <sequence>
-            <element ref="tr:XAIPData" maxOccurs="unbounded"/>
+            <element name="XAIPData" maxOccurs="unbounded">
+              <complexType>
+                <sequence>
+                  <element ref="dss:Result"/>
+                  <element ref="tr:DataLocation"/>
+                  <element name="Value" type="anyType" minOccurs="0"/>
+                </sequence>
+              </complexType>
+            </element>
           </sequence>
         </extension>
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\tr-esor-xaip-v1.2+xmlmime.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.bsi.bund.de/tr-esor/xaip/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <!--==========================-->
+  <!--ArchiveTrace-->
+  <!--==========================-->
+  <element name="ArchiveTraceRequest">
+    <complexType>
+      <complexContent>
+        <extension base="tr:RequestType">
+          <sequence>
+            <element ref="tr:AOID"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+  <element name="ArchiveTraceResponse">
+    <complexType>
+      <complexContent>
+        <extension base="tr:ResponseType">
+          <sequence>
+            <element ref="pres:Trace"/>
+          </sequence>
+        </extension>
+      </complexContent>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/tr-esor-xaip-v1.3.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.bsi.bund.de/tr-esor/xaip" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.3.0" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="./deps/xmldsig-core-schema.xsd"/>
   <xs:import namespace="http://uri.etsi.org/01903/v1.3.2#" schemaLocation="./deps/XAdES-1-3-2.xsd"/>
   <xs:import namespace="urn:ietf:params:xml:ns:ers" schemaLocation="./deps/xml-ers-rfc6283.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" schemaLocation="./deps/oasis-dssx-1.0-profiles-verification-report-cs1.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="./deps/oasis-dss-core-schema-v1.0-os.xsd"/>
-  <xs:import namespace="http://www.bsi.bund.de/ecard/api/1.1" schemaLocation="./deps/eCard.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="./deps/saml-schema-assertion-2.0.xsd"/>
   <xs:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./deps/xmlmime.xsd"/>
   <!--============================================================-->
-  <!--Version 1.2 (+xml-mime) vom 20.12.2018 + Erweiterungen für ETSI TS 119512-->
-  <!--Transformator vom 06.02.2020-->
-  <!--+ Anpassungen vom 3.4.2020 - Definition des Elements "binaryData"-->
+  <!--Version 1.3.0 vom 30.11.2021-->
   <!--============================================================-->
   <!--============================================================-->
   <!--XAIP gesamt-->
@@ -454,6 +552,7 @@
       <xs:element name="dataObjectsSection" type="xaip:dataObjectsSectionType" minOccurs="0"/>
       <xs:element name="credentialsSection" type="xaip:credentialsSectionType" minOccurs="0"/>
     </xs:sequence>
+    <xs:attribute name="XAIPVersion" use="required" fixed="1.3.0"/>
   </xs:complexType>
   <!--============================================================-->
   <!--packageHeaderType-->
@@ -479,6 +578,7 @@
       <xs:element name="preservationInfo" type="xaip:preservationInfoType"/>
       <xs:element name="submissionInfo" type="xaip:submissionInfoType" minOccurs="0"/>
       <xs:element name="packageInfoUnit" type="xaip:packageInfoUnitType" maxOccurs="unbounded"/>
+      <xs:element ref="xaip:idAssignmentList" minOccurs="0"/>
       <xs:element name="extension" type="xaip:extensionType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="VersionID" type="xs:ID" use="required"/>
@@ -490,13 +590,11 @@
       <xs:element name="extension" type="xaip:extensionType" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="otherContentType">
-    <xs:complexContent>
-      <xs:extension base="xs:anyType">
-        <xs:attribute name="Type" type="xs:anyURI"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+  <!--Auskommentiert am 5.3.2021, da keine Stellen gefunden, die den Typ 
+		referenzieren-->
+  <!--<xs:complexType name="otherContentType"> <xs:complexContent> <xs:extension 
+		base="xs:anyType"> <xs:attribute name="Type" type="xs:anyURI"/> </xs:extension> 
+		</xs:complexContent> </xs:complexType>-->
   <xs:complexType name="submissionInfoType">
     <xs:sequence>
       <xs:element name="clientID" type="saml:NameIDType"/>
@@ -527,17 +625,27 @@
   </xs:complexType>
   <xs:element name="metaDataObject" type="xaip:metaDataObjectType"/>
   <xs:complexType name="metaDataObjectType">
-    <xs:complexContent>
-      <xs:extension base="xs:anyType">
-        <xs:attribute name="metaDataID" type="xs:ID" use="required"/>
-        <xs:attribute name="dataObjectID" type="xs:IDREFS" use="required"/>
-        <xs:attribute name="category" type="xs:string"/>
-        <xs:attribute name="classification" type="xs:string"/>
-        <xs:attribute name="type" type="xs:string"/>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="xaip:binaryMetaData"/>
+        <xs:element name="xmlMetaData" type="dss:AnyType"/>
+      </xs:choice>
+      <xs:element ref="xaip:checkSum" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="metaDataID" type="xs:ID" use="required"/>
+    <xs:attribute name="relatedObjects" type="xs:IDREFS" use="required"/>
+    <xs:attribute name="category" type="xs:string"/>
+    <xs:attribute name="classification" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
   </xs:complexType>
-  <xs:element name="dataObjectCheckSum" type="xaip:checkSumType"/>
+  <xs:element name="binaryMetaData" type="xaip:binaryMetaDataType"/>
+  <xs:complexType name="binaryMetaDataType" xmime:expectedContentTypes="*/*">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute name="MimeType" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
   <!--============================================================-->
   <!--DataObjectsSection-->
   <!--============================================================-->
@@ -546,7 +654,6 @@
       <xs:element ref="xaip:dataObject" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-  <!--3.4.2020 begin-->
   <xs:element name="binaryData" type="xaip:binaryDataType"/>
   <xs:complexType name="binaryDataType" xmime:expectedContentTypes="*/*">
     <xs:simpleContent>
@@ -562,13 +669,13 @@
         <xs:element ref="xaip:binaryData"/>
         <xs:element name="xmlData" type="dss:AnyType"/>
       </xs:choice>
-      <xs:element name="checkSum" type="xaip:checkSumType" minOccurs="0"/>
+      <xs:element ref="xaip:checkSum" minOccurs="0"/>
       <xs:element name="transformInfo" type="xaip:tranformInfoType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="dataObjectID" type="xs:ID" use="required"/>
-    <xs:attribute name="metaDataObjectRefs" type="xs:IDREFS"/>
+    <xs:attribute name="relatedObjects" type="xs:IDREFS"/>
   </xs:complexType>
-  <!--3.4.2020 end-->
+  <xs:element name="checkSum" type="xaip:checkSumType"/>
   <xs:complexType name="checkSumType">
     <xs:sequence>
       <xs:element name="checkSumAlgorithm" type="xs:anyURI"/>
@@ -610,12 +717,10 @@
     <xs:attribute name="credentialID" type="xs:ID" use="required"/>
   </xs:complexType>
   <xs:element name="evidenceRecord" type="xaip:EvidenceRecordType"/>
-  <!--angepasst am 21.01.2020 gem. der Absprache vom 08.01.2020 
-		  Erneut angepasst am 6.2.2020, gem. Abstimmung vom 5.2.2020-->
   <xs:complexType name="EvidenceRecordType">
     <xs:choice>
       <xs:element name="xmlEvidenceRecord" type="ers:EvidenceRecordType"/>
-      <xs:element ref="ec:asn1EvidenceRecord"/>
+      <xs:element name="asn1EvidenceRecord" type="xs:base64Binary"/>
     </xs:choice>
     <xs:attribute name="AOID" type="xs:string"/>
     <xs:attribute name="VersionID" type="xs:string"/>
@@ -642,7 +747,21 @@
   <xs:complexType name="placeHolderType">
     <xs:attribute name="objectID" type="xs:ID" use="required"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE schema
+  <xs:element name="idAssignmentList" type="xaip:idAssignmentListType"/>
+  <xs:complexType name="idAssignmentListType">
+    <xs:sequence>
+      <xs:element ref="xaip:idAssignmentPointer" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="idAssignmentListID" type="xs:ID" use="required"/>
+  </xs:complexType>
+  <xs:element name="idAssignmentPointer" type="xaip:idAssignmentPointerType"/>
+  <xs:complexType name="idAssignmentPointerType">
+    <xs:sequence>
+      <xs:element ref="xaip:checkSum"/>
+    </xs:sequence>
+    <xs:attribute name="objectRef" type="xs:IDREF" use="required"/>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--<!DOCTYPE schema
   PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
  [
    <!ATTLIST schema 
@@ -902,7 +1021,7 @@
   </complexType>
   <!--End KeyValue Element-types-->
   <!--End Signature-->
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\XAdES-1-3-2.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uri.etsi.org/01903/v1.3.2#" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/XAdES-1-3-2.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://uri.etsi.org/01903/v1.3.2#" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
   <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Start auxiliary types definitions: AnyType, ObjectIdentifierType, 
 		EncapsulatedPKIDataType and containers for time-stamp tokens-->
@@ -1370,7 +1489,7 @@
   <xsd:element name="AttrAuthoritiesCertValues" type="CertificateValuesType"/>
   <xsd:element name="AttributeRevocationValues" type="RevocationValuesType"/>
   <xsd:element name="ArchiveTimeStamp" type="XAdESTimeStampType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xml-ers-rfc6283.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ietf:params:xml:ns:ers" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:ietf:params:xml:ns:ers">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xml-ers-rfc6283.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ietf:params:xml:ns:ers" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:ietf:params:xml:ns:ers">
   <xs:element name="EvidenceRecord" type="EvidenceRecordType"/>
   <!--TYPE DEFINITIONS-->
   <xs:complexType name="EvidenceRecordType">
@@ -1516,7 +1635,7 @@
       <xs:minInclusive value="1"/>
     </xs:restriction>
   </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\oasis-dssx-1.0-profiles-verification-report-cs1.xsd</con:url><con:content><![CDATA[<!--================================================-->
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dssx-1.0-profiles-verification-report-cs1.xsd</con:url><con:content><![CDATA[<!--================================================-->
 <!--Version corresponding to CS1, 2010-09-27-->
 <!--================================================-->
 <schema targetNamespace="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
@@ -2045,7 +2164,7 @@
     </sequence>
     <attribute name="HashedObject" type="IDREF" use="optional"/>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\oasis-dss-core-schema-v1.0-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:dss:1.0:core:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-core-schema-v1.0-os.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:oasis:names:tc:dss:1.0:core:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion">
   <xs:annotation>
     <xs:documentation xml:lang="en">This Schema defines the Digital Signature Service Core
 			Protocols, Elements, and Bindings Committee Specification
@@ -2482,7 +2601,7 @@
     <xs:attribute name="AttRefURI" type="xs:anyURI"/>
     <xs:attribute name="MimeType" type="xs:string" use="optional"/>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\oasis-sstc-saml-schema-protocol-1.1.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:1.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns="http://www.w3.org/2001/XMLSchema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-sstc-saml-schema-protocol-1.1.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:1.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns="http://www.w3.org/2001/XMLSchema">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <annotation>
     <documentation>Document identifier: oasis-sstc-saml-schema-assertion-1.1
@@ -2679,7 +2798,7 @@
     </complexContent>
   </complexType>
   <element name="AttributeValue" type="anyType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xml.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/XML/1998/namespace" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>See http://www.w3.org/XML/1998/namespace.html and
 			http://www.w3.org/TR/REC-xml for information about this
@@ -2810,7 +2929,7 @@
     <xs:attribute ref="xml:space"/>
     <xs:attribute ref="xml:id"/>
   </xs:attributeGroup>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\saml-schema-assertion-2.0.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:2.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/saml-schema-assertion-2.0.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:oasis:names:tc:SAML:2.0:assertion" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Because the "standard" xenc-schema.xsd at http://www.w3.org/TR/xmlenc-core/xenc-schema.xsd 
      refers to a seemingly different version of the xmldsig-core-schema.xsd (at http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd)
@@ -3079,7 +3198,7 @@
   </complexType>
   <element name="AttributeValue" type="anyType" nillable="true"/>
   <element name="EncryptedAttribute" type="saml:EncryptedElementType"/>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xenc-schema.xsd</con:url><con:content><![CDATA[<!--<?xml version="1.0" encoding="utf-8"?>-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xenc-schema.xsd</con:url><con:content><![CDATA[<!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<!DOCTYPE schema  PUBLIC "-//W3C//DTD XMLSchema 200102//EN"
 	"http://www.w3.org/2001/XMLSchema.dtd"
 	[
@@ -3195,7 +3314,45 @@
     <attribute name="Id" type="ID" use="optional"/>
     <anyAttribute namespace="http://www.w3.org/XML/1998/namespace"/>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\eCard.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/ecard/api/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ers="http://www.setcce.org/schemas/ers" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmlmime.xsd</con:url><con:content><![CDATA[<!--W3C XML Schema defined in the Describing Media Content of Binary Data in XML
+   specification
+     http://www.w3.org/TR/xml-media-types
+
+   Copyright © 2005 World Wide Web Consortium,
+  
+   (Massachusetts Institute of Technology, European Research Consortium for
+   Informatics and Mathematics, Keio University). All Rights Reserved. This
+   work is distributed under the W3C® Software License [1] in the hope that
+   it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  
+   [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+   $Id: xmlmime.xsd,v 1.1 2005/04/25 17:08:35 hugo Exp $-->
+<xs:schema targetNamespace="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <xs:attribute name="contentType">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:minLength value="3"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="expectedContentTypes" type="xs:string"/>
+  <xs:complexType name="base64Binary">
+    <xs:simpleContent>
+      <xs:extension base="xs:base64Binary">
+        <xs:attribute ref="xmime:contentType"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="hexBinary">
+    <xs:simpleContent>
+      <xs:extension base="xs:hexBinary">
+        <xs:attribute ref="xmime:contentType"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/eCard.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.bsi.bund.de/ecard/api/1.1" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ec="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:vr="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ers="http://www.setcce.org/schemas/ers" xmlns:XAdES="http://uri.etsi.org/01903/v1.3.2#">
   <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
   <!--Because the "standard" xenc-schema.xsd at http://www.w3.org/TR/xmlenc-core/xenc-schema.xsd 
      refers to a seemingly different version of the xmldsig-core-schema.xsd (at http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/xmldsig-core-schema.xsd)
@@ -3484,7 +3641,7 @@
   <!--See oasis-dssx-encryption-profile-0.5.xsd-->
   <!--3.3.2	DecryptRequest / DecryptResponse-->
   <!--See oasis-dssx-encryption-profile-0.5.xsd-->
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\ISO24727-Protocols.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISO24727-Protocols.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
   <!--========================-->
   <!--21.03.2011-->
   <!--========================-->
@@ -4610,7 +4767,7 @@
       </restriction>
     </complexContent>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\ecdsa.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/2001/04/xmldsig-more#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.2" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ecdsa.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.w3.org/2001/04/xmldsig-more#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.2" xmlns:ecdsa="http://www.w3.org/2001/04/xmldsig-more#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!--ECDSA key value root element-->
   <xs:element name="ECDSAKeyValue">
     <xs:complexType>
@@ -4738,7 +4895,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\ISO24727-3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISO24727-3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
   <include schemaLocation="ISOCommon.xsd"/>
   <include schemaLocation="ISOIFD.xsd"/>
   <!--Define names of card application services-->
@@ -6032,7 +6189,7 @@
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\ISOCommon.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISOCommon.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema" xmlns:dss="urn:oasis:names:tc:dss:1.0:core:schema">
   <import namespace="urn:oasis:names:tc:dss:1.0:core:schema" schemaLocation="oasis-dss-core-schema-v1.0-os.xsd"></import>
   <!--Definition of Basic Types-->
   <simpleType name="SlotHandleType">
@@ -6070,7 +6227,7 @@
       </restriction>
     </complexContent>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\ISOIFD.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/ISOIFD.xsd</con:url><con:content><![CDATA[<schema targetNamespace="urn:iso:std:iso-iec:24727:tech:schema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:iso="urn:iso:std:iso-iec:24727:tech:schema">
   <!--Definition of Basic Types-->
   <include schemaLocation="ISOCommon.xsd"/>
   <!--Card terminal related functions-->
@@ -6650,7 +6807,7 @@
       </complexContent>
     </complexType>
   </element>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xmlers-schema-draft-v0.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.setcce.org/schemas/ers" elementFormDefault="qualified" version="0.3" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ers="http://www.setcce.org/schemas/ers">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/xmlers-schema-draft-v0.3.xsd</con:url><con:content><![CDATA[<schema targetNamespace="http://www.setcce.org/schemas/ers" elementFormDefault="qualified" version="0.3" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ers="http://www.setcce.org/schemas/ers">
   <element name="EvidenceRecord" type="ers:EvidenceRecordType"/>
   <complexType name="EvidenceRecordType">
     <sequence>
@@ -6758,43 +6915,1062 @@
       <any processContents="lax"/>
     </sequence>
   </complexType>
-</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\C:\transformator\tests\Schema-1.2.2-512-update\deps\xmlmime.xsd</con:url><con:content><![CDATA[<!--W3C XML Schema defined in the Describing Media Content of Binary Data in XML
-   specification
-     http://www.w3.org/TR/xml-media-types
-
-   Copyright © 2005 World Wide Web Consortium,
-  
-   (Massachusetts Institute of Technology, European Research Consortium for
-   Informatics and Mathematics, Keio University). All Rights Reserved. This
-   work is distributed under the W3C® Software License [1] in the hope that
-   it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  
-   [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
-
-   $Id: xmlmime.xsd,v 1.1 2005/04/25 17:08:35 hugo Exp $-->
-<xs:schema targetNamespace="http://www.w3.org/2005/05/xmlmime" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
-  <xs:attribute name="contentType">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:minLength value="3"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:attribute>
-  <xs:attribute name="expectedContentTypes" type="xs:string"/>
-  <xs:complexType name="base64Binary">
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.xsd</con:url><con:content><![CDATA[<!--================================================-->
+<!--This document is part of ETSI TS 119 512 v.1.1.2-->
+<!--================================================-->
+<!--Imported schemes and their namespaces are rewritten!
+	They are NOT compatible with the original schema!
+	
+	Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
+	support both JSON and XML. Therefore it is neccessary to limit the use of
+	syntax elements to a common base. Another goal is to support implementors 
+	using mapping frameworks.These requirements affect the XML syntax and resulted
+	in the modification of existing scheme. These major topics are identified:
+	
+	- the use of xs:any
+	- the 'mixed' content attribute of xs:complexType
+	- inline namespace declarations usede within XPath expressions
+	- 'choice' constructs that maybe mapped by frameworks in an untyped way
+	
+	This schema is rewritten to fulfil the requirements mentioned above. The 
+	functionalities intended by the initial authors is preserved as good as 
+	possible. For details regarding the multi-syntax approach and the DSS-X 
+	specification in general see the OASIS DSS-X homepage at 
+	https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
+<schema targetNamespace="http://uri.etsi.org/19512/v1.1.2#" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.2" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:info="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:ers="urn:ietf:params:xml:ns:ers" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core" xmlns:saml2-rw="http://docs.oasis-open.org/dss-x/ns/saml2/rewritten" xmlns:md="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:XAdESv141="http://uri.etsi.org/01903/v1.4.1#" xmlns:xades-rw="urn:oasis:names:tc:dss-x:2.0:xades:rewritten" xmlns:xadesv141-rw="urn:oasis:names:tc:dss-x:2.0:xadesv141:rewritten" xmlns:ades="http://docs.oasis-open.org/dss/ns/ades">
+  <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="./deps/xml.xsd"/>
+  <import namespace="http://docs.oasis-open.org/dss-x/ns/base" schemaLocation="./deps/oasis-dss-base-schema.xsd"/>
+  <import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="./deps/oasis-dss-rw-xmldsig-core-schema.xsd"/>
+  <import namespace="http://docs.oasis-open.org/dss-x/ns/metadata" schemaLocation="./deps/oasis-dss-metadata-schema.xsd"/>
+  <!--=======================================-->
+  <!--Preservation API-->
+  <!--=======================================-->
+  <!--Version 1.1.2 (24.09.2020)-->
+  <!--=======================================-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--5.3 Operations-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--================================-->
+  <!--5.3.1 Basic types-->
+  <!--================================-->
+  <complexType name="RequestType">
+    <sequence>
+      <element name="OptionalInputs" type="dsb:OptionalInputsType" minOccurs="0"/>
+    </sequence>
+    <attribute name="RequestID" type="string" use="optional"/>
+  </complexType>
+  <complexType name="ResponseType">
+    <sequence>
+      <element name="OptionalOutputs" type="dsb:OptionalOutputsType" minOccurs="0"/>
+      <element ref="dsb:Result"/>
+    </sequence>
+    <attribute name="RequestID" type="string" use="optional"/>
+  </complexType>
+  <!--================================-->
+  <!--5.3.2 RetrieveInfo-->
+  <!--================================-->
+  <element name="RetrieveInfo" type="pres:RetrieveInfoType"/>
+  <complexType name="RetrieveInfoType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element name="Profile" type="anyURI" minOccurs="0"/>
+          <element name="Status" type="pres:StatusType" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RetrieveInfoResponse" type="pres:RetrieveInfoResponseType"/>
+  <complexType name="RetrieveInfoResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:Profile" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--================================-->
+  <!--5.3.3 PreservePO-->
+  <!--================================-->
+  <element name="PreservePO" type="pres:PreservePOType"/>
+  <complexType name="PreservePOType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element name="Profile" type="anyURI"/>
+          <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="PreservePOResponse" type="pres:PreservePOResponseType"/>
+  <complexType name="PreservePOResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:POID" minOccurs="0"/>
+          <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--================================-->
+  <!--5.3.4 RetrievePO-->
+  <!--================================-->
+  <element name="RetrievePO" type="pres:RetrievePOType"/>
+  <complexType name="RetrievePOType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element ref="pres:POID"/>
+          <element ref="pres:VersionID" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="SubjectOfRetrieval" type="pres:SubjectOfRetrievalType" minOccurs="0"/>
+          <element name="POFormat" type="anyURI" minOccurs="0"/>
+          <element name="EvidenceFormat" type="anyURI" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="POFormat" type="anyURI"/>
+  <element name="EvidenceFormat" type="anyURI"/>
+  <element name="RetrievePOResponse" type="pres:RetrievePOResponseType"/>
+  <complexType name="RetrievePOResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--================================-->
+  <!--5.3.5 DeletePO-->
+  <!--================================-->
+  <element name="DeletePO" type="pres:DeletePOType"/>
+  <complexType name="DeletePOType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element ref="pres:POID"/>
+          <element name="Mode" type="pres:DeletionModeType" minOccurs="0"/>
+          <element name="ClaimedRequestorName" type="string" minOccurs="0"/>
+          <element name="Reason" type="string" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="DeletePOResponse" type="pres:ResponseType"/>
+  <!--================================-->
+  <!--5.3.6 UpdatePOC-->
+  <!--================================-->
+  <element name="UpdatePOC" type="pres:UpdatePOCType"/>
+  <complexType name="UpdatePOCType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element ref="pres:POID"/>
+          <element ref="pres:DeltaPOC" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="DeltaPOC" type="pres:POType"/>
+  <element name="UpdatePOCResponse" type="pres:UpdatePOCResponseType"/>
+  <complexType name="UpdatePOCResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:VersionID" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--================================-->
+  <!--5.3.7 RetrieveTrace-->
+  <!--================================-->
+  <element name="RetrieveTrace" type="pres:RetrieveTraceType"/>
+  <complexType name="RetrieveTraceType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element ref="pres:POID"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="RetrieveTraceResponse" type="pres:RetrieveTraceResponseType"/>
+  <complexType name="RetrieveTraceResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:Trace"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--==========================-->
+  <!--5.3.8 ValidateEvidence-->
+  <!--==========================-->
+  <element name="ValidateEvidence" type="pres:ValidateEvidenceType"/>
+  <complexType name="ValidateEvidenceType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element ref="pres:Evidence" minOccurs="0"/>
+          <element ref="pres:PO" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ValidateEvidenceResponse" type="pres:ValidateEvidenceResponseType"/>
+  <complexType name="ValidateEvidenceResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:ValidationReport" minOccurs="0"/>
+          <element name="ProofOfExistence" type="dateTime" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ValidationReport" type="pres:POType"/>
+  <!--==========================-->
+  <!--5.3.9 Search-->
+  <!--==========================-->
+  <element name="Search" type="pres:SearchType"/>
+  <complexType name="SearchType">
+    <complexContent>
+      <extension base="pres:RequestType">
+        <sequence>
+          <element name="Filter" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SearchResponse" type="pres:SearchResponseType"/>
+  <complexType name="SearchResponseType">
+    <complexContent>
+      <extension base="pres:ResponseType">
+        <sequence>
+          <element ref="pres:POID" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--5.4 Components for operations-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--===================================-->
+  <!--5.4.1 DeletionMode-->
+  <!--===================================-->
+  <simpleType name="DeletionModeType">
+    <restriction base="string">
+      <enumeration value="OnlySubDOs"/>
+      <enumeration value="SubDOsAndEvidence"/>
+      <!--this is the default, if DeletionMode-parameter is omitted-->
+    </restriction>
+  </simpleType>
+  <!--===================================-->
+  <!--5.4.2 Event-->
+  <!--===================================-->
+  <element name="Event" type="pres:EventType"/>
+  <complexType name="EventType">
+    <sequence>
+      <element name="Time" type="dateTime"/>
+      <element name="Subject" type="string"/>
+      <element name="Operation" type="string"/>
+      <element name="Object" type="string" minOccurs="0"/>
+      <element name="Detail" type="string" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--===================================-->
+  <!--5.4.3 Evidence-->
+  <!--===================================-->
+  <element name="Evidence" type="pres:EvidenceType"/>
+  <complexType name="EvidenceType">
+    <complexContent>
+      <extension base="pres:POType">
+        <attribute name="POID" type="string" use="optional"/>
+        <attribute name="VersionID" type="string" use="optional"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <!--===================================-->
+  <!--5.4.4 PO-->
+  <!--===================================-->
+  <element name="PO" type="pres:POType"/>
+  <complexType name="POType">
+    <choice>
+      <element name="binaryData">
+        <complexType xmime:expectedContentTypes="*/*">
+          <simpleContent>
+            <extension base="base64Binary"/>
+          </simpleContent>
+        </complexType>
+      </element>
+      <!--Note, that instead of the generic namespace statement
+				<any namespace="##other" processContents="lax"></any>
+				within the following xmlData element one could explictly 
+				specify the corresponding namespace 
+				(e.g. http://www.bsi.bund.de/tr-esor/xaip/1.2 for the 
+				XML-based Archive Information Package (XAIP) according
+				to Annex A.3.2) and import the corresponding XML-schema.-->
+      <element name="xmlData">
+        <complexType>
+          <sequence>
+            <any namespace="##other" processContents="lax"/>
+          </sequence>
+        </complexType>
+      </element>
+    </choice>
+    <attribute name="FormatId" type="anyURI" use="optional"/>
+    <attribute name="MimeType" type="string" use="optional"/>
+    <attribute name="PronomId" type="string" use="optional"/>
+    <attribute name="ID" type="ID" use="optional"/>
+    <attribute name="RelatedObjects" type="IDREFS" use="optional"/>
+  </complexType>
+  <!--===================================-->
+  <!--5.4.5 PreservationStorageModel-->
+  <!--===================================-->
+  <simpleType name="PreservationStorageModelType">
+    <restriction base="string">
+      <enumeration value="WithStorage"/>
+      <enumeration value="WithTemporaryStorage"/>
+      <enumeration value="WithoutStorage"/>
+    </restriction>
+  </simpleType>
+  <!--===================================-->
+  <!--5.4.6 Profile-->
+  <!--===================================-->
+  <element name="Profile" type="pres:ProfileType"/>
+  <complexType name="ProfileType">
+    <complexContent>
+      <extension base="info:ProfileType">
+        <sequence>
+          <element name="SchemeIdentifier" type="anyURI" minOccurs="0"/>
+          <element name="ProfileValidityPeriod" type="pres:ProfileValidityPeriodType"/>
+          <element name="PreservationStorageModel" type="pres:PreservationStorageModelType"/>
+          <element name="PreservationGoal" type="anyURI" maxOccurs="unbounded"/>
+          <!--Note: The current version of TS 119 512 defines the following to goals:
+						http://uri.etsi.org/19512/goal/pgd - preservation of general data
+						http://uri.etsi.org/19512/goal/pds - preservation of digital signatures			 
+						http://uri.etsi.org/19512/goal/aug - augmentation of submitted evidences						
+						Future versions or other documents may define additional goals.-->
+          <element name="EvidenceFormat" type="info:FormatType" maxOccurs="unbounded"/>
+          <element name="ExpectedEvidenceDuration" type="duration" minOccurs="0"/>
+          <element name="PreservationEvidenceRetentionPeriod" type="duration" minOccurs="0"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ProfileValidityPeriodType">
+    <sequence>
+      <element name="ValidFrom" type="dateTime"/>
+      <element name="ValidUntil" type="dateTime" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--===================================-->
+  <!--5.4.7 Status-->
+  <!--===================================-->
+  <simpleType name="StatusType">
+    <restriction base="string">
+      <enumeration value="active"/>
+      <enumeration value="inactive"/>
+      <enumeration value="all"/>
+    </restriction>
+  </simpleType>
+  <!--===================================-->
+  <!--5.4.8 SubjectOfRetrieval-->
+  <!--===================================-->
+  <simpleType name="SubjectOfRetrievalType">
+    <restriction base="string">
+      <enumeration value="PO"/>
+      <enumeration value="Evidence"/>
+      <enumeration value="POwithEmbeddedEvidence"/>
+      <enumeration value="POwithDetachedEvidence"/>
+      <!--this is the default, if SubjectOfRetrieval-parameter is omitted-->
+    </restriction>
+  </simpleType>
+  <!--===================================-->
+  <!--5.4.9 Trace-->
+  <!--===================================-->
+  <element name="Trace" type="pres:TraceType"/>
+  <complexType name="TraceType">
+    <sequence>
+      <element ref="pres:Event" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--5.5 Components for ASiC extensions-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--5.5.1 Extensions for ASiC manifest-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--===================================-->
+  <!--5.5.1.1 ContainerID-->
+  <!--===================================-->
+  <element name="ContainerID" type="pres:ContainerIDType"/>
+  <complexType name="ContainerIDType">
+    <sequence>
+      <element ref="pres:POID"/>
+      <element ref="pres:VersionID" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <element name="POID" type="string"/>
+  <element name="VersionID" type="string"/>
+  <!--===================================-->
+  <!--5.5.1.2 PreservationPeriod-->
+  <!--===================================-->
+  <element name="PreservationPeriod" type="date"/>
+  <!--===================================-->
+  <!--5.5.1.3 PreservationSubmitter-->
+  <!--===================================-->
+  <element name="PreservationSubmitter" type="string"/>
+  <!--===================================-->
+  <!--5.5.1.4 IsUpdatedVersionOf-->
+  <!--===================================-->
+  <element name="IsUpdatedVersionOf" type="anyURI"/>
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%==%=%=%-->
+  <!--5.5.2 Extensions for DataObjectReference-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%==%=%=%-->
+  <!--===================================-->
+  <!--5.5.2.1 IsMetaDataOf-->
+  <!--===================================-->
+  <element name="IsMetaDataOf" type="anyURI"/>
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--5.6 Other Preservation Objects-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=-->
+  <!--===================================-->
+  <!--5.6.1 DigestList-->
+  <!--===================================-->
+  <element name="DigestList" type="pres:DigestListType"/>
+  <complexType name="DigestListType">
+    <sequence>
+      <element ref="ds-rw:DigestMethod"/>
+      <element ref="ds-rw:DigestValue" maxOccurs="unbounded"/>
+      <element ref="pres:Evidence" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%-->
+  <!--Annex H. Attributes for preservation evidences-->
+  <!--=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%=%-->
+  <!--====================================-->
+  <!--H.2 preservation-service-identifier-->
+  <!--====================================-->
+  <element name="PreservationServiceIdentifier" type="anyURI"/>
+  <!--===========================================-->
+  <!--H.3 preservation-evidence-policy attribute-->
+  <!--===========================================-->
+  <element name="PreservationEvidencePolicy" type="anyURI"/>
+  <!--===================================-->
+  <!--H.4 preservation-profile attribute-->
+  <!--===================================-->
+  <element name="PreservationProfile" type="anyURI"/>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-base-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+     Committee Specification 02
+     11 December 2019
+     Copyright (c) OASIS Open 2019. All Rights Reserved.
+     Source: http://docs.oasis-open.org/dss-x/dss-core/v2.0/cs02/schema/
+     Latest version of narrative specification: http://docs.oasis-open.org/dss-x/dss-core/v2.0/dss-core-v2.0.html
+     TC IPR Statement: https://www.oasis-open.org/committees/dss-x/ipr.php-->
+<xs:schema targetNamespace="http://docs.oasis-open.org/dss-x/ns/base" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">This schema defines general structure used by the Digital Signature Service Core Protocols, Elements, and Bindings Committee Specification version 2.0 and other specifications</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/nsList" schemaLocation="oasis-dss-nslist-schema.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="oasis-dss-rw-xmldsig-core-schema.xsd"/>
+  <!--===================================-->
+  <!--Versatile structures separated from-->
+  <!--the DSS-X core schema to be easily-->
+  <!--reused by other schemes.-->
+  <!--===================================-->
+  <xs:complexType name="InternationalStringType">
     <xs:simpleContent>
-      <xs:extension base="xs:base64Binary">
-        <xs:attribute ref="xmime:contentType"/>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="xml:lang" use="required"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="hexBinary">
-    <xs:simpleContent>
-      <xs:extension base="xs:hexBinary">
-        <xs:attribute ref="xmime:contentType"/>
-      </xs:extension>
-    </xs:simpleContent>
+  <xs:complexType name="DigestInfoType">
+    <xs:sequence>
+      <xs:element name="DigestMethod" type="xs:string"/>
+      <xs:element name="DigestValue" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttachmentReferenceType">
+    <xs:sequence>
+      <xs:element name="DigestInfo" type="dsb:DigestInfoType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="AttRefURI" type="xs:anyURI" use="required"/>
+  </xs:complexType>
+  <!--===================================-->
+  <!--Implement the xs:any functionality-->
+  <!--using a base64 blob.-->
+  <!--===================================-->
+  <xs:complexType name="AnyType">
+    <xs:complexContent>
+      <xs:extension base="dsb:Base64DataType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Base64Data" type="dsb:Base64DataType"/>
+  <xs:complexType name="Base64DataType">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="Value" type="xs:base64Binary"/>
+        <xs:element name="AttRef" type="dsb:AttachmentReferenceType"/>
+      </xs:choice>
+      <xs:element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="MimeType" type="xs:string" use="optional"/>
+    <xs:attribute name="ID" type="xs:ID" use="optional"/>
+    <xs:attribute name="IDREF" type="xs:IDREF" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="SignaturePtrType">
+    <xs:sequence>
+      <xs:element name="NsPrefixMapping" type="nsl:NsPrefixMappingType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="WhichData" type="xs:IDREF" use="required"/>
+    <xs:attribute name="XPath" type="xs:string" use="optional"/>
+    <xs:attribute name="XPathQualifier" type="xs:anyURI" use="optional" default="http://www.w3.org/TR/2010/REC-xpath20-20101214/"/>
+  </xs:complexType>
+  <xs:element name="Result" type="dsb:ResultType"/>
+  <xs:complexType name="ResultType">
+    <xs:sequence>
+      <xs:element name="ResultMajor">
+        <xs:simpleType>
+          <xs:restriction base="xs:anyURI">
+            <xs:enumeration value="urn:oasis:names:tc:dss:1.0:resultmajor:Success"/>
+            <xs:enumeration value="urn:oasis:names:tc:dss:1.0:resultmajor:RequesterError"/>
+            <xs:enumeration value="urn:oasis:names:tc:dss:1.0:resultmajor:ResponderError"/>
+            <xs:enumeration value="urn:oasis:names:tc:dss:1.0:resultmajor:InsufficientInformation"/>
+            <xs:enumeration value="urn:oasis:names:tc:dss:1.0:profiles:asynchronousprocessing:resultmajor:Pending"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ResultMinor" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="ResultMessage" type="dsb:InternationalStringType" minOccurs="0"/>
+      <xs:element name="ProblemReference" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OptionalInputs" type="dsb:OptionalInputsType"/>
+  <xs:complexType name="OptionalInputsType">
+    <xs:sequence>
+      <xs:element name="ServicePolicy" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Language" type="xs:language" minOccurs="0"/>
+      <xs:element name="Other" type="dsb:AnyType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OptionalOutputs" type="dsb:OptionalOutputsType"/>
+  <xs:complexType name="OptionalOutputsType">
+    <xs:sequence>
+      <xs:element name="AppliedPolicy" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Other" type="dsb:AnyType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RequestBaseType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Profile" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="RequestID" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ResponseBaseType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Result" type="dsb:ResultType"/>
+      <xs:element name="AppliedProfile" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="RequestID" type="xs:string" use="optional"/>
+    <xs:attribute name="ResponseID" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:element name="ServicePolicy" type="xs:anyURI"/>
+  <xs:element name="ServiceDescription" type="xs:anyURI"/>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-nslist-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+     Committee Specification 02
+     11 December 2019
+     Copyright (c) OASIS Open 2019. All Rights Reserved.
+     Source: http://docs.oasis-open.org/dss-x/dss-core/v2.0/cs02/schema/
+     Latest version of narrative specification: http://docs.oasis-open.org/dss-x/dss-core/v2.0/dss-core-v2.0.html
+     TC IPR Statement: https://www.oasis-open.org/committees/dss-x/ipr.php-->
+<xs:schema targetNamespace="http://docs.oasis-open.org/dss-x/ns/nsList" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:saml2-rw="http://docs.oasis-open.org/dss-x/ns/saml2/rewritten">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">This schema defines common structure used by the Digital Signature Service Core Protocols, Elements, and Bindings Committee Specification version 2.0 and other specifications</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!--===================================-->
+  <!--Holder for namespace prefix / URI-->
+  <!--pairs used e.g. in XPath-->
+  <!--expressions.-->
+  <!--===================================-->
+  <xs:complexType name="NsPrefixMappingType">
+    <xs:sequence>
+      <xs:element name="NamespaceURI" type="xs:anyURI"/>
+      <xs:element name="NamespacePrefix" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-rw-xmldsig-core-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Core Protocols, Elements, and Bindings Version 2.0
+     Committee Specification 02
+     11 December 2019
+     Copyright (c) OASIS Open 2019. All Rights Reserved.
+     Source: http://docs.oasis-open.org/dss-x/dss-core/v2.0/cs02/schema/
+     Latest version of narrative specification: http://docs.oasis-open.org/dss-x/dss-core/v2.0/dss-core-v2.0.html
+     TC IPR Statement: https://www.oasis-open.org/committees/dss-x/ipr.php-->
+<!--DOCTYPE schema
+  PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
+ [
+   <!ATTLIST schema 
+     xmlns:ds CDATA #FIXED "http://www.w3.org/2000/09/xmldsig#">
+   <!ENTITY dsig 'http://www.w3.org/2000/09/xmldsig#'>
+   <!ENTITY % p ''>
+   <!ENTITY % s ''>
+  ]-->
+<!--Schema for XML Signatures
+    http://www.w3.org/2000/09/xmldsig#
+    $Revision: 1.1 $ on $Date: 2002/02/08 20:32:26 $ by $Author: reagle $
+
+    Copyright 2001 The Internet Society and W3C (Massachusetts Institute
+    of Technology, Institut National de Recherche en Informatique et en
+    Automatique, Keio University). All Rights Reserved.
+    http://www.w3.org/Consortium/Legal/
+
+    This document is governed by the W3C Software License [1] as described
+    in the FAQ [2].
+
+    [1] http://www.w3.org/Consortium/Legal/copyright-software-19980720
+    [2] http://www.w3.org/Consortium/Legal/IPR-FAQ-20000620.html#DTD-->
+<!--Important Remark:
+
+This schema and its declared namespace are changed!
+It is NOT compatible with the original schema!
+
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
+support both JSON and XML. Therefore it is neccessary to limit the use of
+syntax elements to a common base. Another goal is to support implementors 
+using mapping frameworks.These requirements affect the XML syntax and resulted
+in the modification of existing scheme. These major topics are identified:
+
+- the use of xs:any
+- the 'mixed' content attribute of xs:complexType
+- inline namespace declarations usede within XPath expressions
+- 'choice' constructs that maybe mapped by frameworks in an untyped way
+
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
+specification in general see [@ToDo].-->
+<schema targetNamespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" version="0.1" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:saml2-rw="http://docs.oasis-open.org/dss-x/ns/saml2/rewritten">
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/nsList" schemaLocation="oasis-dss-nslist-schema.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/base" schemaLocation="oasis-dss-base-schema.xsd"/>
+  <!--Basic Types Defined for Signatures-->
+  <simpleType name="CryptoBinary">
+    <restriction base="base64Binary"></restriction>
+  </simpleType>
+  <!--Start Signature-->
+  <element name="Signature" type="ds-rw:SignatureType"/>
+  <xs:complexType name="SignatureType">
+    <xs:sequence>
+      <xs:element name="SignatureValue" type="base64Binary"/>
+      <xs:element name="SignedInfo" type="xs:string" minOccurs="0"/>
+      <xs:element name="KeyInfo" type="xs:string" minOccurs="0"/>
+      <xs:element name="Object" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="ID" type="ID" use="optional"/>
+  </xs:complexType>
+  <element name="SignatureValue" type="ds-rw:SignatureValueType"/>
+  <complexType name="SignatureValueType">
+    <simpleContent>
+      <extension base="base64Binary">
+        <attribute name="Id" type="ID" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--Start SignedInfo-->
+  <element name="SignedInfo" type="ds-rw:SignedInfoType"/>
+  <complexType name="SignedInfoType">
+    <sequence>
+      <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/>
+      <element name="SignatureMethod" type="ds-rw:SignatureMethodType"/>
+      <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="Id" type="ID" use="optional"/>
+  </complexType>
+  <element name="CanonicalizationMethod" type="ds-rw:CanonicalizationMethodType"/>
+  <xs:complexType name="CanonicalizationMethodType">
+    <xs:sequence>
+      <xs:element name="value" type="string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="XPath" type="string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="NsPrefixMapping" type="nsl:NsPrefixMappingType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Algorithm" type="xs:anyURI" use="required"/>
+  </xs:complexType>
+  <element name="SignatureMethod" type="ds-rw:SignatureMethodType"/>
+  <xs:complexType name="SignatureMethodType">
+    <xs:sequence>
+      <xs:element name="value" type="string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="HMACOutputLength" minOccurs="0" type="ds-rw:HMACOutputLengthType"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:sequence>
+    <xs:attribute name="Algorithm" type="anyURI" use="required"/>
+  </xs:complexType>
+  <!--Start Reference-->
+  <element name="Reference" type="ds-rw:ReferenceType"/>
+  <complexType name="ReferenceType">
+    <sequence>
+      <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
+      <element name="DigestMethod" type="ds-rw:DigestMethodType"/>
+      <xs:element name="DigestValue" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+    <attribute name="Id" type="ID" use="optional"/>
+    <attribute name="URI" type="anyURI" use="optional"/>
+    <attribute name="Type" type="anyURI" use="optional"/>
+  </complexType>
+  <element name="Transforms" type="ds-rw:TransformsType"/>
+  <complexType name="TransformsType">
+    <sequence>
+      <xs:element name="Transform" type="ds-rw:TransformType" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <element name="Transform" type="ds-rw:TransformType"/>
+  <xs:complexType name="TransformType">
+    <xs:sequence>
+      <xs:element name="value" type="string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="XPath" type="string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="NsPrefixMapping" type="nsl:NsPrefixMappingType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Algorithm" type="xs:anyURI" use="required"/>
+  </xs:complexType>
+  <!--End Reference-->
+  <element name="DigestMethod" type="ds-rw:DigestMethodType"/>
+  <xs:complexType name="DigestMethodType">
+    <xs:sequence>
+      <xs:element name="value" type="string" minOccurs="0" maxOccurs="1"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Base64Content" type="xs:base64Binary"/>
+      </xs:sequence>
+    </xs:sequence>
+    <xs:attribute name="Algorithm" type="anyURI" use="required"/>
+  </xs:complexType>
+  <element name="DigestValue" type="ds-rw:DigestValueType"/>
+  <simpleType name="DigestValueType">
+    <restriction base="base64Binary"/>
+  </simpleType>
+  <!--End SignedInfo-->
+  <!--Start KeyInfo-->
+  <element name="KeyInfo" type="ds-rw:KeyInfoType"/>
+  <complexType name="KeyInfoType" mixed="true">
+    <choice maxOccurs="unbounded">
+      <element name="KeyName" type="string"/>
+      <element name="KeyValue" type="ds-rw:KeyValueType"/>
+      <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/>
+      <element name="X509Data" type="ds-rw:X509DataType"/>
+      <element name="PGPData" type="ds-rw:PGPDataType"/>
+      <element name="SPKIData" type="ds-rw:SPKIDataType"/>
+      <element name="MgmtData" type="string"/>
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      <!--(1,1) elements from (0,unbounded) namespaces-->
+    </choice>
+    <attribute name="Id" type="ID" use="optional"/>
+  </complexType>
+  <element name="KeyName" type="string"/>
+  <element name="MgmtData" type="string"/>
+  <element name="KeyValue" type="ds-rw:KeyValueType"/>
+  <complexType name="KeyValueType" mixed="true">
+    <choice>
+      <element name="DSAKeyValue" type="ds-rw:DSAKeyValueType"/>
+      <element name="RSAKeyValue" type="ds-rw:RSAKeyValueType"/>
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+    </choice>
+  </complexType>
+  <element name="RetrievalMethod" type="ds-rw:RetrievalMethodType"/>
+  <complexType name="RetrievalMethodType">
+    <sequence>
+      <element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
+    </sequence>
+    <attribute name="URI" type="anyURI"/>
+    <attribute name="Type" type="anyURI" use="optional"/>
+  </complexType>
+  <!--Start X509Data-->
+  <element name="X509Data" type="ds-rw:X509DataType"/>
+  <xs:complexType name="X509DataType">
+    <xs:sequence>
+      <xs:sequence>
+        <xs:element name="X509IssuerSerial" minOccurs="0" maxOccurs="unbounded" type="ds-rw:X509IssuerSerialType"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="X509SKI" minOccurs="0" maxOccurs="unbounded" type="base64Binary"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="X509SubjectName" minOccurs="0" maxOccurs="unbounded" type="string"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="X509Certificate" minOccurs="0" maxOccurs="unbounded" type="base64Binary"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="X509CRL" minOccurs="0" maxOccurs="unbounded" type="base64Binary"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <complexType name="X509IssuerSerialType">
+    <sequence>
+      <element name="X509IssuerName" type="string"/>
+      <element name="X509SerialNumber" type="integer"/>
+    </sequence>
+  </complexType>
+  <!--End X509Data-->
+  <!--Begin PGPData-->
+  <element name="PGPData" type="ds-rw:PGPDataType"/>
+  <complexType name="PGPDataType">
+    <choice>
+      <sequence>
+        <element name="PGPKeyID" type="base64Binary"/>
+        <element name="PGPKeyPacket" type="base64Binary" minOccurs="0"/>
+        <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+      <sequence>
+        <element name="PGPKeyPacket" type="base64Binary"/>
+        <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+    </choice>
+  </complexType>
+  <!--End PGPData-->
+  <!--Begin SPKIData-->
+  <element name="SPKIData" type="ds-rw:SPKIDataType"/>
+  <complexType name="SPKIDataType">
+    <sequence maxOccurs="unbounded">
+      <element name="SPKISexp" type="base64Binary"/>
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+  <!--End SPKIData-->
+  <!--End KeyInfo-->
+  <!--Start Object (Manifest, SignatureProperty)-->
+  <element name="Object" type="ds-rw:ObjectType"/>
+  <complexType name="ObjectType" mixed="true">
+    <sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+    </sequence>
+    <attribute name="Id" type="ID" use="optional"/>
+    <attribute name="MimeType" type="string" use="optional"/>
+    <!--add a grep facet-->
+    <attribute name="Encoding" type="anyURI" use="optional"/>
+  </complexType>
+  <element name="Manifest" type="ds-rw:ManifestType"/>
+  <complexType name="ManifestType">
+    <sequence>
+      <element name="Reference" type="ds-rw:ReferenceType" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="Id" type="ID" use="optional"/>
+  </complexType>
+  <element name="SignatureProperties" type="ds-rw:SignaturePropertiesType"/>
+  <complexType name="SignaturePropertiesType">
+    <sequence>
+      <element name="SignatureProperty" type="ds-rw:SignaturePropertyType" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="Id" type="ID" use="optional"/>
+  </complexType>
+  <element name="SignatureProperty" type="ds-rw:SignaturePropertyType"/>
+  <complexType name="SignaturePropertyType" mixed="true">
+    <choice maxOccurs="unbounded">
+      <xs:element name="Base64Content" type="xs:base64Binary" minOccurs="0" maxOccurs="1"/>
+      <!--(1,1) elements from (1,unbounded) namespaces-->
+    </choice>
+    <attribute name="Target" type="anyURI" use="required"/>
+    <attribute name="Id" type="ID" use="optional"/>
+  </complexType>
+  <!--End Object (Manifest, SignatureProperty)-->
+  <!--Start Algorithm Parameters-->
+  <simpleType name="HMACOutputLengthType">
+    <restriction base="integer"/>
+  </simpleType>
+  <!--Start KeyValue Element-types-->
+  <element name="DSAKeyValue" type="ds-rw:DSAKeyValueType"/>
+  <complexType name="DSAKeyValueType">
+    <sequence>
+      <sequence minOccurs="0">
+        <element name="P" type="ds-rw:CryptoBinary"/>
+        <element name="Q" type="ds-rw:CryptoBinary"/>
+      </sequence>
+      <element name="G" type="ds-rw:CryptoBinary" minOccurs="0"/>
+      <element name="Y" type="ds-rw:CryptoBinary"/>
+      <element name="J" type="ds-rw:CryptoBinary" minOccurs="0"/>
+      <sequence minOccurs="0">
+        <element name="Seed" type="ds-rw:CryptoBinary"/>
+        <element name="PgenCounter" type="ds-rw:CryptoBinary"/>
+      </sequence>
+    </sequence>
+  </complexType>
+  <element name="RSAKeyValue" type="ds-rw:RSAKeyValueType"/>
+  <complexType name="RSAKeyValueType">
+    <sequence>
+      <element name="Modulus" type="ds-rw:CryptoBinary"/>
+      <element name="Exponent" type="ds-rw:CryptoBinary"/>
+    </sequence>
+  </complexType>
+  <!--End KeyValue Element-types-->
+  <!--End Signature-->
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:/home/florian/tresor-transformator/wsdl/src/main/resources/wsdl/deps/oasis-dss-metadata-schema.xsd</con:url><con:content><![CDATA[<!--Digital Signature Service Metadata Version 1.0
+     Committee Specification 02
+     11 December 2019
+     Copyright (c) OASIS Open 2019. All Rights Reserved.
+     Source: https://docs.oasis-open.org/dss-x/dss-md/v1.0/cs02/schema/
+     Latest version of narrative specification: https://docs.oasis-open.org/dss-x/dss-md/v1.0/dss-md-v1.0.html
+     TC IPR Statement: https://www.oasis-open.org/committees/dss-x/ipr.php-->
+<!--Imported schemes and their namespaces are rewritten!
+They are NOT compatible with the original schema!
+
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
+support both JSON and XML. Therefore it is neccessary to limit the use of
+syntax elements to a common base. Another goal is to support implementors 
+using mapping frameworks.These requirements affect the XML syntax and resulted
+in the modification of existing scheme. These major topics are identified:
+
+- the use of xs:any
+- the 'mixed' content attribute of xs:complexType
+- inline namespace declarations usede within XPath expressions
+- 'choice' constructs that maybe mapped by frameworks in an untyped way
+
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
+specification in general see the OASIS DSS-X homepage at 
+https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
+<!--Imported schemes and their namespaces are rewritten!
+They are NOT compatible with the original schema!
+
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
+support both JSON and XML. Therefore it is neccessary to limit the use of
+syntax elements to a common base. Another goal is to support implementors 
+using mapping frameworks.These requirements affect the XML syntax and resulted
+in the modification of existing scheme. These major topics are identified:
+
+- the use of xs:any
+- the 'mixed' content attribute of xs:complexType
+- inline namespace declarations usede within XPath expressions
+- 'choice' constructs that maybe mapped by frameworks in an untyped way
+
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
+specification in general see the OASIS DSS-X homepage at 
+https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
+<xs:schema targetNamespace="http://docs.oasis-open.org/dss-x/ns/metadata" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:md="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten">
+  <!--=======================================-->
+  <!--OASIS DSS-X Metadata Structure-->
+  <!--=======================================-->
+  <!--Version CS 02 (27.10.2019)-->
+  <!--=======================================-->
+  <xs:annotation>
+    <xs:documentation xml:lang="en">This schema defines general structures for providing service-related information.</xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/base" schemaLocation="oasis-dss-base-schema.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="oasis-dss-rw-xmldsig-core-schema.xsd"/>
+  <!--===================================-->
+  <!--Basic components-->
+  <!--===================================-->
+  <xs:element name="Description" type="dsb:InternationalStringType"/>
+  <xs:element name="Extension" type="md:ExtensionType"/>
+  <xs:complexType name="ExtensionType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperationType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Specification" type="xs:anyURI" minOccurs="0"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Input" type="md:ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Option" type="md:ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Output" type="md:ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Schema" type="xs:anyURI" minOccurs="0"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ParameterType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Specification" type="xs:anyURI" minOccurs="0"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Format" type="md:FormatType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Schema" type="xs:anyURI" minOccurs="0"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FormatType">
+    <xs:sequence>
+      <xs:element name="FormatID" type="xs:anyURI"/>
+      <xs:element name="Specification" type="xs:anyURI" minOccurs="0"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>
+      <xs:element name="Parameter" type="md:ParameterType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Extension" type="dsb:AnyType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="IsDefault" type="xs:boolean" use="optional" default="false"/>
+  </xs:complexType>
+  <xs:complexType name="PolicyType">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="PolicyByRef" type="md:PolicyByRefType"/>
+        <xs:element name="PolicyByDef" type="dsb:AnyType"/>
+      </xs:choice>
+      <xs:element name="EarlierPolicy" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Type" type="xs:anyURI" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="PolicyByRefType">
+    <xs:sequence>
+      <xs:element name="PolicyID" type="xs:anyURI"/>
+      <xs:element name="PolicyLocation" type="xs:anyURI" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--===================================-->
+  <!--Provider-->
+  <!--===================================-->
+  <xs:element name="Provider" type="md:ProviderType"/>
+  <xs:complexType name="ProviderType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Logo" type="xs:anyURI"/>
+      <xs:element name="Region" type="xs:string"/>
+      <xs:element name="SupportedLanguage" type="xs:language" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AuthInfo" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="Protocol" type="md:ProtocolType" maxOccurs="unbounded"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--===================================-->
+  <!--Protocol-->
+  <!--===================================-->
+  <xs:element name="Protocol" type="md:ProtocolType"/>
+  <xs:complexType name="ProtocolType">
+    <xs:sequence>
+      <xs:element name="Specification" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Version" type="xs:string" minOccurs="0"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Profile" type="md:ProfileType" maxOccurs="unbounded"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <!--===================================-->
+  <!--Profile-->
+  <!--===================================-->
+  <xs:element name="Profile" type="md:ProfileType"/>
+  <xs:complexType name="ProfileType">
+    <xs:sequence>
+      <xs:element name="ProfileIdentifier" type="xs:anyURI"/>
+      <xs:element name="Specification" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="md:Description" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Operation" type="md:OperationType" maxOccurs="unbounded"/>
+      <xs:element name="Policy" type="md:PolicyType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="md:Extension" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
   </xs:complexType>
 </xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://127.0.0.1:18080</con:endpoint><con:endpoint>http://bsi-transformator:8888/mockS4</con:endpoint></con:endpoints><con:operation id="21adadd1-bc7e-4e1a-b364-8ac8f202343f" isOneWay="false" action="http://www.bsi.bund.de/tr-esor/ArchiveData" name="ArchiveData" bindingOperationName="ArchiveData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9a6247ff-401c-49c5-8bb3-8d7044c30619" name="Request 1" outgoingWss="" incomingWss=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://bsi-transformator:8888/mockS4</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema">\r
    <soapenv:Header/>\r
@@ -11571,7 +12747,7 @@
          </urn:SignatureObject>\r
       </urn:VerifyRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:call></con:operation></con:interface><con:mockService id="ab125586-e244-4b08-89d3-04198b78c92f" port="8888" path="/mockS4" host="bsi-transformator" name="S4-Mock-Service" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ArchiveData" id="2883f7a4-99f4-4419-b04a-ace6d3ec0558" interface="S4" operation="ArchiveData"><con:settings/><con:defaultResponse>TST-S-000-Response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+</soapenv:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:call></con:operation><con:operation id="d7ad1100-e25c-43c1-b89c-4281e80caaf5" isOneWay="false" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo" name="RetrieveInfo" bindingOperationName="RetrieveInfo" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation id="c34bab57-6180-4cf3-8943-a29cf98a609e" isOneWay="false" action="http://www.bsi.bund.de/tr-esor/ArchiveTrace" name="ArchiveTrace" bindingOperationName="ArchiveTrace" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:mockService id="ab125586-e244-4b08-89d3-04198b78c92f" port="8888" path="/mockS4" host="bsi-transformator" name="S4-Mock-Service" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ArchiveData" id="2883f7a4-99f4-4419-b04a-ace6d3ec0558" interface="S4" operation="ArchiveData"><con:settings/><con:defaultResponse>TST-S-000-Response</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def holder = groovyUtils.getXmlHolder( mockRequest.requestContent )
 holder.namespaces["tr"] = "http://www.bsi.bund.de/tr-esor/api/1.2"
 holder.namespaces["xaip"] = "http://www.bsi.bund.de/tr-esor/xaip/1.2"
