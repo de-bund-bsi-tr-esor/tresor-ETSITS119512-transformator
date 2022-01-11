@@ -24,7 +24,7 @@ package tresor.trans.service;
  */
 public class TresorCodes {
 
-	private static final String PFX = "http://www.bsi.bund.de/tr-esor/api/1.2/";
+	private static final String PFX = "http://www.bsi.bund.de/tr-esor/api/1.3/";
 
 	private static final String MAJOR = PFX + "resultmajor";
 	private static final String MINOR = PFX + "resultminor";
