@@ -30016,7 +30016,31 @@ return response</con:dispatchPath><con:response name="TST-VEV-000-Response" id="
 		</ns2:VerifyResponse>
 	</S:Body>
 </S:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="RetrieveInfo" id="b54ca713-3da5-4622-8e85-385a00c6825e" interface="S4" operation="RetrieveInfo"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="50b3185e-64e4-42f4-9324-b991fec54926" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:met="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base">
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="RetrieveInfo" id="b54ca713-3da5-4622-8e85-385a00c6825e" interface="S4" operation="RetrieveInfo"><con:settings/><con:defaultResponse>OK_oldProfileFrom1-2</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def holder = groovyUtils.getXmlHolder( mockRequest.requestContent )
+holder.namespaces["tr"] = "http://www.bsi.bund.de/tr-esor/api/1.3"
+holder.namespaces["xaip"] = "http://www.bsi.bund.de/tr-esor/xaip"
+holder.namespaces["asic"] = "http://uri.etsi.org/02918/v1.2.1#"
+holder.namespaces["vr"] = "urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#"
+holder.namespaces["dss"] = "urn:oasis:names:tc:dss:1.0:core:schema"
+holder.namespaces["dss-pol"] = "urn:oasis:names:tc:dss-x:1.0:profiles:SignaturePolicy:schema#"
+holder.namespaces["ec"] = "http://www.bsi.bund.de/ecard/api/1.1"
+holder.namespaces["inc"] = "http://www.w3.org/2004/08/xop/include"
+
+def requestID = holder.getNodeValue( "//tr:RetrieveInfoRequest/@RequestID" )
+def response = "OK_oldProfileFrom1-2"
+
+log.info(requestID)
+	if ( "TST-RI-501".equals(requestID) || 1) {
+		log.info("wtf")
+		response = "NOK_notSupported"
+		return response
+	}
+	
+ 
+
+return response
+</con:dispatchPath><con:response name="OK_oldProfileFrom1-2" id="50b3185e-64e4-42f4-9324-b991fec54926" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:met="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base">
    <soapenv:Header/>
    <soapenv:Body>
       <ns:RetrieveInfoResponse RequestID="?" Profile="?">
@@ -30132,4 +30156,16 @@ return response</con:dispatchPath><con:response name="TST-VEV-000-Response" id="
       </ns:RetrieveInfoResponse>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:response name="NOK_notSupported" id="25808871-07fd-4978-925b-74e17d20e226" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:met="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:RetrieveInfoResponse RequestID="?" Profile="?">
+         <urn:Result>
+            <urn:ResultMajor>urn:oasis:names:tc:dss:1.0:resultmajor:RequesterError</urn:ResultMajor>
+            <urn:ResultMinor>http://uri.etsi.org/19512/error/notSupported</urn:ResultMinor>
+            <urn:ResultMessage xml:lang="?">?</urn:ResultMessage>
+         </urn:Result>
+      </ns:RetrieveInfoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
