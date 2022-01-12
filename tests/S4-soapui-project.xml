@@ -30016,4 +30016,391 @@ return response</con:dispatchPath><con:response name="TST-VEV-000-Response" id="
 		</ns2:VerifyResponse>
 	</S:Body>
 </S:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/Verify"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="RetrieveInfo" id="b54ca713-3da5-4622-8e85-385a00c6825e" interface="S4" operation="RetrieveInfo"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="50b3185e-64e4-42f4-9324-b991fec54926" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:met="http://docs.oasis-open.org/dss-x/ns/metadata" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:RetrieveInfoResponse RequestID="?" Profile="?">
+         <urn:Result>
+            <urn:ResultMajor>?</urn:ResultMajor>
+            <!--Optional:-->
+            <urn:ResultMinor>?</urn:ResultMinor>
+            <!--Optional:-->
+            <urn:ResultMessage xml:lang="?">?</urn:ResultMessage>
+         </urn:Result>
+         <!--Optional:-->
+         <urn:OptionalOutputs>
+            <!--You may enter ANY elements at this point-->
+         </urn:OptionalOutputs>
+         <!--Zero or more repetitions:-->
+         <v1:Profile>
+            <met:ProfileIdentifier>?</met:ProfileIdentifier>
+            <!--Zero or more repetitions:-->
+            <met:Specification>?</met:Specification>
+            <!--Zero or more repetitions:-->
+            <met:Description xml:lang="?">?</met:Description>
+            <!--1 or more repetitions:-->
+            <met:Operation>
+               <met:Name>?</met:Name>
+               <!--Optional:-->
+               <met:Specification>?</met:Specification>
+               <!--Zero or more repetitions:-->
+               <met:Description xml:lang="?">?</met:Description>
+               <!--Zero or more repetitions:-->
+               <met:Input>
+                  <met:Name>?</met:Name>
+                  <!--Optional:-->
+                  <met:Specification>?</met:Specification>
+                  <!--Zero or more repetitions:-->
+                  <met:Description xml:lang="?">?</met:Description>
+                  <!--Zero or more repetitions:-->
+                  <met:Format IsDefault="false">
+                     <met:FormatID>?</met:FormatID>
+                     <!--Optional:-->
+                     <met:Specification>?</met:Specification>
+                     <!--Zero or more repetitions:-->
+                     <met:Description xml:lang="?">?</met:Description>
+                     <!--Optional:-->
+                     <met:Transforms>
+                        <!--1 or more repetitions:-->
+                        <rew:Transform Algorithm="?">
+                           <!--Optional:-->
+                           <rew:value>?</rew:value>
+                           <!--Optional:-->
+                           <rew:Base64Content>cid:886093183370</rew:Base64Content>
+                           <!--Zero or more repetitions:-->
+                           <rew:XPath>?</rew:XPath>
+                           <!--Zero or more repetitions:-->
+                           <rew:NsPrefixMapping>
+                              <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                              <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                           </rew:NsPrefixMapping>
+                        </rew:Transform>
+                     </met:Transforms>
+                     <!--Zero or more repetitions:-->
+                     <met:Parameter/>
+                     <!--Zero or more repetitions:-->
+                     <met:Extension MimeType="?" ID="?" IDREF="?">
+                        <!--You have a CHOICE of the next 2 items at this level-->
+                        <base:Value>cid:492948477265</base:Value>
+                        <base:AttRef AttRefURI="?">
+                           <!--Zero or more repetitions:-->
+                           <base:DigestInfo>
+                              <base:DigestMethod>?</base:DigestMethod>
+                              <base:DigestValue>cid:55760743756</base:DigestValue>
+                           </base:DigestInfo>
+                        </base:AttRef>
+                        <!--Optional:-->
+                        <base:Transforms>
+                           <!--1 or more repetitions:-->
+                           <rew:Transform Algorithm="?">
+                              <!--Optional:-->
+                              <rew:value>?</rew:value>
+                              <!--Optional:-->
+                              <rew:Base64Content>cid:753809466022</rew:Base64Content>
+                              <!--Zero or more repetitions:-->
+                              <rew:XPath>?</rew:XPath>
+                              <!--Zero or more repetitions:-->
+                              <rew:NsPrefixMapping>
+                                 <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                                 <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                              </rew:NsPrefixMapping>
+                           </rew:Transform>
+                        </base:Transforms>
+                     </met:Extension>
+                  </met:Format>
+                  <!--Optional:-->
+                  <met:Schema>?</met:Schema>
+                  <!--Zero or more repetitions:-->
+                  <met:Extension>
+                     <met:Name>?</met:Name>
+                     <met:Value>?</met:Value>
+                  </met:Extension>
+               </met:Input>
+               <!--Zero or more repetitions:-->
+               <met:Option>
+                  <met:Name>?</met:Name>
+                  <!--Optional:-->
+                  <met:Specification>?</met:Specification>
+                  <!--Zero or more repetitions:-->
+                  <met:Description xml:lang="?">?</met:Description>
+                  <!--Zero or more repetitions:-->
+                  <met:Format IsDefault="false">
+                     <met:FormatID>?</met:FormatID>
+                     <!--Optional:-->
+                     <met:Specification>?</met:Specification>
+                     <!--Zero or more repetitions:-->
+                     <met:Description xml:lang="?">?</met:Description>
+                     <!--Optional:-->
+                     <met:Transforms>
+                        <!--1 or more repetitions:-->
+                        <rew:Transform Algorithm="?">
+                           <!--Optional:-->
+                           <rew:value>?</rew:value>
+                           <!--Optional:-->
+                           <rew:Base64Content>cid:1234249726586</rew:Base64Content>
+                           <!--Zero or more repetitions:-->
+                           <rew:XPath>?</rew:XPath>
+                           <!--Zero or more repetitions:-->
+                           <rew:NsPrefixMapping>
+                              <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                              <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                           </rew:NsPrefixMapping>
+                        </rew:Transform>
+                     </met:Transforms>
+                     <!--Zero or more repetitions:-->
+                     <met:Parameter/>
+                     <!--Zero or more repetitions:-->
+                     <met:Extension MimeType="?" ID="?" IDREF="?">
+                        <!--You have a CHOICE of the next 2 items at this level-->
+                        <base:Value>cid:1529236035592</base:Value>
+                        <base:AttRef AttRefURI="?">
+                           <!--Zero or more repetitions:-->
+                           <base:DigestInfo>
+                              <base:DigestMethod>?</base:DigestMethod>
+                              <base:DigestValue>cid:274758769873</base:DigestValue>
+                           </base:DigestInfo>
+                        </base:AttRef>
+                        <!--Optional:-->
+                        <base:Transforms>
+                           <!--1 or more repetitions:-->
+                           <rew:Transform Algorithm="?">
+                              <!--Optional:-->
+                              <rew:value>?</rew:value>
+                              <!--Optional:-->
+                              <rew:Base64Content>cid:698530838634</rew:Base64Content>
+                              <!--Zero or more repetitions:-->
+                              <rew:XPath>?</rew:XPath>
+                              <!--Zero or more repetitions:-->
+                              <rew:NsPrefixMapping>
+                                 <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                                 <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                              </rew:NsPrefixMapping>
+                           </rew:Transform>
+                        </base:Transforms>
+                     </met:Extension>
+                  </met:Format>
+                  <!--Optional:-->
+                  <met:Schema>?</met:Schema>
+                  <!--Zero or more repetitions:-->
+                  <met:Extension>
+                     <met:Name>?</met:Name>
+                     <met:Value>?</met:Value>
+                  </met:Extension>
+               </met:Option>
+               <!--Zero or more repetitions:-->
+               <met:Output>
+                  <met:Name>?</met:Name>
+                  <!--Optional:-->
+                  <met:Specification>?</met:Specification>
+                  <!--Zero or more repetitions:-->
+                  <met:Description xml:lang="?">?</met:Description>
+                  <!--Zero or more repetitions:-->
+                  <met:Format IsDefault="false">
+                     <met:FormatID>?</met:FormatID>
+                     <!--Optional:-->
+                     <met:Specification>?</met:Specification>
+                     <!--Zero or more repetitions:-->
+                     <met:Description xml:lang="?">?</met:Description>
+                     <!--Optional:-->
+                     <met:Transforms>
+                        <!--1 or more repetitions:-->
+                        <rew:Transform Algorithm="?">
+                           <!--Optional:-->
+                           <rew:value>?</rew:value>
+                           <!--Optional:-->
+                           <rew:Base64Content>cid:439030149909</rew:Base64Content>
+                           <!--Zero or more repetitions:-->
+                           <rew:XPath>?</rew:XPath>
+                           <!--Zero or more repetitions:-->
+                           <rew:NsPrefixMapping>
+                              <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                              <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                           </rew:NsPrefixMapping>
+                        </rew:Transform>
+                     </met:Transforms>
+                     <!--Zero or more repetitions:-->
+                     <met:Parameter/>
+                     <!--Zero or more repetitions:-->
+                     <met:Extension MimeType="?" ID="?" IDREF="?">
+                        <!--You have a CHOICE of the next 2 items at this level-->
+                        <base:Value>cid:553519063977</base:Value>
+                        <base:AttRef AttRefURI="?">
+                           <!--Zero or more repetitions:-->
+                           <base:DigestInfo>
+                              <base:DigestMethod>?</base:DigestMethod>
+                              <base:DigestValue>cid:194127071425</base:DigestValue>
+                           </base:DigestInfo>
+                        </base:AttRef>
+                        <!--Optional:-->
+                        <base:Transforms>
+                           <!--1 or more repetitions:-->
+                           <rew:Transform Algorithm="?">
+                              <!--Optional:-->
+                              <rew:value>?</rew:value>
+                              <!--Optional:-->
+                              <rew:Base64Content>cid:728256189194</rew:Base64Content>
+                              <!--Zero or more repetitions:-->
+                              <rew:XPath>?</rew:XPath>
+                              <!--Zero or more repetitions:-->
+                              <rew:NsPrefixMapping>
+                                 <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                                 <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                              </rew:NsPrefixMapping>
+                           </rew:Transform>
+                        </base:Transforms>
+                     </met:Extension>
+                  </met:Format>
+                  <!--Optional:-->
+                  <met:Schema>?</met:Schema>
+                  <!--Zero or more repetitions:-->
+                  <met:Extension>
+                     <met:Name>?</met:Name>
+                     <met:Value>?</met:Value>
+                  </met:Extension>
+               </met:Output>
+               <!--Optional:-->
+               <met:Schema>?</met:Schema>
+               <!--Zero or more repetitions:-->
+               <met:Extension>
+                  <met:Name>?</met:Name>
+                  <met:Value>?</met:Value>
+               </met:Extension>
+            </met:Operation>
+            <!--Zero or more repetitions:-->
+            <met:Policy Type="?">
+               <!--You have a CHOICE of the next 2 items at this level-->
+               <met:PolicyByRef>
+                  <met:PolicyID>?</met:PolicyID>
+                  <!--Optional:-->
+                  <met:PolicyLocation>?</met:PolicyLocation>
+               </met:PolicyByRef>
+               <met:PolicyByDef MimeType="?" ID="?" IDREF="?">
+                  <!--You have a CHOICE of the next 2 items at this level-->
+                  <base:Value>cid:108180435928</base:Value>
+                  <base:AttRef AttRefURI="?">
+                     <!--Zero or more repetitions:-->
+                     <base:DigestInfo>
+                        <base:DigestMethod>?</base:DigestMethod>
+                        <base:DigestValue>cid:617704284733</base:DigestValue>
+                     </base:DigestInfo>
+                  </base:AttRef>
+                  <!--Optional:-->
+                  <base:Transforms>
+                     <!--1 or more repetitions:-->
+                     <rew:Transform Algorithm="?">
+                        <!--Optional:-->
+                        <rew:value>?</rew:value>
+                        <!--Optional:-->
+                        <rew:Base64Content>cid:249786054421</rew:Base64Content>
+                        <!--Zero or more repetitions:-->
+                        <rew:XPath>?</rew:XPath>
+                        <!--Zero or more repetitions:-->
+                        <rew:NsPrefixMapping>
+                           <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                           <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                        </rew:NsPrefixMapping>
+                     </rew:Transform>
+                  </base:Transforms>
+               </met:PolicyByDef>
+               <!--Zero or more repetitions:-->
+               <met:EarlierPolicy>?</met:EarlierPolicy>
+               <!--Zero or more repetitions:-->
+               <met:Extension>
+                  <met:Name>?</met:Name>
+                  <met:Value>?</met:Value>
+               </met:Extension>
+            </met:Policy>
+            <!--Zero or more repetitions:-->
+            <met:Extension>
+               <met:Name>?</met:Name>
+               <met:Value>?</met:Value>
+            </met:Extension>
+            <!--Optional:-->
+            <v1:SchemeIdentifier>?</v1:SchemeIdentifier>
+            <v1:ProfileValidityPeriod>
+               <v1:ValidFrom>?</v1:ValidFrom>
+               <!--Optional:-->
+               <v1:ValidUntil>?</v1:ValidUntil>
+            </v1:ProfileValidityPeriod>
+            <v1:PreservationStorageModel>?</v1:PreservationStorageModel>
+            <!--1 or more repetitions:-->
+            <v1:PreservationGoal>?</v1:PreservationGoal>
+            <!--1 or more repetitions:-->
+            <v1:EvidenceFormat IsDefault="false">
+               <met:FormatID>?</met:FormatID>
+               <!--Optional:-->
+               <met:Specification>?</met:Specification>
+               <!--Zero or more repetitions:-->
+               <met:Description xml:lang="?">?</met:Description>
+               <!--Optional:-->
+               <met:Transforms>
+                  <!--1 or more repetitions:-->
+                  <rew:Transform Algorithm="?">
+                     <!--Optional:-->
+                     <rew:value>?</rew:value>
+                     <!--Optional:-->
+                     <rew:Base64Content>cid:550362821936</rew:Base64Content>
+                     <!--Zero or more repetitions:-->
+                     <rew:XPath>?</rew:XPath>
+                     <!--Zero or more repetitions:-->
+                     <rew:NsPrefixMapping>
+                        <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                        <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                     </rew:NsPrefixMapping>
+                  </rew:Transform>
+               </met:Transforms>
+               <!--Zero or more repetitions:-->
+               <met:Parameter>
+                  <met:Name>?</met:Name>
+                  <!--Optional:-->
+                  <met:Specification>?</met:Specification>
+                  <!--Zero or more repetitions:-->
+                  <met:Description xml:lang="?">?</met:Description>
+                  <!--Zero or more repetitions:-->
+                  <met:Format/>
+                  <!--Optional:-->
+                  <met:Schema>?</met:Schema>
+                  <!--Zero or more repetitions:-->
+                  <met:Extension>
+                     <met:Name>?</met:Name>
+                     <met:Value>?</met:Value>
+                  </met:Extension>
+               </met:Parameter>
+               <!--Zero or more repetitions:-->
+               <met:Extension MimeType="?" ID="?" IDREF="?">
+                  <!--You have a CHOICE of the next 2 items at this level-->
+                  <base:Value>cid:10254102331</base:Value>
+                  <base:AttRef AttRefURI="?">
+                     <!--Zero or more repetitions:-->
+                     <base:DigestInfo>
+                        <base:DigestMethod>?</base:DigestMethod>
+                        <base:DigestValue>cid:1242442981507</base:DigestValue>
+                     </base:DigestInfo>
+                  </base:AttRef>
+                  <!--Optional:-->
+                  <base:Transforms>
+                     <!--1 or more repetitions:-->
+                     <rew:Transform Algorithm="?">
+                        <!--Optional:-->
+                        <rew:value>?</rew:value>
+                        <!--Optional:-->
+                        <rew:Base64Content>cid:1601789155522</rew:Base64Content>
+                        <!--Zero or more repetitions:-->
+                        <rew:XPath>?</rew:XPath>
+                        <!--Zero or more repetitions:-->
+                        <rew:NsPrefixMapping>
+                           <nsl:NamespaceURI>?</nsl:NamespaceURI>
+                           <nsl:NamespacePrefix>?</nsl:NamespacePrefix>
+                        </rew:NsPrefixMapping>
+                     </rew:Transform>
+                  </base:Transforms>
+               </met:Extension>
+            </v1:EvidenceFormat>
+            <!--Optional:-->
+            <v1:ExpectedEvidenceDuration>?</v1:ExpectedEvidenceDuration>
+            <!--Optional:-->
+            <v1:PreservationEvidenceRetentionPeriod>?</v1:PreservationEvidenceRetentionPeriod>
+         </v1:Profile>
+      </ns:RetrieveInfoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
