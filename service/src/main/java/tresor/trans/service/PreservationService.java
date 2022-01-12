@@ -27,12 +27,14 @@ import de.bund.bsi.tr_esor.api._1.ArchiveUpdateRequest;
 import de.bund.bsi.tr_esor.api._1.DataLocation;
 import de.bund.bsi.tr_esor.api._1.ObjectFactory;
 import de.bund.bsi.tr_esor.api._1.ReasonOfDeletion;
+import de.bund.bsi.tr_esor.api._1.RetrieveInfoRequest;
 import de.bund.bsi.tr_esor.api._1_3.S4;
 import io.quarkiverse.cxf.annotation.CXFClient;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jws.WebService;
@@ -55,6 +57,7 @@ import org.etsi.uri._19512.v1_1.DeletePOType;
 import org.etsi.uri._19512.v1_1.POType;
 import org.etsi.uri._19512.v1_1.PreservePOResponseType;
 import org.etsi.uri._19512.v1_1.PreservePOType;
+import org.etsi.uri._19512.v1_1.ProfileType;
 import org.etsi.uri._19512.v1_1.ResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveInfoResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveInfoType;
@@ -64,7 +67,6 @@ import org.etsi.uri._19512.v1_1.RetrieveTraceResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveTraceType;
 import org.etsi.uri._19512.v1_1.SearchResponseType;
 import org.etsi.uri._19512.v1_1.SearchType;
-import org.etsi.uri._19512.v1_1.StatusType;
 import org.etsi.uri._19512.v1_1.SubjectOfRetrievalType;
 import org.etsi.uri._19512.v1_1.UpdatePOCResponseType;
 import org.etsi.uri._19512.v1_1.UpdatePOCType;
@@ -111,49 +113,24 @@ public class PreservationService implements Preservation {
 	@Override
 	public RetrieveInfoResponseType retrieveInfo(RetrieveInfoType req) {
 		LOG.debug("RetrieveInfo called.");
+
 		var res = new RetrieveInfoResponseType();
 		res.setResult(ResultType.builder()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		var profs = res.getProfile();
+		var s4Request = new RetrieveInfoRequest();
+		s4Request.setProfileIdentifier(req.getProfile());
+		s4Request.setStatus(req.getStatus());
 
+		var s4Resp = client.retrieveInfo(s4Request);
 
-		// only active is supported, if inactive is requested, we delete everything
-		var reqStatus = Optional.ofNullable(req.getStatus())
-				.orElse(StatusType.ACTIVE);
-		if (reqStatus == StatusType.INACTIVE || reqStatus == StatusType.ALL) {
-			// nothing to add currently
-		}
-		if (reqStatus == StatusType.ACTIVE || reqStatus == StatusType.ALL) {
-			var prof = profileSupplier.getProfile();
-			profs.add(prof);
-		}
-
-		// filter out everything but the requested profile
-		if (req.isSetProfile()) {
-			var it = res.getProfile().iterator();
-			while (it.hasNext()) {
-				var next = it.next();
-				// remove profile if it is not equal to the requested value
-				if (! req.getProfile().equals(next.getProfileIdentifier())) {
-					it.remove();
-				}
-			}
-
-			//if non left
-			if (!res.isSetProfile()) {
-
-				res = new RetrieveInfoResponseType();
-				res.setResult(ResultType.builder()
-						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-						.withResultMinor(PresCodes.NOT_SUPPORTED)
-						.build());
-				res.setRequestID(req.getRequestID());
-
-			}
-		}
+		res.getProfile().addAll(
+			s4Resp.getRest().stream()
+				.map(el -> ((JAXBElement<ProfileType>) el).getValue())
+				.collect(Collectors.toList())
+		);
 
 		LOG.debug("RetrieveInfo finished.");
 		return res;
