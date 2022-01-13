@@ -92,9 +92,9 @@ import org.w3c.dom.Element;
 @ApplicationScoped
 public class PresUtils {
 
-	private class Lut extends HashMap<String, String> {
+	private class Lut<E> extends HashMap<String, E> {
 
-		Lut with(String a, String b) {
+		Lut with(String a, E b) {
 			this.put(a, b);
 			return this;
 		}
@@ -106,6 +106,7 @@ public class PresUtils {
 	ProfileSupplier profileSupplier;
 
 	JAXBContext preservePoJaxbCtx;
+	//minor mappings
 	Map<String, String> tresorPresArchiveSubmissionMinorMapping;
 	Map<String, String> tresorPresArchiveUpdateMinorMapping;
 	Map<String, String> tresorPresArchiveRetrievalMinorMapping;
@@ -114,6 +115,17 @@ public class PresUtils {
 	Map<String, String> tresorPresArchiveDataMinorMapping;
 	Map<String, String> tresorPresVerifyMinorMapping;
 	Map<String, String> tresorPresRetrieveInfoMinorMapping;
+
+	//major of minor mapping 
+	//this can be used to change the preservation major result w.r.t. the minor result given by S4
+	Map<String, ResultType.ResultMajor> tresorPresArchiveSubmissionMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveUpdateMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveRetrievalMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveEvidenceMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveDeletionMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveDataMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresVerifyMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresRetrieveInforMajorOfMinor;
 
 	public PresUtils() throws JAXBException {
 		preservePoJaxbCtx = JAXBContext.newInstance(de.bund.bsi.tr_esor.api._1.ObjectFactory.class,
@@ -212,6 +224,11 @@ public class PresUtils {
 			.with(TresorCodes.INT_ERROR, PresCodes.INT_ERROR)
 			.with(TresorCodes.PARAM_ERROR, PresCodes.PARAM_ERROR)
 			.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
+		);
+
+		tresorPresRetrieveInforMajorOfMinor = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.PARAM_ERROR, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 		);
 	}
 
@@ -508,39 +525,39 @@ public class PresUtils {
 	}
 
 	public void assertClientResultOk(RetrieveInfoResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresRetrieveInfoMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresRetrieveInfoMinorMapping, tresorPresRetrieveInforMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveSubmissionResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveSubmissionMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveSubmissionMinorMapping, tresorPresArchiveSubmissionMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveUpdateResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveUpdateMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveUpdateMinorMapping, tresorPresArchiveUpdateMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveRetrievalResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveRetrievalMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveRetrievalMinorMapping, tresorPresArchiveRetrievalMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveEvidenceResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveEvidenceMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveEvidenceMinorMapping, tresorPresArchiveEvidenceMajorOfMinor);
 	}
 
 	public void assertClientResultDeletionOk(de.bund.bsi.tr_esor.api._1.ResponseType clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveDeletionMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveDeletionMinorMapping, tresorPresArchiveDeletionMajorOfMinor);
 	}
 
 	public void assertClientResultVerifyOk(ResponseBaseType clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresVerifyMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresVerifyMinorMapping, tresorPresVerifyMajorOfMinor);
 	}
 
 	void assertClientResultOk(ArchiveDataResponse archRes, SearchResponseType res) throws OutputAssertionFailed {
-		assertClientResultOkInt(archRes, res, tresorPresArchiveDataMinorMapping);
+		assertClientResultOkInt(archRes, res, tresorPresArchiveDataMinorMapping, tresorPresArchiveDataMajorOfMinor);
 	}
 
 
-	private void assertClientResultOkInt(ResponseBaseType clientRes, ResponseType presRes, Map<String, String> codeMap) throws OutputAssertionFailed {
+	private void assertClientResultOkInt(ResponseBaseType clientRes, ResponseType presRes, Map<String, String> minorCodeMap, Map<String, ResultType.ResultMajor> majorOfMinor) throws OutputAssertionFailed {
 		var result = Optional.of(clientRes.getResult())
 				.filter(r -> r.isSetResultMajor())
 				.orElseThrow(() -> {
@@ -563,18 +580,19 @@ public class PresUtils {
 				}
 
 				presRes.setResult(ResultType.builder()
-						.withResultMajor(resultMajor)
-						.withResultMinor(convertTresorMinor(result.getResultMinor(), codeMap, true))
-						.withResultMessage(convertMessage(result.getResultMessage()))
-						.build());
+					.withResultMajor(resultMajor)
+					.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, true))
+					.withResultMessage(convertMessage(result.getResultMessage()))
+					.build());
 
 			}
 		} else if (TresorCodes.ERROR.equals(result.getResultMajor())) {
+			var resultMajor = getMajorOfMinorOrDefault(majorOfMinor, result.getResultMinor(), ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
 			presRes.setResult(ResultType.builder()
-					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-					.withResultMinor(convertTresorMinor(result.getResultMinor(), codeMap, false))
-					.withResultMessage(convertMessage(result.getResultMessage()))
-					.build());
+				.withResultMajor(resultMajor)
+				.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, false))
+				.withResultMessage(convertMessage(result.getResultMessage()))
+				.build());
 			throw new OutputAssertionFailed(Optional.ofNullable(result.getResultMessage())
 					.map(v -> v.getValue())
 					.orElse("Error received from TR-ESOR system."));
@@ -587,6 +605,10 @@ public class PresUtils {
 					.build());
 			throw new OutputAssertionFailed(msg);
 		}
+	}
+
+	private ResultType.ResultMajor getMajorOfMinorOrDefault(Map<String, ResultType.ResultMajor> map, String minor, ResultType.ResultMajor defMajor) {
+		return map.getOrDefault(minor, defMajor);
 	}
 
 	private String convertTresorMinor(String resultMinor, Map<String, String> codeMap, boolean nullAllowed) {
