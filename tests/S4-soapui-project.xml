@@ -30031,8 +30031,7 @@ def requestID = holder.getNodeValue( "//tr:RetrieveInfoRequest/@RequestID" )
 def response = "OK_oldProfileFrom1-2"
 
 log.info(requestID)
-	if ( "TST-RI-501".equals(requestID) || 1) {
-		log.info("wtf")
+	if ( "TST-RI-501".equals(requestID)) {
 		response = "NOK_notSupported"
 		return response
 	}
@@ -30161,9 +30160,9 @@ return response
    <soapenv:Body>
       <ns:RetrieveInfoResponse RequestID="?" Profile="?">
          <urn:Result>
-            <urn:ResultMajor>urn:oasis:names:tc:dss:1.0:resultmajor:RequesterError</urn:ResultMajor>
-            <urn:ResultMinor>http://uri.etsi.org/19512/error/notSupported</urn:ResultMinor>
-            <urn:ResultMessage xml:lang="?">?</urn:ResultMessage>
+            <urn:ResultMajor>http://www.bsi.bund.de/tr-esor/api/1.3/resultmajor#error</urn:ResultMajor>
+            <urn:ResultMinor>http://www.bsi.bund.de/tr-esor/api/1.3/resultminor/arl/notSupported</urn:ResultMinor>
+         	  <urn:ResultMessage xml:lang="en">Profile not supported</urn:ResultMessage>
          </urn:Result>
       </ns:RetrieveInfoResponse>
    </soapenv:Body>
