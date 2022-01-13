@@ -49,7 +49,6 @@ import java.util.function.Predicate;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbException;
@@ -101,9 +100,6 @@ public class PresUtils {
 	}
 
 	private final Logger LOG = LoggerFactory.getLogger(PresUtils.class);
-
-	@Inject
-	ProfileSupplier profileSupplier;
 
 	JAXBContext preservePoJaxbCtx;
 	//minor mappings
@@ -230,32 +226,6 @@ public class PresUtils {
 			.with(TresorCodes.PARAM_ERROR, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 			.with(TresorCodes.NOT_SUPPORTED, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 		);
-	}
-
-	public void assertProfile(String profile, ResponseType res) throws InputAssertionFailed {
-		var refProfile = profileSupplier.getProfile();
-
-		try {
-			Optional.of(profile)
-					.filter(v -> v.equals(refProfile.getProfileIdentifier()))
-					.orElseThrow(() -> {
-						String msg = "Requested profile is not available.";
-						res.setResult(ResultType.builder()
-								.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-								.withResultMinor(PresCodes.NOT_SUPPORTED)
-								.withResultMessage(makeMsg(msg))
-								.build());
-						return new InputAssertionFailed(msg);
-					});
-		} catch (NullPointerException ex) {
-			String msg = "No profile specified in request.";
-			res.setResult(ResultType.builder()
-					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-					.withResultMinor(PresCodes.PARAM_ERROR)
-					.withResultMessage(makeMsg(msg))
-					.build());
-			throw new InputAssertionFailed(msg);
-		}
 	}
 
 	public String assertPoid(String poid, ResponseType res) throws InputAssertionFailed {

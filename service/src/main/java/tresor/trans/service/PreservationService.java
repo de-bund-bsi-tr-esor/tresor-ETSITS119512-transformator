@@ -105,9 +105,6 @@ public class PreservationService implements Preservation {
 	}
 
 	@Inject
-	ProfileSupplier profileSupplier;
-
-	@Inject
 	PresUtils utils;
 
 	@Override
@@ -168,7 +165,6 @@ public class PreservationService implements Preservation {
 		Future<Void> conversionJob = null;
 
 		try {
-			utils.assertProfile(req.getProfile(), res);
 
 			// exactly one PO
 			POType po = utils.assertOnePo(req.getPO(), res);
