@@ -120,17 +120,35 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		var s4Request = new RetrieveInfoRequest();
-		s4Request.setProfileIdentifier(req.getProfile());
-		s4Request.setStatus(req.getStatus());
+		try {
+			var s4Request = new RetrieveInfoRequest();
+			s4Request.setRequestID(req.getRequestID());
+			s4Request.setProfileIdentifier(req.getProfile());
+			s4Request.setStatus(req.getStatus());
 
-		var s4Resp = client.retrieveInfo(s4Request);
+			try {
+				var s4Resp = client.retrieveInfo(s4Request);
+				utils.assertClientResultOk(s4Resp, res);
 
-		res.getProfile().addAll(
-			s4Resp.getRest().stream()
-				.map(el -> ((JAXBElement<ProfileType>) el).getValue())
-				.collect(Collectors.toList())
-		);
+				res.getProfile().addAll(
+					s4Resp.getRest().stream()
+						.map(el -> ((JAXBElement<ProfileType>) el).getValue())
+						.collect(Collectors.toList())
+				);
+			} catch (SOAPFaultException ex) {
+				LOG.error("Failed to invoked remote service.", ex);
+				res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					.withResultMinor(PresCodes.INT_ERROR)
+					.build());
+			}
+
+		} catch (OutputAssertionFailed ex) {
+			LOG.warn("Assertion about output data failed: {}", ex.getMessage());
+			LOG.debug("Assertion about output data failed.", ex);
+			// res has been updated by the assert statement
+			return res;
+		}
 
 		LOG.debug("RetrieveInfo finished.");
 		return res;

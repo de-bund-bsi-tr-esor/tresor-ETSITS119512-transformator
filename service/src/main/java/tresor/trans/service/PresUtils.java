@@ -24,6 +24,7 @@ import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateResponse;
 import de.bund.bsi.tr_esor.api._1.ImportEvidenceType;
 import de.bund.bsi.tr_esor.api._1.RequestType;
+import de.bund.bsi.tr_esor.api._1.RetrieveInfoResponse;
 import de.bund.bsi.tr_esor.xaip.BinaryDataType;
 import de.bund.bsi.tr_esor.xaip.DXAIPType;
 import de.bund.bsi.tr_esor.xaip.EvidenceRecordType;
@@ -112,6 +113,7 @@ public class PresUtils {
 	Map<String, String> tresorPresArchiveDeletionMinorMapping;
 	Map<String, String> tresorPresArchiveDataMinorMapping;
 	Map<String, String> tresorPresVerifyMinorMapping;
+	Map<String, String> tresorPresRetrieveInfoMinorMapping;
 
 	public PresUtils() throws JAXBException {
 		preservePoJaxbCtx = JAXBContext.newInstance(de.bund.bsi.tr_esor.api._1.ObjectFactory.class,
@@ -202,6 +204,14 @@ public class PresUtils {
 				.with(TresorCodes.PARAM_ERROR, PresCodes.PARAM_ERROR)
 				.with(TresorCodes.MISSING_REASON_OF_DELETION, PresCodes.PARAM_ERROR)
 				.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
+		);
+
+		//RetrieveInfo mapping
+		tresorPresRetrieveInfoMinorMapping = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.NO_PERMISSION, PresCodes.NO_PERMISSION)
+			.with(TresorCodes.INT_ERROR, PresCodes.INT_ERROR)
+			.with(TresorCodes.PARAM_ERROR, PresCodes.PARAM_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
 		);
 	}
 
@@ -495,6 +505,10 @@ public class PresUtils {
 				.withLang(lang)
 				.withValue(msg)
 				.build();
+	}
+
+	public void assertClientResultOk(RetrieveInfoResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
+		assertClientResultOkInt(clientRes, presRes, tresorPresRetrieveInfoMinorMapping);
 	}
 
 	public void assertClientResultOk(ArchiveSubmissionResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
