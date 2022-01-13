@@ -8662,7 +8662,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RequestID="TST-PPO-001-mtom">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -8703,7 +8703,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RequestID="TST-PPO-002">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asic="http://uri.etsi.org/02918/v1.2.1#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 						<xaip:packageHeader packageID="PID_1">
@@ -8784,7 +8784,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 				</base:Other>
 			</v1:OptionalInputs>
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -8831,7 +8831,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 				</base:Other>
 			</v1:OptionalInputs>
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -8884,7 +8884,7 @@ boolean(//v1:PreservePOResponse/v1:OptionalOutputs/base:Other/base:Value)</path>
 				</base:Other>
 			</v1:OptionalInputs>
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9103,7 +9103,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RequestID="TST-PPO-501">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2/unbekannt</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9164,7 +9164,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 				</base:Other>
 			</v1:OptionalInputs>
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9206,7 +9206,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-001" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9248,7 +9248,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-002" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9290,7 +9290,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-003" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9332,7 +9332,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-004" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9374,7 +9374,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-005" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9418,7 +9418,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-006" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9460,7 +9460,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-007" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9502,7 +9502,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-008" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9544,7 +9544,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-009" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9586,7 +9586,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-010" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9628,7 +9628,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-011" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9670,7 +9670,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-012" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -9712,7 +9712,7 @@ declare namespace base="http://docs.oasis-open.org/dss-x/ns/base";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-Err-013" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -14084,7 +14084,7 @@ declare namespace soap='http://www.w3.org/2003/05/soap-envelope';
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14184,7 +14184,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14424,7 +14424,7 @@ count(//v1:ValidateEvidenceResponse/v1:ValidationReport/v1:xmlData/vr:Verificati
 			<v1:Evidence POID="aoid-44aad496-7826-43f7-93a8-02f9300e3560" VersionID="Version001">
 				<v1:binaryData>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</v1:binaryData>
 			</v1:Evidence>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14595,7 +14595,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14699,7 +14699,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14757,7 +14757,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14857,7 +14857,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -14957,7 +14957,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -15057,7 +15057,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -15157,7 +15157,7 @@ declare namespace vr='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:s
 					<base:Value>PHZyOlJldHVyblZlcmlmaWNhdGlvblJlcG9ydCB4bWxuczp2cj0idXJuOm9hc2lzOm5hbWVzOnRjOmRzcy14OjEuMDpwcm9maWxlczp2ZXJpZmljYXRpb25yZXBvcnQ6c2NoZW1hIyIvPgo=</base:Value>
 				</base:Other>
 			</v1:OptionalInputs>
-			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<v1:PO FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<v1:xmlData>
 					<ns4:XAIP xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns6="urn:ietf:params:xml:ns:ers" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.2" xmlns:ns10="http://lza.bos-bremen.de/AdapterService/1.0" xmlns:ns11="urn:iso:std:iso-iec:24727:tech:schema">
 						<ns4:packageHeader packageID="PID_1">
@@ -15278,7 +15278,7 @@ declare namespace met="http://docs.oasis-open.org/dss-x/ns/metadata";
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-PPO-001" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/preservation-api/1.0</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -16722,7 +16722,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-100" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -16838,7 +16838,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-101" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -16954,7 +16954,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-102" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -17070,7 +17070,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-103" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -17186,7 +17186,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-104" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -17302,7 +17302,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-105" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -17418,7 +17418,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO RequestID="TST-LT-PPO-106" xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
@@ -17534,7 +17534,7 @@ boolean(//ns4:PreservePOResponse/ns4:POID/text())</path><content>true</content><
 	<soap:Body>
 		<pres:PreservePO xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:pres="http://uri.etsi.org/19512/v1.1.2#" xmlns:xaip="http://www.bsi.bund.de/tr-esor/xaip/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RequestID="TST-PPO-001">
 			<pres:Profile>http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2</pres:Profile>
-			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.2">
+			<pres:PO ID="ID_2" FormatId="http://www.bsi.bund.de/tr-esor/xaip/1.3">
 				<pres:xmlData>
 					<xaip:XAIP>
 						<xaip:packageHeader packageID="PID_1">
