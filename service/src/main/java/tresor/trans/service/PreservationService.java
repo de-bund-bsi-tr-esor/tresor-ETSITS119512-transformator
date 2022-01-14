@@ -23,6 +23,7 @@ import de.bund.bsi.tr_esor.api._1.ArchiveDeletionRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveEvidenceRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveRetrievalRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionRequest;
+import de.bund.bsi.tr_esor.api._1.ArchiveTraceRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateRequest;
 import de.bund.bsi.tr_esor.api._1.DataLocation;
 import de.bund.bsi.tr_esor.api._1.ObjectFactory;
@@ -68,6 +69,7 @@ import org.etsi.uri._19512.v1_1.RetrieveTraceType;
 import org.etsi.uri._19512.v1_1.SearchResponseType;
 import org.etsi.uri._19512.v1_1.SearchType;
 import org.etsi.uri._19512.v1_1.SubjectOfRetrievalType;
+import org.etsi.uri._19512.v1_1.TraceType;
 import org.etsi.uri._19512.v1_1.UpdatePOCResponseType;
 import org.etsi.uri._19512.v1_1.UpdatePOCType;
 import org.etsi.uri._19512.v1_1.ValidateEvidenceResponseType;
@@ -765,7 +767,49 @@ public class PreservationService implements Preservation {
 
 	@Override
 	public RetrieveTraceResponseType retrieveTrace(RetrieveTraceType req) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		LOG.debug("RetrieveTrace called.");
+		var res = new RetrieveTraceResponseType();
+		res.setResult(ResultType.builder()
+			.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
+			.build());
+		res.setRequestID(req.getRequestID());
+
+		try {
+			utils.assertNoOptionalInputs(req.getOptionalInputs(), res);
+
+			try {
+				var atr = new ArchiveTraceRequest();
+				atr.setAOID(req.getPOID());
+				atr.setRequestID(req.getRequestID());
+				var s4resp = client.archiveTrace(atr);
+
+				utils.assertClientResultOk(s4resp, res);
+
+				res.setTrace(s4resp.getTrace());
+
+			} catch (SOAPFaultException ex) {
+				LOG.error("Failed to invoked remote service.", ex);
+				res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					.withResultMinor(PresCodes.INT_ERROR)
+					.build());
+			}
+		} catch (InputAssertionFailed ex) {
+			LOG.warn("Assertion about input data failed: {}", ex.getMessage());
+			LOG.debug("Assertion about input data failed.", ex);
+			// res has been updated by the assert statement
+			return res;
+		} catch (OutputAssertionFailed ex) {
+			LOG.warn("Assertion about output data failed: {}", ex.getMessage());
+			LOG.debug("Assertion about output data failed.", ex);
+			// res has been updated by the assert statement
+			//assure empty trace in if error happens due to schema compliance.
+			res.setTrace(new TraceType());
+			return res;
+		}
+
+		return res;
+
 	}
 
 	@Override
