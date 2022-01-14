@@ -30168,7 +30168,7 @@ return response
       </ns:RetrieveInfoResponse>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:mockOperation><con:mockOperation name="ArchiveTrace" id="b065737d-c853-4ff7-8281-a6140ceba2a5" interface="S4" operation="ArchiveTrace"><con:settings/><con:defaultResponse>OK</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="OK" id="db9630d4-0873-48fc-a57a-421683fef4a6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#">
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:mockOperation><con:mockOperation name="ArchiveTrace" id="b065737d-c853-4ff7-8281-a6140ceba2a5" interface="S4" operation="ArchiveTrace"><con:settings/><con:defaultResponse>OK</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="OK" id="db9630d4-0873-48fc-a57a-421683fef4a6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#">
    <soapenv:Header/>
    <soapenv:Body>
       <ns:ArchiveTraceResponse RequestID="TST-RT-001" Profile="?">
@@ -30189,4 +30189,40 @@ return response
       </ns:ArchiveTraceResponse>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/ArchiveTrace"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/ArchiveTrace"/></con:response><con:response name="NOK" id="db9630d4-0873-48fc-a57a-421683fef4a6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:ArchiveTraceResponse RequestID="TST-RT-001" Profile="?">
+         <urn:Result>
+	    <urn:ResultMajor>http://www.bsi.bund.de/tr-esor/api/1.3/resultmajor#error</urn:ResultMajor>
+          <urn:ResultMinor>http://www.bsi.bund.de/tr-esor/api/1.3/resultminor/arl/unknownAOID</urn:ResultMinor>
+         </urn:Result>
+         <urn:OptionalOutputs>
+         </urn:OptionalOutputs>
+         <v1:Trace>
+         </v1:Trace>
+      </ns:ArchiveTraceResponse>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/ArchiveTrace"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>requestID</con:name><con:query>declare namespace ns14='http://docs.oasis-open.org/dss-x/ns/nsList';
+declare namespace ns19='urn:oasis:names:tc:SAML:2.0:assertion';
+declare namespace ns12='http://docs.oasis-open.org/dss-x/ns/metadata';
+declare namespace ns1='urn:oasis:names:tc:dss:1.0:core:schema';
+declare namespace ns11='http://uri.etsi.org/19512/v1.1.2#';
+declare namespace ns10='http://www.setcce.org/schemas/ers';
+declare namespace soap='http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns7='http://www.bsi.bund.de/tr-esor/api/1.3';
+declare namespace ns15='http://docs.oasis-open.org/dss-x/ns/base';
+declare namespace ns6='urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#';
+declare namespace ns9='urn:iso:std:iso-iec:24727:tech:schema';
+declare namespace ns16='http://www.w3.org/2001/04/xmlenc#';
+declare namespace xmime='http://www.w3.org/2005/05/xmlmime';
+declare namespace ns13='http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten';
+declare namespace ns5='urn:ietf:params:xml:ns:ers';
+declare namespace ns18='http://www.w3.org/2001/04/xmldsig-more#';
+declare namespace ns20='urn:oasis:names:tc:SAML:1.0:assertion';
+declare namespace ns4='http://uri.etsi.org/01903/v1.3.2#';
+declare namespace ns8='http://www.bsi.bund.de/ecard/api/1.1';
+declare namespace ns3='http://www.bsi.bund.de/tr-esor/xaip';
+declare namespace ns2='http://www.w3.org/2000/09/xmldsig#';
+//ns7:AOID</con:query><con:match>unknown</con:match><con:response>NOK</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer><con:crypto><con:source>C:/apps/developer/access/bsi_demo_ssl_2022.p12</con:source><con:password>123456</con:password><con:type>KEYSTORE</con:type></con:crypto></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
