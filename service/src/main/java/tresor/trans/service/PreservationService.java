@@ -189,13 +189,15 @@ public class PreservationService implements Preservation {
 				var s4MimeType = Optional.ofNullable(po.getMimeType())
 						.or(() -> utils.getDefaultMimeType(poFormatId));
 
-				var dataBuilder = ArchiveDataType.builder();
-				dataBuilder = dataBuilder.withType(s4FormatId);
+				var adt = new ArchiveDataType();
+				adt.setType(po.getFormatId());
+				adt.setArchiveDataID(s4FormatId);
+				adt.setMimeType(s4MimeType.orElse(null));
+				adt.setArchiveDataID(po.getID());
 
-				var elem = utils.buildBinaryElement(s4MimeType, po.getBinaryData().getValue(), res);
-				dataBuilder.addRelatedObjects(elem);
+				adt.setValue(po.getBinaryData().getValue());
+				archReq.getArchiveData().add(adt);
 
-				archReq.getOptionalInputs().getAny().add(dataBuilder.build());
 			}
 
 			// process optional inputs
