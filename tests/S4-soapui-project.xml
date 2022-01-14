@@ -23046,9 +23046,9 @@ while (true) {
 		response = "TST-PPO-003-Response"
 	}
 	if ( "TST-PPO-004".equals(requestID) ){
-		def binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData/inc:Include/@href" )
+		def binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/inc:Include/@href" )
 		def binDataType = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/@Type" )
-		if ( null == binDataType || !binDataType.equals("http://www.bsi.bund.de/tr-esor/api/1.3/type/binaryData") )
+		if ( null == binDataType || !binDataType.equals("http://uri.etsi.org/ades/PAdES") )
 		{
 			log.info( "$requestID: missing or invalid binaryData in request: $binDataType" )
 			break
