@@ -30168,10 +30168,10 @@ return response
       </ns:RetrieveInfoResponse>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:mockOperation><con:mockOperation name="ArchiveTrace" id="b065737d-c853-4ff7-8281-a6140ceba2a5" interface="S4" operation="ArchiveTrace"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="db9630d4-0873-48fc-a57a-421683fef4a6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#">
+]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:mockOperation><con:mockOperation name="ArchiveTrace" id="b065737d-c853-4ff7-8281-a6140ceba2a5" interface="S4" operation="ArchiveTrace"><con:settings/><con:defaultResponse>OK</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="OK" id="db9630d4-0873-48fc-a57a-421683fef4a6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:urn="urn:oasis:names:tc:dss:1.0:core:schema" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#">
    <soapenv:Header/>
    <soapenv:Body>
-      <ns:ArchiveTraceResponse RequestID="?" Profile="?">
+      <ns:ArchiveTraceResponse RequestID="TST-RT-001" Profile="?">
          <urn:Result>
 	    <urn:ResultMajor>http://www.bsi.bund.de/tr-esor/api/1.3/resultmajor#ok</urn:ResultMajor>
          </urn:Result>
@@ -30179,7 +30179,7 @@ return response
          </urn:OptionalOutputs>
          <v1:Trace>
             <v1:Event>
-               <v1:Time>20220114-00:12:13</v1:Time>
+               <v1:Time>2019-10-25T13:45:12.000+02:00</v1:Time>
                <v1:Subject>object stored</v1:Subject>
                <v1:Operation>stored</v1:Operation>
                <v1:Object>the ojbect</v1:Object>
