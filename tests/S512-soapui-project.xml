@@ -8144,50 +8144,15 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.-->
          <v1:EvidenceFormat>?</v1:EvidenceFormat>\r
       </v1:RetrievePO>\r
    </soap:Body>\r
-</soap:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uri.etsi.org/19512/v1.1.2#/Preservation/RetrievePORequest"/></con:call></con:operation><con:operation id="64fc98b3-f08f-4013-9ebe-d46b70881ecf" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#RetrieveTrace" name="RetrieveTrace" bindingOperationName="RetrieveTrace" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="df54be87-e7cf-4d25-95bd-44ee30f7c413" name="Request 1" outgoingWss="" incomingWss=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">\r
-   <soap:Header/>\r
-   <soap:Body>\r
-      <v1:RetrieveTrace RequestID="?">\r
-         <!--Optional:-->\r
-         <v1:OptionalInputs>\r
-            <!--Zero or more repetitions:-->\r
-            <base:ServicePolicy>?</base:ServicePolicy>\r
-            <!--Optional:-->\r
-            <base:Language>?</base:Language>\r
-            <!--Zero or more repetitions:-->\r
-            <base:Other MimeType="?" ID="?" IDREF="?">\r
-               <!--You have a CHOICE of the next 2 items at this level-->\r
-               <base:Value>cid:82746743230</base:Value>\r
-               <base:AttRef AttRefURI="?">\r
-                  <!--Zero or more repetitions:-->\r
-                  <base:DigestInfo>\r
-                     <base:DigestMethod>?</base:DigestMethod>\r
-                     <base:DigestValue>cid:1342884605271</base:DigestValue>\r
-                  </base:DigestInfo>\r
-               </base:AttRef>\r
-               <!--Optional:-->\r
-               <base:Transforms>\r
-                  <!--1 or more repetitions:-->\r
-                  <rew:Transform Algorithm="?">\r
-                     <!--Optional:-->\r
-                     <rew:value>?</rew:value>\r
-                     <!--Optional:-->\r
-                     <rew:Base64Content>cid:243891818946</rew:Base64Content>\r
-                     <!--Zero or more repetitions:-->\r
-                     <rew:XPath>?</rew:XPath>\r
-                     <!--Zero or more repetitions:-->\r
-                     <rew:NsPrefixMapping>\r
-                        <nsl:NamespaceURI>?</nsl:NamespaceURI>\r
-                        <nsl:NamespacePrefix>?</nsl:NamespacePrefix>\r
-                     </rew:NsPrefixMapping>\r
-                  </rew:Transform>\r
-               </base:Transforms>\r
-            </base:Other>\r
-         </v1:OptionalInputs>\r
-         <v1:POID>?</v1:POID>\r
-      </v1:RetrieveTrace>\r
-   </soap:Body>\r
-</soap:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uri.etsi.org/19512/v1.1.2#/Preservation/RetrieveTraceRequest"/></con:call></con:operation><con:operation id="7596aec4-18bf-4e21-8999-648f7f501298" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#Search" name="Search" bindingOperationName="Search" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f747cfb9-e1d1-4af4-aa44-5da7ce1d51c9" name="Request 1" outgoingWss="" incomingWss=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">\r
+</soap:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uri.etsi.org/19512/v1.1.2#/Preservation/RetrievePORequest"/></con:call></con:operation><con:operation id="64fc98b3-f08f-4013-9ebe-d46b70881ecf" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#RetrieveTrace" name="RetrieveTrace" bindingOperationName="RetrieveTrace" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="df54be87-e7cf-4d25-95bd-44ee30f7c413" name="Request 1" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">
+   <soap:Header/>
+   <soap:Body>
+      <v1:RetrieveTrace RequestID="R">
+         <v1:POID>TEST</v1:POID>
+      </v1:RetrieveTrace>
+   </soap:Body>
+</soap:Envelope>
+]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://uri.etsi.org/19512/v1.1.2#/Preservation/RetrieveTraceRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="7596aec4-18bf-4e21-8999-648f7f501298" isOneWay="false" action="http://uri.etsi.org/19512/v1.1.2#Search" name="Search" bindingOperationName="Search" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f747cfb9-e1d1-4af4-aa44-5da7ce1d51c9" name="Request 1" outgoingWss="" incomingWss=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8080/ws/PreservationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">\r
    <soap:Header/>\r
    <soap:Body>\r
       <v1:Search RequestID="?">\r
