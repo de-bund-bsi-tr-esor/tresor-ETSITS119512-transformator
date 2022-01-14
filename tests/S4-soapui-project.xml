@@ -23037,7 +23037,7 @@ while (true) {
 		}
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			if ( null == binData || !binData.startsWith("JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nH1RPUsEMRDt8yumFhJn8rVZCAO77m1hdxCwED") ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
 				break
@@ -23082,7 +23082,7 @@ while (true) {
 
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			if ( null == binData || !binData.startsWith("JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nH1RPUsEMRDt8yumFhJn8rVZCAO77m1hdxCwED") ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
 				break
@@ -23294,7 +23294,7 @@ while (true) {
 		}
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			if ( null == binData || !binData.startsWith("MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwGggCSABFQNCkJ1bmRlc2FtdCBm/HIgU2ljaGVyaG") ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
 				break
@@ -23334,7 +23334,7 @@ while (true) {
 		}
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			// base64 encoded XAdES
 			if ( null == binData ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
@@ -23372,7 +23372,7 @@ while (true) {
 		}
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			if ( null == binData || !binData.startsWith("JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nH1RPUsEMRDt8yumFhJn8rVZCAO77m1hdxCwED") ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
 				break
@@ -23411,7 +23411,7 @@ while (true) {
 		}
 		if (!bFound) {
 			log.info( "$requestID: processing NO MTOM request" )
-			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData/xaip:binaryData");
+			binData = holder.getNodeValue( "//tr:ArchiveSubmissionRequest/tr:ArchiveData");
 			// base64 encoded DigestList
 			if ( null == binData ) {
 				log.info( "$requestID: invalid or missing binaryData in request: $binData" )
@@ -23530,7 +23530,8 @@ while (true) {
 	break
 } 
 
-return response]]></con:dispatchPath><con:response name="TST-PPO-001-Response" id="beaba9ef-4956-4432-a6f7-2280169f0739" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:script>
+return response
+]]></con:dispatchPath><con:response name="TST-PPO-001-Response" id="beaba9ef-4956-4432-a6f7-2280169f0739" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:script>
 </con:script><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
    <soap:Body>
       <ns9:ArchiveSubmissionResponse Profile="urn:procilon:archivemanager:v2" RequestID="TST-PPO-001" xmlns:ns15="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:ns14="http://www.w3.org/2001/04/xmlenc#" xmlns:ns13="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ns12="urn:ietf:params:xml:ns:ers" xmlns:ns11="http://www.w3.org/2001/04/xmldsig-more#" xmlns:ns10="urn:iso:std:iso-iec:24727:tech:schema" xmlns:ns9="http://www.bsi.bund.de/tr-esor/api/1.3" xmlns:ns8="urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#" xmlns:ns7="http://www.bsi.bund.de/ecard/api/1.1" xmlns:ns6="http://www.setcce.org/schemas/ers" xmlns:ns5="http://uri.etsi.org/01903/v1.3.2#" xmlns:ns4="http://www.bsi.bund.de/tr-esor/xaip" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#" xmlns:ns2="urn:oasis:names:tc:dss:1.0:core:schema">
