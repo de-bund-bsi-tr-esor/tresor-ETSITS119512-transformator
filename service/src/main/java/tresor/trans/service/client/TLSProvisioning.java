@@ -29,6 +29,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
@@ -69,7 +70,7 @@ public class TLSProvisioning {
 		var kf = KeyManagerFactory.getInstance("PKIX");
 
 		var ksFile = new File(config.keystoreFilepath());
-		var ks = KeyStore.getInstance("PKCS12");
+		var ks = KeyStore.getInstance(determineKeystoreType(ksFile));
 		InputStream ir = new FileInputStream(ksFile);
 		ks.load(ir, config.keystoreSecret().toCharArray());
 
@@ -89,5 +90,27 @@ public class TLSProvisioning {
 		tf.init(ks);
 
 		return tf.getTrustManagers();
+	}
+
+	private static String determineKeystoreType(File ksFile) throws IOException {
+		Pattern p = Pattern.compile(".*\\.(.+)");
+		var match = p.matcher(ksFile.getName());
+		if (match.matches()) {
+			var ext = match.group(1).toLowerCase();
+
+			switch (ext) {
+				case "p12":
+					return "PKCS12";
+				case "pfx":
+					return "PKCS12";
+				case "jks":
+					return "JKS";
+				default:
+					throw new IllegalStateException("Configured trust store has no supported extension");
+			}
+		} else {
+			throw new IllegalStateException("Configured trust store has no supported extension");
+		}
+
 	}
 }
