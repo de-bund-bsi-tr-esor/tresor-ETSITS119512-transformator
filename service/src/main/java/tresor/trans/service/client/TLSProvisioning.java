@@ -20,7 +20,9 @@
 package tresor.trans.service.client;
 import de.bund.bsi.tr_esor.api._1_2.S4;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -65,7 +67,10 @@ public class TLSProvisioning {
 		var kf = KeyManagerFactory.getInstance("PKIX");
 
 		var ksFile = new File(config.keystoreFilepath());
-		var ks = KeyStore.getInstance(ksFile, (char[]) null);
+		var ks = KeyStore.getInstance("PKCS12");
+		InputStream ir = new FileInputStream(ksFile);
+		ks.load(ir, config.keystoreSecret().toCharArray());
+
 		kf.init(ks, config.keystoreSecret().toCharArray());
 
 		return kf.getKeyManagers();
@@ -75,7 +80,10 @@ public class TLSProvisioning {
 		var tf = TrustManagerFactory.getInstance("PKIX");
 
 		var ksFile = new File(config.truststoreFilepath());
-		var ks = KeyStore.getInstance(ksFile, (char[]) null);
+		var ks = KeyStore.getInstance("JKS");
+		InputStream ir = new FileInputStream(ksFile);
+		ks.load(ir, null);
+
 		tf.init(ks);
 
 		return tf.getTrustManagers();
