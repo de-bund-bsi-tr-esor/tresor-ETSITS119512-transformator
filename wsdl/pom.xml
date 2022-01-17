@@ -19,7 +19,6 @@
 			<plugin>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>${version.cxf}</version>
 				<configuration>
 					<disableDirectoryScan>true</disableDirectoryScan>
 					<disableDependencyScan>true</disableDependencyScan>

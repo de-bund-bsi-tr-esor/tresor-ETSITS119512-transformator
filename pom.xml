@@ -48,20 +48,15 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.min.version>3.8.1</maven.min.version>
 
-		<version.cxf>3.4.5</version.cxf>
+		<version.cxf>3.5.0</version.cxf>
 
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-		<quarkus.platform.version>2.5.0.Final</quarkus.platform.version>
-		<quarkus-plugin.version>2.5.0.Final</quarkus-plugin.version>
-		<quarkus.cxf.version>0.11.0</quarkus.cxf.version>
+		<quarkus.platform.version>2.6.2.Final</quarkus.platform.version>
+		<quarkus-plugin.version>2.6.2.Final</quarkus-plugin.version>
+		<quarkus.cxf.version>0.12.0</quarkus.cxf.version>
 
-
-		<surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-		<compiler-plugin.version>3.8.1</compiler-plugin.version>
-		<testcontainers.version>1.15.1</testcontainers.version>
-
-
+		<testcontainers.version>1.16.2</testcontainers.version>
 
 		<!-- fix for netbeans as it executes the surefire:test task directly -->
 		<argLine>-Djdk.attach.allowAttachSelf</argLine>
@@ -89,51 +84,10 @@
 					</configuration>
 				</plugin>
 
-				<!-- override maven inherited plugin versions -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<version>3.9.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
 					<version>3.2.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.3.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.3.0</version>
-				</plugin>
-				<plugin>
-					<groupId>${quarkus.platform.group-id}</groupId>
-					<artifactId>quarkus-maven-plugin</artifactId>
-					<version>${quarkus-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -141,31 +95,33 @@
 					<version>3.0.0-M5</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>3.0.0-M1</version>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.8.1</version>
 				</plugin>
+
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.0.0-M1</version>
+					<groupId>${quarkus.platform.group-id}</groupId>
+					<artifactId>quarkus-maven-plugin</artifactId>
+					<version>${quarkus-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.cxf</groupId>
+					<artifactId>cxf-codegen-plugin</artifactId>
+					<version>${version.cxf}</version>
 				</plugin>
 
 				<plugin>
 					<groupId>io.github.zlika</groupId>
 					<artifactId>reproducible-build-maven-plugin</artifactId>
-					<version>0.14</version>
+					<version>0.15</version>
 				</plugin>
 
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>versions-maven-plugin</artifactId>
-					<version>2.8.1</version>
-				</plugin>
-				<plugin>
 					<groupId>org.owasp</groupId>
 					<artifactId>dependency-check-maven</artifactId>
-					<version>6.5.0</version>
+					<version>6.5.2</version>
 					<configuration>
 						<!--skipProvidedScope>true</skipProvidedScope>
 						<skipRuntimeScope>true</skipRuntimeScope>
