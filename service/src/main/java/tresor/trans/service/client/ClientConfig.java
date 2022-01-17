@@ -58,7 +58,7 @@ public interface ClientConfig {
 
 		public String keystoreSecret();
 
-		public String truststoreFilepath();
+		public Optional<String> truststoreFilepath();
 
 	}
 

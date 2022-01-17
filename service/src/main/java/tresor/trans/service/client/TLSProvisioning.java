@@ -54,7 +54,9 @@ public class TLSProvisioning {
 			final var tlsClientParameters = Optional.ofNullable(httpConduit.getTlsClientParameters()).orElseGet(TLSClientParameters::new);
 //			tlsClientParameters.setCertAlias(config.clientCert().keyAlias());
 			tlsClientParameters.setKeyManagers(createKeyManager(config));
-			tlsClientParameters.setTrustManagers(createTrustManager(config));
+			if (config.truststoreFilepath().isPresent()) {
+				tlsClientParameters.setTrustManagers(createTrustManager(config));
+			}
 			httpConduit.setTlsClientParameters(tlsClientParameters);
 		} catch (CertificateException | IOException | KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException ex) {
 
@@ -79,7 +81,7 @@ public class TLSProvisioning {
 	private static TrustManager[] createTrustManager(TLSConfig config) throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException {
 		var tf = TrustManagerFactory.getInstance("PKIX");
 
-		var ksFile = new File(config.truststoreFilepath());
+		var ksFile = new File(config.truststoreFilepath().orElseThrow(IOException::new));
 		var ks = KeyStore.getInstance("JKS");
 		InputStream ir = new FileInputStream(ksFile);
 		ks.load(ir, null);
