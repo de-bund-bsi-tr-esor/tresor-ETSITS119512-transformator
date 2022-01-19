@@ -40,9 +40,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.xml.bind.JAXBElement;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.soap.SOAPBinding;
 import javax.xml.ws.soap.SOAPFaultException;
 import oasis.names.tc.dss._1_0.core.schema.AnyType;
 import oasis.names.tc.dss._1_0.core.schema.Base64Data;
@@ -88,8 +85,6 @@ import tresor.trans.service.client.TresorTransClientConfigException;
  * @author Tobias Wich
  */
 @WebService(serviceName = "PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
-@MTOM
-@BindingType(SOAPBinding.SOAP12HTTP_MTOM_BINDING)
 public class PreservationService implements Preservation {
 
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
