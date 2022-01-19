@@ -267,20 +267,20 @@
 			</complexContent>
 		</complexType>
 	</element>
+	<element name="XAIPData" type="tr:XAIPDataType" />
+	<complexType name ="XAIPDataType">
+		<sequence>
+			<element ref="dss:Result"/>
+			<element ref="tr:DataLocation"/>
+			<element name="Value" type="anyType" minOccurs="0"/>
+		</sequence>
+	</complexType>
 	<element name="ArchiveDataResponse">
 		<complexType>
 			<complexContent>
 				<extension base="tr:ResponseType">
 					<sequence>
-						<element name="XAIPData" maxOccurs="unbounded">
-							<complexType>
-								<sequence>
-									<element ref="dss:Result" />
-									<element ref="tr:DataLocation" />
-									<element name="Value" type="anyType" minOccurs="0" />
-								</sequence>
-							</complexType>
-						</element>
+						<element ref="tr:XAIPData"  maxOccurs="unbounded" />
 					</sequence>
 				</extension>
 			</complexContent>
