@@ -26,6 +26,7 @@ import de.bund.bsi.tr_esor.api._1.ArchiveUpdateResponse;
 import de.bund.bsi.tr_esor.api._1.ImportEvidenceType;
 import de.bund.bsi.tr_esor.api._1.RequestType;
 import de.bund.bsi.tr_esor.api._1.RetrieveInfoResponse;
+import de.bund.bsi.tr_esor.api._1.XAIPDataType;
 import de.bund.bsi.tr_esor.xaip.BinaryDataType;
 import de.bund.bsi.tr_esor.xaip.DXAIPType;
 import de.bund.bsi.tr_esor.xaip.EvidenceRecordType;
@@ -936,10 +937,10 @@ public class PresUtils {
 
 	}
 
-	public AnyType convertXAIPData(ArchiveDataResponse.XAIPData xaipData, ResponseType res) throws OutputAssertionFailed {
+	public AnyType convertXAIPData(XAIPDataType xaipData, ResponseType res) throws OutputAssertionFailed {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createArchiveDataResponseXAIPData();
+			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
 			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, baos);
 			return AnyType.builder().withValue(baos.toByteArray()).build();
 		} catch (JAXBException ex) {
