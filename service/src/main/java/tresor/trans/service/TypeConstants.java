@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class TypeConstants {
 
-	public static final String ETSI_512_API_NS = "http://uri.etsi.org/19512/v1.1.3#";
+	public static final String ETSI_512_API_NS = "http://uri.etsi.org/19512/v1.1.2#";
 	public static final String TRESOR_API_NS = "http://www.bsi.bund.de/tr-esor/api/1.3";
 	public static final String TRESOR_VR_NS = "http://www.bsi.bund.de/tr-esor/vr/1.3";
 
