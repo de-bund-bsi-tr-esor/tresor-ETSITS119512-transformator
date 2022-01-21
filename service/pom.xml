@@ -17,6 +17,8 @@
 		<quarkus.container-image.name>transformator</quarkus.container-image.name>
 		<quarkus.container-image.additional-tags>latest</quarkus.container-image.additional-tags>
 		<quarkus.jib.jvm-arguments>-Ddocker.build=true</quarkus.jib.jvm-arguments>
+		<quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:21.3.0-java17</quarkus.native.builder-image>
+		<quarkus.jib.base-jvm-image>registry.access.redhat.com/ubi8/openjdk-17-runtime:1.10</quarkus.jib.base-jvm-image>
 	</properties>
 
 	<build>
