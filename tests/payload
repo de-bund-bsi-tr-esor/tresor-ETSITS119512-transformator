@@ -1,0 +1,8 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:v1="http://uri.etsi.org/19512/v1.1.2#" xmlns:base="http://docs.oasis-open.org/dss-x/ns/base" xmlns:rew="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList">
+	<soap:Header/>
+	<soap:Body>
+		<v1:Search RequestID="TST-S-503">
+			<v1:Filter><MyFilter xmlns="">//MyPath/To/Requested/Data</MyFilter></v1:Filter>
+		</v1:Search>
+	</soap:Body>
+</soap:Envelope>
