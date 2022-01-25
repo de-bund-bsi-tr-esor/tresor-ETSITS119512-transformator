@@ -2,3 +2,5 @@ version: '3'
 services:
   transformator:
     image: tresor/transformator:latest
+    environment:
+      - quarkus.config.locations=file:///config/mock.properties
