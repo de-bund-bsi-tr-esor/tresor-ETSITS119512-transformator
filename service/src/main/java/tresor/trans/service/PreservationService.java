@@ -101,6 +101,7 @@ public class PreservationService implements Preservation {
 	@PostConstruct
 	void configuresClient() throws TresorTransClientConfigException {
 		clientConfigurator.configure(client);
+
 	}
 
 	@Inject

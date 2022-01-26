@@ -35,6 +35,12 @@ public interface ClientConfig {
 
 	public Optional<SamlEcpConfig> samlEcpConfig();
 
+	public Optional<Integer> mtomThreshold();
+
+	public Optional<Boolean> schemaValidationOut();
+
+	public Optional<Boolean> schemaValidationIn();
+
 	public static interface SamlEcpConfig {
 
 		String tokenElement();
