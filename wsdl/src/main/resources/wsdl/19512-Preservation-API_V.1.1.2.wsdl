@@ -13,12 +13,11 @@
 			<xsd:include schemaLocation="https://forge.etsi.org/rep/esi/x19_512_preservation_protocol/raw/v1.1.2/19512-EvidenceExchange.xsd" />
 		</xsd:schema>
 		-->
-		<!-- TR-ESOR schemas for use in optional in- and outputs -->
-		<xsd:schema elementFormDefault="qualified"
-		    targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3">
-		    <xsd:include schemaLocation="tr-esor-interfaces-v1.3.xsd" />
-		</xsd:schema>
-
+               <!-- TR-ESOR schemas for use in optional in- and outputs -->
+               <xsd:schema elementFormDefault="qualified"
+                   targetNamespace="http://www.bsi.bund.de/tr-esor/api/1.3">
+                   <xsd:include schemaLocation="tr-esor-interfaces-v1.3.xsd" />
+               </xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="RetrieveInfoRequest">
 		<wsdl:part name="req" element="pres:RetrieveInfo"/>
