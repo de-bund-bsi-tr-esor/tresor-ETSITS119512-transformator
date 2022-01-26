@@ -108,7 +108,7 @@ Before the TR-ESOR Transformator can be started, it needs to be configured by ad
 
 The following configuration options are required in order to run the service.
 
-* `quarkus.cxf.client."s4-client".client-endpoint-url`
+* `quarkus.cxf.client.s4Client.client-endpoint-url`
 
   URL of the S4 endpoint.
 
