@@ -37,9 +37,7 @@ public interface ClientConfig {
 
 	public Optional<Integer> mtomThreshold();
 
-	public Optional<Boolean> schemaValidationOut();
-
-	public Optional<Boolean> schemaValidationIn();
+	public Optional<String> schemaValidation();
 
 	public static interface SamlEcpConfig {
 

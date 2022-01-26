@@ -51,7 +51,7 @@ import oasis.names.tc.dss._1_0.core.schema.SignatureObject;
 import oasis.names.tc.dss._1_0.core.schema.VerifyRequest;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
 import oasis.names.tc.saml._2_0.assertion.NameIDType;
-import org.apache.cxf.annotations.SchemaValidation;
+import org.apache.cxf.annotations.EndpointProperty;
 import org.etsi.uri._19512.v1_1.DeletePOType;
 import org.etsi.uri._19512.v1_1.POType;
 import org.etsi.uri._19512.v1_1.PreservePOResponseType;
@@ -79,6 +79,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tresor.trans.service.client.S4ClientConfigurator;
 import tresor.trans.service.client.TresorTransClientConfigException;
+import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
 
 
 /**
@@ -86,7 +87,7 @@ import tresor.trans.service.client.TresorTransClientConfigException;
  * @author Tobias Wich
  */
 @WebService(serviceName = "PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
-@SchemaValidation
+@EndpointProperty(key = "schema-validation-enabled", beanClass = SchemaValidationConfigValue.class)
 public class PreservationService implements Preservation {
 
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
@@ -99,9 +100,8 @@ public class PreservationService implements Preservation {
 	S4ClientConfigurator clientConfigurator;
 
 	@PostConstruct
-	void configuresClient() throws TresorTransClientConfigException {
+	void configureClient() throws TresorTransClientConfigException {
 		clientConfigurator.configure(client);
-
 	}
 
 	@Inject
