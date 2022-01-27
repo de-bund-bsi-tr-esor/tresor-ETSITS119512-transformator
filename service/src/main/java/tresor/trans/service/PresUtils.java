@@ -32,8 +32,6 @@ import de.bund.bsi.tr_esor.xaip.DXAIPType;
 import de.bund.bsi.tr_esor.xaip.EvidenceRecordType;
 import de.bund.bsi.tr_esor.xaip.ObjectFactory;
 import de.bund.bsi.tr_esor.xaip.XAIPType;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Collections;
@@ -658,7 +656,7 @@ public class PresUtils {
 				});
 
 		try {
-			Object resultObj = preservePoJaxbCtx.createUnmarshaller().unmarshal(new ByteArrayInputStream(binObj));
+			Object resultObj = preservePoJaxbCtx.createUnmarshaller().unmarshal(binObj.getInputStream());
 			boolean matches = typeChecks.stream()
 					.reduce((a, b) -> a.or(b))
 					.map(p -> p.test(resultObj))
@@ -683,7 +681,7 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new InputAssertionFailed(msg);
-		} catch (JAXBException ex) {
+		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional input.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
@@ -737,9 +735,10 @@ public class PresUtils {
 	public Optional<AnyType> convertPreservePoOutput(Object tresorOptOut, ResponseType res) throws OutputAssertionFailed {
 		try {
 			if (isWrappedType(tresorOptOut, VerificationReportType.class, new QName("urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#", "VerificationReport"))) {
-				var out = new ByteArrayOutputStream();
-				preservePoJaxbCtx.createMarshaller().marshal(tresorOptOut, out);
-				return Optional.of(AnyType.builder().withValue(out.toByteArray()).build());
+				var ds = new TempFileDataSource(null);
+				preservePoJaxbCtx.createMarshaller().marshal(tresorOptOut, ds.getOutputStream());
+				ds.lock();
+				return Optional.of(AnyType.builder().withValue(new DataHandler(ds)).build());
 			} else {
 				LOG.warn("Ignoring unsupported optional output from S4 service.");
 				return Optional.empty();
@@ -752,7 +751,7 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new OutputAssertionFailed(msg);
-		} catch (JAXBException ex) {
+		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional output.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
@@ -934,11 +933,12 @@ public class PresUtils {
 
 	public AnyType convertXAIPData(XAIPDataType xaipData, ResponseType res) throws OutputAssertionFailed {
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			var ds = new TempFileDataSource(null);
 			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
-			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, baos);
-			return AnyType.builder().withValue(baos.toByteArray()).build();
-		} catch (JAXBException ex) {
+			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, ds.getOutputStream());
+			ds.lock();
+			return AnyType.builder().withValue(new DataHandler(ds)).build();
+		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to convert XPath object into DOM element.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
