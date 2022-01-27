@@ -51,6 +51,7 @@ import oasis.names.tc.dss._1_0.core.schema.SignatureObject;
 import oasis.names.tc.dss._1_0.core.schema.VerifyRequest;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
 import oasis.names.tc.saml._2_0.assertion.NameIDType;
+import org.apache.cxf.annotations.EndpointProperties;
 import org.apache.cxf.annotations.EndpointProperty;
 import org.etsi.uri._19512.v1_1.DeletePOType;
 import org.etsi.uri._19512.v1_1.POType;
@@ -79,6 +80,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tresor.trans.service.client.S4ClientConfigurator;
 import tresor.trans.service.client.TresorTransClientConfigException;
+import tresor.trans.service.endpointConfig.AttachementDirectoryConfigValue;
+import tresor.trans.service.endpointConfig.AttachementMemoryThresholdConfigValue;
 import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
 
 
@@ -87,7 +90,11 @@ import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
  * @author Tobias Wich
  */
 @WebService(serviceName = "PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
-@EndpointProperty(key = "schema-validation-enabled", beanClass = SchemaValidationConfigValue.class)
+@EndpointProperties({
+	@EndpointProperty(key = "schema-validation-enabled", beanClass = SchemaValidationConfigValue.class),
+	@EndpointProperty(key = "attachment-directory", beanClass = AttachementDirectoryConfigValue.class),
+	@EndpointProperty(key = "attachment-memory-threshold", beanClass = AttachementMemoryThresholdConfigValue.class)
+})
 public class PreservationService implements Preservation {
 
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
