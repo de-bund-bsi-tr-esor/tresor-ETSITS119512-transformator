@@ -34,7 +34,6 @@ import io.quarkiverse.cxf.annotation.CXFClient;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -168,9 +167,6 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		// holding the conversion computation
-		Future<Void> conversionJob = null;
-
 		try {
 
 			// exactly one PO
@@ -187,7 +183,7 @@ public class PreservationService implements Preservation {
 			} else {
 				if (utils.isXmlXadesOrDigestList(po, res)) {
 					// convert XML to binary
-					conversionJob = utils.convertXmlToBinary(po, res);
+					utils.convertXmlToBinary(po, res);
 				}
 
 				utils.assertBinaryPresent(po, res);
@@ -229,7 +225,6 @@ public class PreservationService implements Preservation {
 			try {
 				LOG.debug("Sending ArchiveSubmissionRequest to S4.");
 				var archRes = client.archiveSubmission(archReq);
-				utils.checkTaskOutcome(conversionJob, res);
 				LOG.debug("ArchiveSubmissionResponse received from S4.");
 
 				utils.assertClientResultOk(archRes, res);
@@ -273,11 +268,6 @@ public class PreservationService implements Preservation {
 			// res has been updated by the assert statement
 			return res;
 		} finally {
-			// force cancel conversion job if it exists
-			if (conversionJob != null) {
-				conversionJob.cancel(true);
-			}
-
 			LOG.debug("PreservePO finished.");
 		}
 	}
@@ -384,9 +374,6 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		// holding the conversion computation
-		Future<Void> conversionJob = null;
-
 		try {
 			var archReq = new VerifyRequest();
 			archReq.setRequestID(req.getRequestID());
@@ -410,7 +397,7 @@ public class PreservationService implements Preservation {
 			} else {
 				if (utils.isXmlXadesOrDigestList(po, res)) {
 					// convert XML to binary
-					conversionJob = utils.convertXmlToBinary(po, res);
+					utils.convertXmlToBinary(po, res);
 				}
 
 				var binary = utils.assertBinaryPresent(po, res);
@@ -519,11 +506,6 @@ public class PreservationService implements Preservation {
 			// res has been updated by the assert statement
 			return res;
 		} finally {
-			// force cancel conversion job if it exists
-			if (conversionJob != null) {
-				conversionJob.cancel(true);
-			}
-
 			LOG.debug("ValidateEvidence finished.");
 		}
 	}

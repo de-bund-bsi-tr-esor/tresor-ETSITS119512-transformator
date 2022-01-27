@@ -35,8 +35,6 @@ import de.bund.bsi.tr_esor.xaip.XAIPType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,10 +44,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.function.Predicate;
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -69,7 +65,6 @@ import oasis.names.tc.dss._1_0.core.schema.ResponseBaseType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.EvidenceRecordValidityType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.ReturnVerificationReport;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
-import org.apache.cxf.attachment.AttachmentDataSource;
 import org.etsi.uri._19512.v1_1.DeletionModeType;
 import org.etsi.uri._19512.v1_1.EvidenceType;
 import org.etsi.uri._19512.v1_1.POType;
@@ -1019,7 +1014,7 @@ public class PresUtils {
 				 TypeConstants.DIGESTLIST_TYPE.equals(po.getFormatId()));
 	}
 
-	public Future<Void> convertXmlToBinary(POType po, ResponseType res) throws InputAssertionFailed {
+	public void convertXmlToBinary(POType po, ResponseType res) throws InputAssertionFailed {
 		if (! (po.isSetXmlData() && po.getXmlData().isSetAny())) {
 			String msg = "No XML data available in the PO.";
 			res.setResult(ResultType.builder()
@@ -1034,71 +1029,30 @@ public class PresUtils {
 			var binData = new POType.BinaryData();
 			Object xmlData = po.getXmlData().getAny();
 
-			// use piped stream in order to prevent having the complete serialized object in memory
-			var sourceStream = new PipedInputStream();
-			var sinkStream = new PipedOutputStream(sourceStream);
+			var tds = new TempFileDataSource(null);
 
-			var copyFuture = new FutureTask<Void>(() -> {
-				try (sinkStream) {
-					if (xmlData instanceof Element) {
-						var elem = ((Element) xmlData);
+			if (xmlData instanceof Element elem) {
+				var tf = TransformerFactory.newInstance();
+				tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+				var t = tf.newTransformer();
 
-						var tf = TransformerFactory.newInstance();
-						tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-						var t = tf.newTransformer();
-
-						var ds = new DOMSource(elem);
-						t.transform(ds, new StreamResult(sinkStream));
-					} else {
-						var marshaller = preservePoJaxbCtx.createMarshaller();
-						marshaller.marshal(xmlData, sinkStream);
-					}
-
-					return null;
-				} catch (TransformerConfigurationException ex) {
-					String msg = "Error creating the XML transformer.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				} catch (IOException ex) {
-					String msg = "Error while processing serialized XML data.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				} catch (JAXBException | TransformerException ex) {
-					String msg = "Error while serializing XML data.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				}
-			});
+				var ds = new DOMSource(elem);
+				t.transform(ds, new StreamResult(tds.getOutputStream()));
+				tds.lock();
+			} else {
+				var marshaller = preservePoJaxbCtx.createMarshaller();
+				marshaller.marshal(xmlData, tds.getOutputStream());
+				tds.lock();
+			}
 
 			//var sourceStream = new ByteArrayInputStream(sinkStream.toByteArray());
-			DataSource ds = new AttachmentDataSource(null, sourceStream);
-
-			var dh = new DataHandler(ds);
+			var dh = new DataHandler(tds);
 			binData.setValue(dh);
 
 			// set binary and remove xml in exchange
 			po.setBinaryData(binData);
 			po.setXmlData(null);
 
-			// start thread and provide data
-			var copyThread = new Thread(copyFuture, "ConvertXmlToBinary");
-			copyThread.start();
-			return copyFuture;
 		} catch (IOException ex) {
 			String msg = "Error while processing serialized XML data.";
 			LOG.error(msg, ex);
@@ -1108,32 +1062,17 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new InputAssertionFailed(msg);
-		}
-	}
-
-	public void checkTaskOutcome(Future<?> task, ResponseType res) throws InputAssertionFailed, OutputAssertionFailed {
-		try {
-			if (task != null) {
-				task.get();
-			}
-		} catch (ExecutionException ex) {
-			var cause = ex.getCause();
-			if (cause instanceof InputAssertionFailed) {
-				throw (InputAssertionFailed) cause;
-			} else if (cause instanceof OutputAssertionFailed) {
-				throw (OutputAssertionFailed) cause;
-			} else {
-				String msg = "Task failed for an unknown reason.";
-				LOG.error(msg, ex);
-				res.setResult(ResultType.builder()
-						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-						.withResultMinor(PresCodes.INT_ERROR)
-						.withResultMessage(makeMsg(msg))
-						.build());
-				throw new InputAssertionFailed(msg);
-			}
-		} catch (InterruptedException ex) {
-			String msg = "Task interruption received while waiting for a result to complete.";
+		} catch (TransformerConfigurationException ex) {
+			String msg = "Error creating the XML transformer.";
+			LOG.error(msg, ex);
+			res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					.withResultMinor(PresCodes.INT_ERROR)
+					.withResultMessage(makeMsg(msg))
+					.build());
+			throw new InputAssertionFailed(msg);
+		} catch (JAXBException | TransformerException ex) {
+			String msg = "Error while serializing XML data.";
 			LOG.error(msg, ex);
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
@@ -1142,6 +1081,7 @@ public class PresUtils {
 					.build());
 			throw new InputAssertionFailed(msg);
 		}
+
 	}
 
 }
