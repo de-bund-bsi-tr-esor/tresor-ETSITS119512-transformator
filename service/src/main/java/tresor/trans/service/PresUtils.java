@@ -369,14 +369,11 @@ public class PresUtils {
 	}
 
 	public String convertToS4EvidenceFormat(String etsiEvidenceFormat) {
-		switch (etsiEvidenceFormat) {
-			case TypeConstants.ERS_RFC_4998:
-				return TypeConstants.S4_ERS_RFC_4998;
-			case TypeConstants.ERS_RFC_6283:
-				return TypeConstants.S4_ERS_RFC_6283;
-			default:
-				return etsiEvidenceFormat;
-		}
+		return switch (etsiEvidenceFormat) {
+			case TypeConstants.ERS_RFC_4998 -> TypeConstants.S4_ERS_RFC_4998;
+			case TypeConstants.ERS_RFC_6283 -> TypeConstants.S4_ERS_RFC_6283;
+			default -> etsiEvidenceFormat;
+		};
 	}
 
 	public boolean isVerificationReport(Object o) {
@@ -991,20 +988,14 @@ public class PresUtils {
 	}
 
 	public Optional<String> getDefaultMimeType(String formatId) {
-		switch (formatId) {
-			case TypeConstants.CADES_TYPE:
-				return Optional.of("application/cms");
-			case TypeConstants.XADES_TYPE:
-				return Optional.of("application/xml");
-			case TypeConstants.PADES_TYPE:
-				return Optional.of("application/pdf");
-			case TypeConstants.ASICE_TYPE:
-				return Optional.of("application/vnd.etsi.asic-e+zip");
-			case TypeConstants.DIGESTLIST_TYPE:
-				return Optional.of("application/xml");
-			default:
-				return Optional.empty();
-		}
+		return switch (formatId) {
+			case TypeConstants.CADES_TYPE -> Optional.of("application/cms");
+			case TypeConstants.XADES_TYPE -> Optional.of("application/xml");
+			case TypeConstants.PADES_TYPE -> Optional.of("application/pdf");
+			case TypeConstants.ASICE_TYPE -> Optional.of("application/vnd.etsi.asic-e+zip");
+			case TypeConstants.DIGESTLIST_TYPE -> Optional.of("application/xml");
+			default -> Optional.empty();
+		};
 	}
 
 
