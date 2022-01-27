@@ -55,8 +55,13 @@ public class S4ClientConfigurator {
 		config.mtomThreshold().ifPresent(v -> {
 			var db = prox.getEndpoint().getService().getDataBinding();
 			db.setMtomThreshold(v);
-			LOG.info("Setting MTOM threshold to: {}", db.getMtomThreshold());
+			LOG.info("Setting client MTOM threshold to: {}", db.getMtomThreshold());
 		});
+		config.mtomDirectory().ifPresent(v -> {
+			prox.getResponseContext().put("attachment-directory", v);
+			LOG.info("Setting client MTOM directory to: {}", v);
+		});
+
 	}
 
 	private void configureSchemaValidation(Client prox) {
