@@ -80,6 +80,7 @@ import org.slf4j.LoggerFactory;
 import tresor.trans.service.client.S4ClientConfigurator;
 import tresor.trans.service.client.TresorTransClientConfigException;
 import tresor.trans.service.endpointConfig.AttachementDirectoryConfigValue;
+import tresor.trans.service.endpointConfig.AttachementMTOMEnabledValue;
 import tresor.trans.service.endpointConfig.AttachementMemoryThresholdConfigValue;
 import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
 
@@ -88,18 +89,19 @@ import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
  *
  * @author Tobias Wich
  */
-@WebService(serviceName = "PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
+@WebService(serviceName = "Preservation", portName = "Preservation", targetNamespace = "http://uri.etsi.org/19512/v1.1.2#", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
 @EndpointProperties({
 	@EndpointProperty(key = "schema-validation-enabled", beanClass = SchemaValidationConfigValue.class),
 	@EndpointProperty(key = "attachment-directory", beanClass = AttachementDirectoryConfigValue.class),
-	@EndpointProperty(key = "attachment-memory-threshold", beanClass = AttachementMemoryThresholdConfigValue.class)
+	@EndpointProperty(key = "attachment-memory-threshold", beanClass = AttachementMemoryThresholdConfigValue.class),
+	@EndpointProperty(key = "mtom-enabled", beanClass = AttachementMTOMEnabledValue.class)
 })
 public class PreservationService implements Preservation {
 
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
 
 	@Inject
-	@CXFClient
+	@CXFClient("s4Client")
 	S4 client;
 
 	@Inject

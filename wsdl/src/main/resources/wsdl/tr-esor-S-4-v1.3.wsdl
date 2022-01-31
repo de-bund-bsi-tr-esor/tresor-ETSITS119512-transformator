@@ -123,7 +123,7 @@
 	<!-- Definition of Binding               -->
 	<!-- ===================== -->
 	<wsdl:binding name="S4" type="tr:S4">
-		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<soap:binding style="document" transport="http://www.w3.org/2003/05/soap/bindings/HTTP/"/>
 		<wsdl:operation name="RetrieveInfo">
 			<soap:operation soapAction="http://www.bsi.bund.de/tr-esor/RetrieveInfo"/>
 			<wsdl:input>

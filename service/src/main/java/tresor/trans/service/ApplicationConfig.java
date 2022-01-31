@@ -9,21 +9,22 @@
  ***************************************************************************/
 
 
-package tresor.trans.service.endpointConfig;
 
-import java.io.File;
-import org.eclipse.microprofile.config.ConfigProvider;
+package tresor.trans.service;
+
+import io.smallrye.config.ConfigMapping;
+import java.util.Optional;
+
 
 /**
  *
  * @author Florian Otto
  */
-public class AttachementDirectoryConfigValue extends File {
+@ConfigMapping(prefix = "tresor.trans.application")
+public interface ApplicationConfig {
 
-	public AttachementDirectoryConfigValue() {
-		super(
-			ConfigProvider.getConfig().getOptionalValue("tresor.trans.application.cache-dir", String.class).orElse((System.getProperty("java.io.tmpdir")))
-		);
-	}
+	Optional<String> cacheDir();
+
+	Optional<Integer> mtomThreshold();
 
 }

@@ -23,7 +23,7 @@ public class AttachementMemoryThresholdConfigValue extends Number {
 	private final Optional<Integer> configValue;
 
 	public AttachementMemoryThresholdConfigValue() {
-		this.configValue = ConfigProvider.getConfig().getOptionalValue("tresor.trans.endpoint.mtom-threshold", Integer.class);
+		this.configValue = ConfigProvider.getConfig().getOptionalValue("tresor.trans.application.mtom-threshold", Integer.class);
 	}
 
 	@Override

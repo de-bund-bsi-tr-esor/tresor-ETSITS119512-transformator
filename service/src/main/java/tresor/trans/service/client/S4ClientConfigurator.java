@@ -27,6 +27,7 @@ import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tresor.trans.service.ApplicationConfig;
 
 
 /**
@@ -39,7 +40,9 @@ public class S4ClientConfigurator {
 	private final Logger LOG = LoggerFactory.getLogger(S4ClientConfigurator.class);
 
 	@Inject
-	ClientConfig config;
+	ClientConfig clientConfig;
+	@Inject
+	ApplicationConfig appConfig;
 
 	public void configure(S4 client) throws TresorTransClientConfigException {
 
@@ -52,12 +55,12 @@ public class S4ClientConfigurator {
 	}
 
 	private void configureMtom(Client prox) {
-		config.mtomThreshold().ifPresent(v -> {
+		appConfig.mtomThreshold().ifPresent(v -> {
 			var db = prox.getEndpoint().getService().getDataBinding();
 			db.setMtomThreshold(v);
 			LOG.info("Setting client MTOM threshold to: {}", db.getMtomThreshold());
 		});
-		config.mtomDirectory().ifPresent(v -> {
+		appConfig.cacheDir().ifPresent(v -> {
 			prox.getResponseContext().put("attachment-directory", v);
 			LOG.info("Setting client MTOM directory to: {}", v);
 		});
@@ -66,7 +69,7 @@ public class S4ClientConfigurator {
 
 	private void configureSchemaValidation(Client prox) {
 
-		config.schemaValidation()
+		clientConfig.schemaValidation()
 			.map(v -> v.toUpperCase())
 			.map(v -> {
 				switch (v) {
@@ -101,11 +104,12 @@ public class S4ClientConfigurator {
 	}
 
 	private void configureAuthentication(S4 client) throws TresorTransClientConfigException {
-		if (config.tlsConfig().isPresent()) {
-			TLSProvisioning.configure(client, config.tlsConfig().get());
-		} else if (config.samlEcpConfig().isPresent()) {
-			SamlEcpProvisioning.configure(client, config.samlEcpConfig().get());
+		if (clientConfig.tlsConfig().isPresent()) {
+			TLSProvisioning.configure(client, clientConfig.tlsConfig().get());
+		} else if (clientConfig.samlEcpConfig().isPresent()) {
+			SamlEcpProvisioning.configure(client, clientConfig.samlEcpConfig().get());
 		}
 	}
+
 
 }
