@@ -54,7 +54,7 @@
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.version>2.6.2.Final</quarkus.platform.version>
 		<quarkus-plugin.version>2.6.2.Final</quarkus-plugin.version>
-		<quarkus.cxf.version>0.12.0</quarkus.cxf.version>
+		<quarkus.cxf.version>0.13.1</quarkus.cxf.version>
 
 		<testcontainers.version>1.16.2</testcontainers.version>
 
