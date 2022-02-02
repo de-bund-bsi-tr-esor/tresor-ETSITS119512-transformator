@@ -10,10 +10,12 @@
 
 package tresor.trans.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.activation.DataSource;
+import javax.inject.Inject;
 import org.apache.cxf.io.CachedOutputStream;
 
 
@@ -22,6 +24,9 @@ import org.apache.cxf.io.CachedOutputStream;
  * @author Tobias Wich
  */
 public class TempFileDataSource implements DataSource {
+
+	@Inject
+	ApplicationConfig appConfig;
 
 	private final CachedOutputStream cache;
 	private String name;
@@ -35,6 +40,10 @@ public class TempFileDataSource implements DataSource {
 		this.name = name;
 		this.contentType = contentType;
 		this.cache = new CachedOutputStream();
+
+		if (appConfig.cacheDir().isPresent()) {
+			this.cache.setOutputDir(new File(appConfig.cacheDir().get()));
+		}
 	}
 
 	@Override
