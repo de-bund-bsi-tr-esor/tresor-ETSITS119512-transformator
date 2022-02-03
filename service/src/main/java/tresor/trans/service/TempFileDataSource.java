@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.activation.DataSource;
-import javax.inject.Inject;
 import org.apache.cxf.io.CachedOutputStream;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 
 /**
@@ -24,9 +24,6 @@ import org.apache.cxf.io.CachedOutputStream;
  * @author Tobias Wich
  */
 public class TempFileDataSource implements DataSource {
-
-	@Inject
-	ApplicationConfig appConfig;
 
 	private final CachedOutputStream cache;
 	private String name;
@@ -41,9 +38,8 @@ public class TempFileDataSource implements DataSource {
 		this.contentType = contentType;
 		this.cache = new CachedOutputStream();
 
-		if (appConfig.cacheDir().isPresent()) {
-			this.cache.setOutputDir(new File(appConfig.cacheDir().get()));
-		}
+		var tmpDir = ConfigProvider.getConfig().getOptionalValue("tresor.trans.application.cache-dir", String.class).orElse((System.getProperty("java.io.tmpdir")));
+		this.cache.setOutputDir(new File(tmpDir));
 	}
 
 	@Override
