@@ -26,7 +26,7 @@ It is possible to start a standalone service by
 ```
 $ mvn clean compile quarkus:dev -Dquarkus.http.port=<PORT>
 ```
-which will start the service listening on port <PORT>
+which will start the service listening on the specified port.
 
 
 ## Docker-compose
