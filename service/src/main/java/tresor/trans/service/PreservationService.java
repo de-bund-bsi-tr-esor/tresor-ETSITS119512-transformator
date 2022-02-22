@@ -181,7 +181,6 @@ public class PreservationService implements Preservation {
 
 			var archReq = new ArchiveSubmissionRequest();
 			archReq.setRequestID(req.getRequestID());
-			archReq.setProfile(req.getProfile());
 
 			if (utils.isXaip(po)) {
 				var xaip = utils.assertXaipPresent(po, res);
