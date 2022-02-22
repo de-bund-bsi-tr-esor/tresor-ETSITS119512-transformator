@@ -32,6 +32,8 @@ import de.bund.bsi.tr_esor.api._1.RetrieveInfoRequest;
 import de.bund.bsi.tr_esor.api._1_3.S4;
 import io.quarkiverse.cxf.annotation.CXFClient;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,6 +68,7 @@ import org.etsi.uri._19512.v1_1.RetrieveTraceResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveTraceType;
 import org.etsi.uri._19512.v1_1.SearchResponseType;
 import org.etsi.uri._19512.v1_1.SearchType;
+import org.etsi.uri._19512.v1_1.StatusType;
 import org.etsi.uri._19512.v1_1.SubjectOfRetrievalType;
 import org.etsi.uri._19512.v1_1.TraceType;
 import org.etsi.uri._19512.v1_1.UpdatePOCResponseType;
@@ -115,6 +118,9 @@ public class PreservationService implements Preservation {
 	@Inject
 	PresUtils utils;
 
+	@Inject
+	ProfileSupplier profileSupplier;
+
 	@Override
 	public RetrieveInfoResponseType retrieveInfo(RetrieveInfoType req) {
 		LOG.debug("RetrieveInfo called.");
@@ -125,35 +131,33 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		try {
-			var s4Request = new RetrieveInfoRequest();
-			s4Request.setRequestID(req.getRequestID());
-			s4Request.setProfileIdentifier(req.getProfile());
-			s4Request.setStatus(req.getStatus());
+		List<ProfileType> profiles = new ArrayList<ProfileType>();
 
-			try {
-				var s4Resp = client.retrieveInfo(s4Request);
-				utils.assertClientResultOk(s4Resp, res);
-
-				res.getProfile().addAll(
-					s4Resp.getRest().stream()
-						.map(el -> ((JAXBElement<ProfileType>) el).getValue())
-						.collect(Collectors.toList())
-				);
-			} catch (SOAPFaultException ex) {
-				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
-					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-					.withResultMinor(PresCodes.INT_ERROR)
-					.build());
-			}
-
-		} catch (OutputAssertionFailed ex) {
-			LOG.warn("Assertion about output data failed: {}", ex.getMessage());
-			LOG.debug("Assertion about output data failed.", ex);
-			// res has been updated by the assert statement
-			return res;
+		var reqStatus = Optional.ofNullable(req.getStatus()).orElse(StatusType.ACTIVE);
+		if (reqStatus == StatusType.INACTIVE || reqStatus == StatusType.ALL) {
+			// nothing to add currently
 		}
+		if (reqStatus == StatusType.ACTIVE || reqStatus == StatusType.ALL) {
+			profiles.add(profileSupplier.getProfile());
+		}
+
+		//filter for requested
+		if (req.isSetProfile()) {
+			profiles = profiles.stream()
+				.filter(p -> p.getProfileIdentifier().equals(req.getProfile().strip()))
+				.collect(Collectors.toList());
+		}
+		//if non left
+		if (profiles.isEmpty()) {
+			res = new RetrieveInfoResponseType();
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+
+		}
+		res.getProfile().addAll(profiles);
 
 		LOG.debug("RetrieveInfo finished.");
 		return res;
