@@ -51,6 +51,8 @@ public class ProfileSupplier {
 
 	@Inject
 	ApplicationConfig cfg;
+	private boolean isTraceSupported = false;
+	private boolean isSearchSupported = false;
 
 	@PostConstruct
 	void initJaxb() {
@@ -61,6 +63,10 @@ public class ProfileSupplier {
 			var unmarshaller = ctx.createUnmarshaller();
 			JAXBElement<ProfileType> res = (JAXBElement<ProfileType>) unmarshaller.unmarshal(profileInputStream);
 			profile = res.getValue();
+
+			isTraceSupported = profile.getOperation().stream().filter(o -> o.getName().equals("RetrieveTrace")).count() > 0;
+			isSearchSupported = profile.getOperation().stream().filter(o -> o.getName().equals("Search")).count() > 0;
+
 		} catch (FileNotFoundException ex) {
 			LOG.error("Configured 512-profile not found.");
 			throw new RuntimeException("Failed to load profile.", ex);
@@ -72,6 +78,14 @@ public class ProfileSupplier {
 
 	public ProfileType getProfile() {
 		return ProfileType.copyOf(profile).build();
+	}
+
+	boolean isTraceSupported() {
+		return this.isTraceSupported;
+	}
+
+	boolean isSearchSupported() {
+		return this.isSearchSupported;
 	}
 
 }

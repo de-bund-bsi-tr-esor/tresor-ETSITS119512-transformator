@@ -767,6 +767,15 @@ public class PreservationService implements Preservation {
 			.build());
 		res.setRequestID(req.getRequestID());
 
+		if (!profileSupplier.isTraceSupported()) {
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+			return res;
+		}
+
 		try {
 			utils.assertNoOptionalInputs(req.getOptionalInputs(), res);
 
@@ -813,6 +822,15 @@ public class PreservationService implements Preservation {
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
 				.build());
 		res.setRequestID(req.getRequestID());
+
+		if (!profileSupplier.isSearchSupported()) {
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+			return res;
+		}
 
 		try {
 
