@@ -5,7 +5,7 @@
 	<!-- ========================================================= -->
 	<!-- Version of 16.02.2022                                    -->
 	<!-- ========================================================= -->
-	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.3/profile/preservation-api/V1.1.2_MAX</md:ProfileIdentifier>
+	<md:ProfileIdentifier>http://www.bsi.bund.de/tr-esor/V1.3/profile/preservation-api/V1.1.2_MIN+Search</md:ProfileIdentifier>
 	<md:Specification>https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/TechnischeRichtlinien/TR03125/BSI_TR_03125_Anlage_TRANS_V1_3.pdf</md:Specification>
 	<md:Description xml:lang="EN">The present Profile describes the TR-ESOR V1.3 TS119512-interface with maximal functionality</md:Description>
 	<md:Operation>
