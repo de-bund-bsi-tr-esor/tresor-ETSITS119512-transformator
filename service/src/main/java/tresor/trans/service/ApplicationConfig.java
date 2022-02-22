@@ -27,4 +27,6 @@ public interface ApplicationConfig {
 
 	Optional<Integer> mtomThreshold();
 
+	String profileFilepath();
+
 }
