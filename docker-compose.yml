@@ -6,5 +6,6 @@ services:
       - "8080:8080"
     volumes:
       - ./docker-config:/config
+      - ./profiles:/profiles
     environment:
       - quarkus.config.locations=file:///config/application.properties
