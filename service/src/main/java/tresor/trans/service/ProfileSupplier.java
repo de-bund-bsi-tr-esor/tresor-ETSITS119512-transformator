@@ -53,6 +53,7 @@ public class ProfileSupplier {
 	ApplicationConfig cfg;
 	private boolean isTraceSupported = false;
 	private boolean isSearchSupported = false;
+	private String profileId;
 
 	@PostConstruct
 	void initJaxb() {
@@ -66,6 +67,7 @@ public class ProfileSupplier {
 
 			isTraceSupported = profile.getOperation().stream().filter(o -> o.getName().equals("RetrieveTrace")).count() > 0;
 			isSearchSupported = profile.getOperation().stream().filter(o -> o.getName().equals("Search")).count() > 0;
+			profileId = profile.getProfileIdentifier();
 
 		} catch (FileNotFoundException ex) {
 			LOG.error("Configured 512-profile not found.");
@@ -86,6 +88,9 @@ public class ProfileSupplier {
 
 	boolean isSearchSupported() {
 		return this.isSearchSupported;
+	}
+	String getProfileIdentifier() {
+		return this.profileId;
 	}
 
 }

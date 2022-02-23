@@ -174,6 +174,15 @@ public class PreservationService implements Preservation {
 		res.setRequestID(req.getRequestID());
 
 		try {
+			//check profile
+			if (req.isSetProfile() && !req.getProfile().equals(profileSupplier.getProfileIdentifier())) {
+				res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+					.withResultMinor(PresCodes.NOT_SUPPORTED)
+					.build());
+				res.setRequestID(req.getRequestID());
+				return res;
+			}
 
 			// exactly one PO
 			POType po = utils.assertOnePo(req.getPO(), res);
