@@ -31,6 +31,7 @@ import de.bund.bsi.tr_esor.api._1.ReasonOfDeletion;
 import de.bund.bsi.tr_esor.api._1.RetrieveInfoRequest;
 import de.bund.bsi.tr_esor.api._1_3.S4;
 import io.quarkiverse.cxf.annotation.CXFClient;
+import io.quarkus.runtime.configuration.ConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -113,6 +114,14 @@ public class PreservationService implements Preservation {
 	@PostConstruct
 	void configureClient() throws TresorTransClientConfigException {
 		clientConfigurator.configure(client);
+	}
+	@PostConstruct
+	void assureProfileConfigured() throws ConfigurationException {
+		try {
+			profileSupplier.getProfile();
+		} catch (Exception e) {
+			throw new ConfigurationException("Profile could not be loaded. Stopping.");
+		}
 	}
 
 	@Inject
