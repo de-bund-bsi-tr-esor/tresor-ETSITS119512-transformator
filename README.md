@@ -83,6 +83,10 @@ The following configuration options can or have to be set and adjusted within th
 
 ## PreservationEndpoint
 
+* `tresor.trans.application.profile-filepath`
+
+  Path to the operational profile of the endpoint.
+
 * `quarkus.cxf.endpoint.PreservationService.wsdl`
 
   Path to the wsdl of the public Preservation endpoint.
