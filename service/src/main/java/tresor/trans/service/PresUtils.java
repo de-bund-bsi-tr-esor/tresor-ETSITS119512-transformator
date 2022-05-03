@@ -301,7 +301,7 @@ public class PresUtils {
 		assertAdmissibleFormatInt(po.getFormatId(), res,
 				Set.of(TypeConstants.XAIP_TYPE, TypeConstants.LXAIP_TYPE, TypeConstants.ASIC_TYPE,
 						TypeConstants.CADES_TYPE, TypeConstants.XADES_TYPE, TypeConstants.PADES_TYPE,
-						TypeConstants.ASICE_TYPE, TypeConstants.DIGESTLIST_TYPE),
+						TypeConstants.ASICE_TYPE, TypeConstants.ASICS_TYPE, TypeConstants.DIGESTLIST_TYPE),
 				UnknownFormatMinorCode.from(PresCodes.UNKNOWN_PO_FORMAT));
 	}
 
@@ -309,7 +309,7 @@ public class PresUtils {
 		assertAdmissibleFormatInt(po.getFormatId(), res,
 				Set.of(TypeConstants.XAIP_TYPE, TypeConstants.LXAIP_TYPE, TypeConstants.ASIC_TYPE,
 						TypeConstants.CADES_TYPE, TypeConstants.XADES_TYPE, TypeConstants.PADES_TYPE,
-						TypeConstants.ASICE_TYPE, TypeConstants.DIGESTLIST_TYPE),
+						TypeConstants.ASICE_TYPE, TypeConstants.ASICS_TYPE, TypeConstants.DIGESTLIST_TYPE),
 				UnknownFormatMinorCode.from(PresCodes.UNKNOWN_PO_FORMAT));
 	}
 
@@ -983,6 +983,7 @@ public class PresUtils {
 			case TypeConstants.XADES_TYPE:
 			case TypeConstants.PADES_TYPE:
 			case TypeConstants.ASICE_TYPE:
+			case TypeConstants.ASICS_TYPE:
 			case TypeConstants.DIGESTLIST_TYPE:
 				return TypeConstants.BINARYDATA_TYPE;
 			default:
@@ -1000,6 +1001,8 @@ public class PresUtils {
 				return Optional.of("application/pdf");
 			case TypeConstants.ASICE_TYPE:
 				return Optional.of("application/vnd.etsi.asic-e+zip");
+			case TypeConstants.ASICS_TYPE:
+				return Optional.of("application/vnd.etsi.asic-s+zip");
 			case TypeConstants.DIGESTLIST_TYPE:
 				return Optional.of("application/xml");
 			default:

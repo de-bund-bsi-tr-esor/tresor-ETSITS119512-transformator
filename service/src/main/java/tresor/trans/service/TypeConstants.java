@@ -39,6 +39,7 @@ public class TypeConstants {
 	public static final String XADES_TYPE = "http://uri.etsi.org/ades/XAdES";
 	public static final String PADES_TYPE = "http://uri.etsi.org/ades/PAdES";
 	public static final String ASICE_TYPE = "http://uri.etsi.org/ades/ASiC/type/ASiC-E";
+	public static final String ASICS_TYPE = "http://uri.etsi.org/ades/ASiC/type/ASiC-S";
 	public static final String DIGESTLIST_TYPE = "http://uri.etsi.org/19512/format/DigestList";
 
 	public static final String BINARYDATA_TYPE = "http://www.bsi.bund.de/tr-esor/api/1.3/type/binaryData";
