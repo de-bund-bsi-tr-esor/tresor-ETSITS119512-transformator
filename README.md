@@ -22,12 +22,27 @@ $ mvn clean install
 ```
 ## Quarkus
 
-It is possible to start a standalone service by
+### Development mode
+
+It is possible to start the service in development mode by
 ```
 $ mvn clean compile quarkus:dev -Dquarkus.http.port=<PORT>
 ```
 which will start the service listening on the specified port.
 
+### Standalone mode
+
+It is also possible to start the service as an executable java archive.
+
+First run
+```
+$ mvn clean install
+```
+
+after that from the service folder the the archive can be executed with:
+```
+$ java -jar target/quarkus-app/quarkus-run.jar
+```
 
 ## Docker-compose
 
@@ -77,6 +92,9 @@ The values set there will override those being defined in the bundled `applicati
 Alternatively one can adjust the `docker-compose.yml` and adjust the path of `quarkus.config.location` to load alternative properties-files
 while using docker.
 
+In standalone mode one can overrite settings with an `application.properties` file existing in `service/config` which will overwrite settings defined in the bundled file.
+
+For additional information see https://quarkus.io/guides/config-reference
 
 The following configuration options can or have to be set and adjusted within the properties-file:
 
@@ -144,7 +162,6 @@ If the S4 service requires TLS client certificates the following parameters have
 * `tresor.trans.client.tls-config.keystore-secret`
 
   Password of the keystore and the key entry.
-
 
 
 If the S4 service requires SAML Ecp tokens the following parameters have to be configured:
