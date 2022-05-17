@@ -39,7 +39,7 @@ First run
 $ mvn clean install
 ```
 
-after that from the service folder the the archive can be executed with:
+after that from the service folder the archive can be executed with:
 ```
 $ java -jar target/quarkus-app/quarkus-run.jar
 ```
