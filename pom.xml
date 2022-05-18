@@ -6,7 +6,7 @@
 	<artifactId>tresor-etsi-ts119512-transformator</artifactId>
 	<packaging>pom</packaging>
 	<name>TR-ESOR Transformator</name>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 
 	<inceptionYear>2020</inceptionYear>
 
