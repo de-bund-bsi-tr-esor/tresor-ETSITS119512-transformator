@@ -69,9 +69,12 @@
 			<artifactId>quarkus-cxf</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-features-logging</artifactId>
-			<version>${version.cxf}</version>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf-rt-features-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf-rt-ws-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
