@@ -53,6 +53,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -955,10 +957,30 @@ public class PresUtils {
 			if (isSchemaCheck) {
 				m.setSchema(trsesorDataSchema);
 			}
-			m.marshal(xaipDataObj, ds.getOutputStream());
+
+			// There is a bug in JAXB, which prevents the marshalling directly into the stream (namespaces get confused)
+			// once this gets fixed, the statement after the block can be used instead of the detour over the DOM
+			{
+				var dbf = DocumentBuilderFactory.newInstance();
+				dbf.setNamespaceAware(true);
+				var db = dbf.newDocumentBuilder();
+				var doc = db.newDocument();
+				m.marshal(xaipDataObj, doc);
+
+				// Use a Transformer for output
+				var tFactory = TransformerFactory.newInstance();
+				var transformer = tFactory.newTransformer();
+
+				var source = new DOMSource(doc);
+				var result = new StreamResult(ds.getOutputStream());
+				transformer.transform(source, result);
+			}
+
+			//m.marshal(xaipDataObj, ds.getOutputStream());
+
 			ds.lock();
 			return AnyType.builder().withValue(new DataHandler(ds)).build();
-		} catch (IOException | JAXBException ex) {
+		} catch (IOException | JAXBException | TransformerException | ParserConfigurationException ex) {
 			String msg = "Failed to convert XPath object into DOM element.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
