@@ -40,11 +40,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.function.Predicate;
 import javax.activation.DataHandler;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbException;
@@ -59,6 +58,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import oasis.names.tc.dss._1_0.core.schema.ResponseBaseType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.EvidenceRecordValidityType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.ReturnVerificationReport;
@@ -77,6 +78,8 @@ import org.oasis_open.docs.dss_x.ns.base.ResultType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import tresor.trans.service.client.ClientConfig;
 
 
 /**
@@ -96,7 +99,11 @@ public class PresUtils {
 
 	private final Logger LOG = LoggerFactory.getLogger(PresUtils.class);
 
+	@Inject
+	ClientConfig clientConfig;
+
 	JAXBContext preservePoJaxbCtx;
+	Schema trsesorDataSchema;
 	//minor mappings
 	Map<String, String> tresorPresArchiveSubmissionMinorMapping;
 	Map<String, String> tresorPresArchiveUpdateMinorMapping;
@@ -120,10 +127,14 @@ public class PresUtils {
 	Map<String, ResultType.ResultMajor> tresorPresRetrieveInfoMajorOfMinor;
 	Map<String, ResultType.ResultMajor> tresorPresRetrieveTraceMajorOfMinor = Collections.EMPTY_MAP;
 
-	public PresUtils() throws JAXBException {
+	public PresUtils() throws JAXBException, SAXException {
 		preservePoJaxbCtx = JAXBContext.newInstance(de.bund.bsi.tr_esor.api._1.ObjectFactory.class,
 				org.etsi.uri._19512.v1_1.ObjectFactory.class,
 				ReturnVerificationReport.class);
+
+		var schemaFac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		trsesorDataSchema = schemaFac.newSchema(getClass().getResource("/wsdl/tr-esor-interfaces-v1.3.xsd"));
+
 
 		tresorPresArchiveDataMinorMapping = Collections.unmodifiableMap(new Lut()
 				.with(TresorCodes.NO_PERMISSION, PresCodes.NO_PERMISSION)
@@ -935,7 +946,11 @@ public class PresUtils {
 		try {
 			var ds = new TempFileDataSource(null);
 			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
-			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, ds.getOutputStream());
+			var m = preservePoJaxbCtx.createMarshaller();
+			if (clientConfig.schemaValidation().isPresent()) {
+				m.setSchema(trsesorDataSchema);
+			}
+			m.marshal(xaipDataObj, ds.getOutputStream());
 			ds.lock();
 			return AnyType.builder().withValue(new DataHandler(ds)).build();
 		} catch (IOException | JAXBException ex) {
