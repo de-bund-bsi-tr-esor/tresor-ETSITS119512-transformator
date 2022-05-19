@@ -27,7 +27,7 @@ The configuration of the test environemnt consist of two steps:
     * **S512-soapui-project.xml** - consist three test suits, corresponding to functional *S512-TestSuite*, throughput *S512-TestSuite-LT* and last tests *S512-TestSuite-Load*.
 
 * configure the access urls:
-    * TR-ESOR Transformator - per default ist set to: *http://bsi-transformator:8080/tresor-transformator-service/ws/PreservationService*, you can change it in the SoapUI and assign the new URL to all test cases (please consult the SoapUI documentation, how to do that)
+    * TR-ESOR Transformator - per default ist set to: *http://bsi-transformator:8080/ws/PreservationService*, you can change it in the SoapUI and assign the new URL to all test cases (please consult the SoapUI documentation, how to do that)
     * S4-Mock - you can specify which network interface should the mock service bind to (it could be localhost or the real IP adress of the host SoapUI isr running on). Per default, following settings will be used:
         * Host: bsi-transformator
         * Port: 8888
@@ -39,13 +39,19 @@ The tests are divied into three separated categories:
 
 ### Functional tests
 
-Test suite: **S512-TestSuite**
+Test suite: **TR-S.512-TestSuite**
 
 In order to proof the functional correctness of the TR-ESOR Transformator (according to the current specification), a set of functional tests have to be executed. Before you execute the tests, plase be sure the TR-ESOR Transformator and the S4-mock-service are both up and running.
 
+### MTOM functional tests
+
+Test suite: **TR-S.512-TestSuite-MTOM
+
+In order to proof the correctness of the MTOM-based transmition, a subste of functional tests with activated support for MTOM have to be executed. Before you execute the tests, plase be sure the TR-ESOR Transformator and the S4-mock-service are both up and running.
+
 ### Throughput tests
 
-Test suite: **S512-TestSuite-LT**
+Test suite: **TR-S.512-TestSuite-LT**
 
 This test suite proofs the ability of the TR-ESOR Transformator to deal with payload of an increased size. The tests use the payload data generated while the configuration step.
 
@@ -53,6 +59,6 @@ Be sure you have configured your application server properly, in order to be abl
 
 ### Load tests
 
-Test suite: **S512-TestSuite-Load**
+Test suite: **TR-S.512-TestSuite-Load**
 
 By using this tests, you can check the behaviour of the TR-ESOR Transformator while sending multiple requests in parallel.
