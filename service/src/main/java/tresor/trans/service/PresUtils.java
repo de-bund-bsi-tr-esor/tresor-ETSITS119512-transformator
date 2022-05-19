@@ -947,7 +947,12 @@ public class PresUtils {
 			var ds = new TempFileDataSource(null);
 			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
 			var m = preservePoJaxbCtx.createMarshaller();
-			if (clientConfig.schemaValidation().isPresent()) {
+
+			var isSchemaCheck = clientConfig.schemaValidation()
+					.map(String::toLowerCase)
+					.map(v -> Set.of("both", "in", "response").contains(v))
+					.orElse(false);
+			if (isSchemaCheck) {
 				m.setSchema(trsesorDataSchema);
 			}
 			m.marshal(xaipDataObj, ds.getOutputStream());
