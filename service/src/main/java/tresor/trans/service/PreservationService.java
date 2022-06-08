@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,21 +23,25 @@ import de.bund.bsi.tr_esor.api._1.ArchiveDeletionRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveEvidenceRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveRetrievalRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionRequest;
+import de.bund.bsi.tr_esor.api._1.ArchiveTraceRequest;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateRequest;
 import de.bund.bsi.tr_esor.api._1.DataLocation;
 import de.bund.bsi.tr_esor.api._1.ObjectFactory;
 import de.bund.bsi.tr_esor.api._1.ReasonOfDeletion;
-import de.bund.bsi.tr_esor.api._1_2.S4;
+import de.bund.bsi.tr_esor.api._1.RetrieveInfoRequest;
+import de.bund.bsi.tr_esor.api._1_3.S4;
+import io.quarkiverse.cxf.annotation.CXFClient;
+import io.quarkus.runtime.configuration.ConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.xml.bind.JAXBElement;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.soap.SOAPBinding;
 import javax.xml.ws.soap.SOAPFaultException;
 import oasis.names.tc.dss._1_0.core.schema.AnyType;
 import oasis.names.tc.dss._1_0.core.schema.Base64Data;
@@ -49,10 +53,13 @@ import oasis.names.tc.dss._1_0.core.schema.SignatureObject;
 import oasis.names.tc.dss._1_0.core.schema.VerifyRequest;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
 import oasis.names.tc.saml._2_0.assertion.NameIDType;
+import org.apache.cxf.annotations.EndpointProperties;
+import org.apache.cxf.annotations.EndpointProperty;
 import org.etsi.uri._19512.v1_1.DeletePOType;
 import org.etsi.uri._19512.v1_1.POType;
 import org.etsi.uri._19512.v1_1.PreservePOResponseType;
 import org.etsi.uri._19512.v1_1.PreservePOType;
+import org.etsi.uri._19512.v1_1.ProfileType;
 import org.etsi.uri._19512.v1_1.ResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveInfoResponseType;
 import org.etsi.uri._19512.v1_1.RetrieveInfoType;
@@ -64,6 +71,7 @@ import org.etsi.uri._19512.v1_1.SearchResponseType;
 import org.etsi.uri._19512.v1_1.SearchType;
 import org.etsi.uri._19512.v1_1.StatusType;
 import org.etsi.uri._19512.v1_1.SubjectOfRetrievalType;
+import org.etsi.uri._19512.v1_1.TraceType;
 import org.etsi.uri._19512.v1_1.UpdatePOCResponseType;
 import org.etsi.uri._19512.v1_1.UpdatePOCType;
 import org.etsi.uri._19512.v1_1.ValidateEvidenceResponseType;
@@ -73,74 +81,92 @@ import org.oasis_open.docs.dss_x.ns.base.OptionalOutputsType;
 import org.oasis_open.docs.dss_x.ns.base.ResultType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tresor.trans.service.client.S4ClientConfigurator;
+import tresor.trans.service.client.TresorTransClientConfigException;
+import tresor.trans.service.endpointConfig.AttachementDirectoryConfigValue;
+import tresor.trans.service.endpointConfig.AttachementMTOMEnabledValue;
+import tresor.trans.service.endpointConfig.AttachementMemoryThresholdConfigValue;
+import tresor.trans.service.endpointConfig.SchemaValidationConfigValue;
 
 
 /**
  *
  * @author Tobias Wich
  */
-@WebService(serviceName = "ws/PreservationService", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
-@MTOM
-@BindingType(SOAPBinding.SOAP12HTTP_MTOM_BINDING)
+@WebService(serviceName = "Preservation", portName = "Preservation", targetNamespace = "http://uri.etsi.org/19512/v1.1.2#", endpointInterface = "org.etsi.uri._19512.v1_1_2_.Preservation")
+@EndpointProperties({
+	@EndpointProperty(key = "schema-validation-enabled", beanClass = SchemaValidationConfigValue.class),
+	@EndpointProperty(key = "attachment-directory", beanClass = AttachementDirectoryConfigValue.class),
+	@EndpointProperty(key = "attachment-memory-threshold", beanClass = AttachementMemoryThresholdConfigValue.class),
+	@EndpointProperty(key = "mtom-enabled", beanClass = AttachementMTOMEnabledValue.class)
+})
 public class PreservationService implements Preservation {
 
 	private final Logger LOG = LoggerFactory.getLogger(PreservationService.class);
 
 	@Inject
+	@CXFClient("s4Client")
 	S4 client;
 
 	@Inject
-	ProfileSupplier profileSupplier;
+	S4ClientConfigurator clientConfigurator;
+
+	@PostConstruct
+	void configureClient() throws TresorTransClientConfigException {
+		clientConfigurator.configure(client);
+	}
+	@PostConstruct
+	void assureProfileConfigured() throws ConfigurationException {
+		try {
+			profileSupplier.getProfile();
+		} catch (Exception e) {
+			throw new ConfigurationException("Profile could not be loaded. Stopping.");
+		}
+	}
 
 	@Inject
 	PresUtils utils;
 
+	@Inject
+	ProfileSupplier profileSupplier;
+
 	@Override
 	public RetrieveInfoResponseType retrieveInfo(RetrieveInfoType req) {
 		LOG.debug("RetrieveInfo called.");
+
 		var res = new RetrieveInfoResponseType();
 		res.setResult(ResultType.builder()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		var profs = res.getProfile();
+		List<ProfileType> profiles = new ArrayList<ProfileType>();
 
-
-		// only active is supported, if inactive is requested, we delete everything
-		var reqStatus = Optional.ofNullable(req.getStatus())
-				.orElse(StatusType.ACTIVE);
+		var reqStatus = Optional.ofNullable(req.getStatus()).orElse(StatusType.ACTIVE);
 		if (reqStatus == StatusType.INACTIVE || reqStatus == StatusType.ALL) {
 			// nothing to add currently
 		}
 		if (reqStatus == StatusType.ACTIVE || reqStatus == StatusType.ALL) {
-			var prof = profileSupplier.getProfile();
-			profs.add(prof);
+			profiles.add(profileSupplier.getProfile());
 		}
 
-		// filter out everything but the requested profile
+		//filter for requested
 		if (req.isSetProfile()) {
-			var it = res.getProfile().iterator();
-			while (it.hasNext()) {
-				var next = it.next();
-				// remove profile if it is not equal to the requested value
-				if (! req.getProfile().equals(next.getProfileIdentifier())) {
-					it.remove();
-				}
-			}
-
-			//if non left
-			if (!res.isSetProfile()) {
-
-				res = new RetrieveInfoResponseType();
-				res.setResult(ResultType.builder()
-						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-						.withResultMinor(PresCodes.NOT_SUPPORTED)
-						.build());
-				res.setRequestID(req.getRequestID());
-
-			}
+			profiles = profiles.stream()
+				.filter(p -> p.getProfileIdentifier().equals(req.getProfile().strip()))
+				.collect(Collectors.toList());
 		}
+		//if non left
+		if (profiles.isEmpty()) {
+			res = new RetrieveInfoResponseType();
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+
+		}
+		res.getProfile().addAll(profiles);
 
 		LOG.debug("RetrieveInfo finished.");
 		return res;
@@ -156,11 +182,16 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		// holding the conversion computation
-		Future<Void> conversionJob = null;
-
 		try {
-			utils.assertProfile(req.getProfile(), res);
+			//check profile
+			if (req.isSetProfile() && !req.getProfile().equals(profileSupplier.getProfileIdentifier())) {
+				res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+					.withResultMinor(PresCodes.NOT_SUPPORTED)
+					.build());
+				res.setRequestID(req.getRequestID());
+				return res;
+			}
 
 			// exactly one PO
 			POType po = utils.assertOnePo(req.getPO(), res);
@@ -175,7 +206,7 @@ public class PreservationService implements Preservation {
 			} else {
 				if (utils.isXmlXadesOrDigestList(po, res)) {
 					// convert XML to binary
-					conversionJob = utils.convertXmlToBinary(po, res);
+					utils.convertXmlToBinary(po, res);
 				}
 
 				utils.assertBinaryPresent(po, res);
@@ -185,13 +216,15 @@ public class PreservationService implements Preservation {
 				var s4MimeType = Optional.ofNullable(po.getMimeType())
 						.or(() -> utils.getDefaultMimeType(poFormatId));
 
-				var dataBuilder = ArchiveDataType.builder();
-				dataBuilder = dataBuilder.withType(s4FormatId);
+				var adt = new ArchiveDataType();
+				adt.setType(po.getFormatId());
+				adt.setArchiveDataID(s4FormatId);
+				adt.setMimeType(s4MimeType.orElse(null));
+				adt.setArchiveDataID(po.getID());
 
-				var elem = utils.buildBinaryElement(s4MimeType, po.getBinaryData().getValue(), res);
-				dataBuilder = dataBuilder.withAny(elem);
+				adt.setValue(po.getBinaryData().getValue());
+				archReq.getArchiveData().add(adt);
 
-				archReq.setArchiveData(dataBuilder.build());
 			}
 
 			// process optional inputs
@@ -215,7 +248,6 @@ public class PreservationService implements Preservation {
 			try {
 				LOG.debug("Sending ArchiveSubmissionRequest to S4.");
 				var archRes = client.archiveSubmission(archReq);
-				utils.checkTaskOutcome(conversionJob, res);
 				LOG.debug("ArchiveSubmissionResponse received from S4.");
 
 				utils.assertClientResultOk(archRes, res);
@@ -259,11 +291,6 @@ public class PreservationService implements Preservation {
 			// res has been updated by the assert statement
 			return res;
 		} finally {
-			// force cancel conversion job if it exists
-			if (conversionJob != null) {
-				conversionJob.cancel(true);
-			}
-
 			LOG.debug("PreservePO finished.");
 		}
 	}
@@ -370,9 +397,6 @@ public class PreservationService implements Preservation {
 				.build());
 		res.setRequestID(req.getRequestID());
 
-		// holding the conversion computation
-		Future<Void> conversionJob = null;
-
 		try {
 			var archReq = new VerifyRequest();
 			archReq.setRequestID(req.getRequestID());
@@ -389,14 +413,14 @@ public class PreservationService implements Preservation {
 
 			if (utils.isXaip(po)) {
 				var xaip = utils.assertXaipPresent(po, res);
-				var xaipOf = new de.bund.bsi.tr_esor.xaip._1.ObjectFactory();
+				var xaipOf = new de.bund.bsi.tr_esor.xaip.ObjectFactory();
 				var inXml = new InlineXMLType();
 				inXml.setAny(xaipOf.createXAIP(xaip));
 				inputDoc.setInlineXML(inXml);
 			} else {
 				if (utils.isXmlXadesOrDigestList(po, res)) {
 					// convert XML to binary
-					conversionJob = utils.convertXmlToBinary(po, res);
+					utils.convertXmlToBinary(po, res);
 				}
 
 				var binary = utils.assertBinaryPresent(po, res);
@@ -505,11 +529,6 @@ public class PreservationService implements Preservation {
 			// res has been updated by the assert statement
 			return res;
 		} finally {
-			// force cancel conversion job if it exists
-			if (conversionJob != null) {
-				conversionJob.cancel(true);
-			}
-
 			LOG.debug("ValidateEvidence finished.");
 		}
 	}
@@ -683,8 +702,7 @@ public class PreservationService implements Preservation {
 					.withFormatId(poFormat)
 					.withMimeType("application/xml")
 					.withXmlData(POType.XmlData.builder()
-							.withAny(new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createXAIP(archRes.getXAIP()))
-							.build())
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createXAIP(archRes.getXAIP())).build())
 					.build();
 			utils.assertReturnedXaipPresent(po, res);
 			res.getPO().add(po);
@@ -743,8 +761,7 @@ public class PreservationService implements Preservation {
 				.map(e -> POType.builder()
 					.withFormatId(defaultedEvidenceFormat)
 					.withXmlData(POType.XmlData.builder()
-							.withAny(new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createEvidenceRecord(e))
-							.build())
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createEvidenceRecord(e)).build())
 					.build())
 				.forEachOrdered(res.getPO()::add);
 
@@ -761,7 +778,58 @@ public class PreservationService implements Preservation {
 
 	@Override
 	public RetrieveTraceResponseType retrieveTrace(RetrieveTraceType req) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		LOG.debug("RetrieveTrace called.");
+		var res = new RetrieveTraceResponseType();
+		res.setResult(ResultType.builder()
+			.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
+			.build());
+		res.setRequestID(req.getRequestID());
+
+		if (!profileSupplier.isTraceSupported()) {
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+			return res;
+		}
+
+		try {
+			utils.assertNoOptionalInputs(req.getOptionalInputs(), res);
+
+			try {
+				var atr = new ArchiveTraceRequest();
+				atr.setAOID(req.getPOID());
+				atr.setRequestID(req.getRequestID());
+				var s4resp = client.archiveTrace(atr);
+
+				utils.assertClientResultOk(s4resp, res);
+
+				res.setTrace(s4resp.getTrace());
+
+			} catch (SOAPFaultException ex) {
+				LOG.error("Failed to invoked remote service.", ex);
+				res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					.withResultMinor(PresCodes.INT_ERROR)
+					.build());
+			}
+		} catch (InputAssertionFailed ex) {
+			LOG.warn("Assertion about input data failed: {}", ex.getMessage());
+			LOG.debug("Assertion about input data failed.", ex);
+			// res has been updated by the assert statement
+			return res;
+		} catch (OutputAssertionFailed ex) {
+			LOG.warn("Assertion about output data failed: {}", ex.getMessage());
+			LOG.debug("Assertion about output data failed.", ex);
+			// res has been updated by the assert statement
+			//assure empty trace in if error happens due to schema compliance.
+			res.setTrace(new TraceType());
+			return res;
+		}
+
+		return res;
+
 	}
 
 	@Override
@@ -772,6 +840,15 @@ public class PreservationService implements Preservation {
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
 				.build());
 		res.setRequestID(req.getRequestID());
+
+		if (!profileSupplier.isSearchSupported()) {
+			res.setResult(ResultType.builder()
+				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+				.withResultMinor(PresCodes.NOT_SUPPORTED)
+				.build());
+			res.setRequestID(req.getRequestID());
+			return res;
+		}
 
 		try {
 

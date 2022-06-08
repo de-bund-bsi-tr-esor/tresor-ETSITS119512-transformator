@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ package tresor.trans.service;
  */
 public class TresorCodes {
 
-	private static final String PFX = "http://www.bsi.bund.de/tr-esor/api/1.2/";
+	private static final String PFX = "http://www.bsi.bund.de/tr-esor/api/1.3/";
 
 	private static final String MAJOR = PFX + "resultmajor";
 	private static final String MINOR = PFX + "resultminor";

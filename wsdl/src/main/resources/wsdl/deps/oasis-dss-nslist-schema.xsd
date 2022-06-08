@@ -10,10 +10,10 @@
 -->
 <xs:schema xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-
-
-
-
+           
+           
+           
+           
            xmlns:dss2="http://docs.oasis-open.org/dss-x/ns/core"
            xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base"
            xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten"
@@ -25,7 +25,7 @@
 	  <xs:annotation>
 		    <xs:documentation xml:lang="en">This schema defines common structure used by the Digital Signature Service Core Protocols, Elements, and Bindings Committee Specification version 2.0 and other specifications</xs:documentation>
 	  </xs:annotation>
-
+	
 	  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
               schemaLocation="xml.xsd"/>
 
@@ -34,7 +34,7 @@
 	  <!-- pairs used e.g. in XPath            -->
 	  <!-- expressions.                        -->
 	  <!-- =================================== -->
-
+	
 	  <xs:complexType name="NsPrefixMappingType">
 		    <xs:sequence>
 			      <xs:element name="NamespaceURI" type="xs:anyURI"/>

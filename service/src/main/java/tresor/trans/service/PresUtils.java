@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,18 @@ import de.bund.bsi.tr_esor.api._1.ArchiveDataResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveEvidenceResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveRetrievalResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveSubmissionResponse;
+import de.bund.bsi.tr_esor.api._1.ArchiveTraceResponse;
 import de.bund.bsi.tr_esor.api._1.ArchiveUpdateResponse;
 import de.bund.bsi.tr_esor.api._1.ImportEvidenceType;
-import de.bund.bsi.tr_esor.api._1.XAIPDataType;
 import de.bund.bsi.tr_esor.api._1.RequestType;
-import de.bund.bsi.tr_esor.vr._1.EvidenceRecordValidityType;
-import de.bund.bsi.tr_esor.xaip._1.BinaryDataType;
-import de.bund.bsi.tr_esor.xaip._1.DXAIPType;
-import de.bund.bsi.tr_esor.xaip._1.EvidenceRecordType;
-import de.bund.bsi.tr_esor.xaip._1.ObjectFactory;
-import de.bund.bsi.tr_esor.xaip._1.XAIPType;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import de.bund.bsi.tr_esor.api._1.RetrieveInfoResponse;
+import de.bund.bsi.tr_esor.api._1.XAIPDataType;
+import de.bund.bsi.tr_esor.xaip.BinaryDataType;
+import de.bund.bsi.tr_esor.xaip.DXAIPType;
+import de.bund.bsi.tr_esor.xaip.EvidenceRecordType;
+import de.bund.bsi.tr_esor.xaip.ObjectFactory;
+import de.bund.bsi.tr_esor.xaip.XAIPType;
 import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,12 +40,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.function.Predicate;
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -59,15 +53,19 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import oasis.names.tc.dss._1_0.core.schema.ResponseBaseType;
+import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.EvidenceRecordValidityType;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.ReturnVerificationReport;
 import oasis.names.tc.dss_x._1_0.profiles.verificationreport.schema_.VerificationReportType;
-import org.apache.cxf.attachment.AttachmentDataSource;
 import org.etsi.uri._19512.v1_1.DeletionModeType;
 import org.etsi.uri._19512.v1_1.EvidenceType;
 import org.etsi.uri._19512.v1_1.POType;
@@ -82,17 +80,20 @@ import org.oasis_open.docs.dss_x.ns.base.ResultType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import tresor.trans.service.client.ClientConfig;
 
 
 /**
  *
  * @author Tobias Wich
  */
+@ApplicationScoped
 public class PresUtils {
 
-	private class Lut extends HashMap<String, String> {
+	private class Lut<E> extends HashMap<String, E> {
 
-		Lut with(String a, String b) {
+		Lut with(String a, E b) {
 			this.put(a, b);
 			return this;
 		}
@@ -101,9 +102,11 @@ public class PresUtils {
 	private final Logger LOG = LoggerFactory.getLogger(PresUtils.class);
 
 	@Inject
-	ProfileSupplier profileSupplier;
+	ClientConfig clientConfig;
 
 	JAXBContext preservePoJaxbCtx;
+	Schema trsesorDataSchema;
+	//minor mappings
 	Map<String, String> tresorPresArchiveSubmissionMinorMapping;
 	Map<String, String> tresorPresArchiveUpdateMinorMapping;
 	Map<String, String> tresorPresArchiveRetrievalMinorMapping;
@@ -111,11 +114,29 @@ public class PresUtils {
 	Map<String, String> tresorPresArchiveDeletionMinorMapping;
 	Map<String, String> tresorPresArchiveDataMinorMapping;
 	Map<String, String> tresorPresVerifyMinorMapping;
+	Map<String, String> tresorPresRetrieveInfoMinorMapping;
+	Map<String, String> tresorPresRetrieveTraceMinorMapping;
 
-	public PresUtils() throws JAXBException {
+	//major of minor mapping 
+	//this can be used to change the preservation major result w.r.t. the minor result given by S4
+	Map<String, ResultType.ResultMajor> tresorPresArchiveSubmissionMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveUpdateMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveRetrievalMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveEvidenceMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveDeletionMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresArchiveDataMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresVerifyMajorOfMinor = Collections.EMPTY_MAP;
+	Map<String, ResultType.ResultMajor> tresorPresRetrieveInfoMajorOfMinor;
+	Map<String, ResultType.ResultMajor> tresorPresRetrieveTraceMajorOfMinor = Collections.EMPTY_MAP;
+
+	public PresUtils() throws JAXBException, SAXException {
 		preservePoJaxbCtx = JAXBContext.newInstance(de.bund.bsi.tr_esor.api._1.ObjectFactory.class,
 				org.etsi.uri._19512.v1_1.ObjectFactory.class,
 				ReturnVerificationReport.class);
+
+		var schemaFac = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		trsesorDataSchema = schemaFac.newSchema(getClass().getResource("/wsdl/tr-esor-interfaces-v1.3.xsd"));
+
 
 		tresorPresArchiveDataMinorMapping = Collections.unmodifiableMap(new Lut()
 				.with(TresorCodes.NO_PERMISSION, PresCodes.NO_PERMISSION)
@@ -202,32 +223,35 @@ public class PresUtils {
 				.with(TresorCodes.MISSING_REASON_OF_DELETION, PresCodes.PARAM_ERROR)
 				.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
 		);
-	}
 
-	public void assertProfile(String profile, ResponseType res) throws InputAssertionFailed {
-		var refProfile = profileSupplier.getProfile();
+		//RetrieveInfo mapping
+		tresorPresRetrieveInfoMinorMapping = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.NO_PERMISSION, PresCodes.NO_PERMISSION)
+			.with(TresorCodes.INT_ERROR, PresCodes.INT_ERROR)
+			.with(TresorCodes.PARAM_ERROR, PresCodes.PARAM_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
+		);
 
-		try {
-			Optional.of(profile)
-					.filter(v -> v.equals(refProfile.getProfileIdentifier()))
-					.orElseThrow(() -> {
-						String msg = "Requested profile is not available.";
-						res.setResult(ResultType.builder()
-								.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-								.withResultMinor(PresCodes.NOT_SUPPORTED)
-								.withResultMessage(makeMsg(msg))
-								.build());
-						return new InputAssertionFailed(msg);
-					});
-		} catch (NullPointerException ex) {
-			String msg = "No profile specified in request.";
-			res.setResult(ResultType.builder()
-					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
-					.withResultMinor(PresCodes.PARAM_ERROR)
-					.withResultMessage(makeMsg(msg))
-					.build());
-			throw new InputAssertionFailed(msg);
-		}
+		tresorPresRetrieveInfoMajorOfMinor = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.PARAM_ERROR, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+		);
+
+		//RetrieveTrace mapping
+		tresorPresRetrieveTraceMinorMapping = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.NO_PERMISSION, PresCodes.NO_PERMISSION)
+			.with(TresorCodes.INT_ERROR, PresCodes.INT_ERROR)
+			.with(TresorCodes.PARAM_ERROR, PresCodes.PARAM_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, PresCodes.NOT_SUPPORTED)
+			.with(TresorCodes.UNKNOWN_AOID, PresCodes.UNKNOWN_POID)
+		);
+
+		tresorPresRetrieveTraceMajorOfMinor = Collections.unmodifiableMap(new Lut()
+			.with(TresorCodes.PARAM_ERROR, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+			.with(TresorCodes.NOT_SUPPORTED, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+			.with(TresorCodes.UNKNOWN_AOID, ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
+		);
+
 	}
 
 	public String assertPoid(String poid, ResponseType res) throws InputAssertionFailed {
@@ -290,7 +314,7 @@ public class PresUtils {
 		assertAdmissibleFormatInt(po.getFormatId(), res,
 				Set.of(TypeConstants.XAIP_TYPE, TypeConstants.LXAIP_TYPE, TypeConstants.ASIC_TYPE,
 						TypeConstants.CADES_TYPE, TypeConstants.XADES_TYPE, TypeConstants.PADES_TYPE,
-						TypeConstants.ASICE_TYPE, TypeConstants.DIGESTLIST_TYPE),
+						TypeConstants.ASICE_TYPE, TypeConstants.ASICS_TYPE, TypeConstants.DIGESTLIST_TYPE),
 				UnknownFormatMinorCode.from(PresCodes.UNKNOWN_PO_FORMAT));
 	}
 
@@ -298,7 +322,7 @@ public class PresUtils {
 		assertAdmissibleFormatInt(po.getFormatId(), res,
 				Set.of(TypeConstants.XAIP_TYPE, TypeConstants.LXAIP_TYPE, TypeConstants.ASIC_TYPE,
 						TypeConstants.CADES_TYPE, TypeConstants.XADES_TYPE, TypeConstants.PADES_TYPE,
-						TypeConstants.ASICE_TYPE, TypeConstants.DIGESTLIST_TYPE),
+						TypeConstants.ASICE_TYPE, TypeConstants.ASICS_TYPE, TypeConstants.DIGESTLIST_TYPE),
 				UnknownFormatMinorCode.from(PresCodes.UNKNOWN_PO_FORMAT));
 	}
 
@@ -496,45 +520,54 @@ public class PresUtils {
 				.build();
 	}
 
+	public void assertClientResultOk(RetrieveInfoResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
+		assertClientResultOkInt(clientRes, presRes, tresorPresRetrieveInfoMinorMapping, tresorPresRetrieveInfoMajorOfMinor);
+	}
+
+	public void assertClientResultOk(ArchiveTraceResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
+		assertClientResultOkInt(clientRes, presRes, tresorPresRetrieveTraceMinorMapping, tresorPresRetrieveTraceMajorOfMinor);
+	}
+
 	public void assertClientResultOk(ArchiveSubmissionResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveSubmissionMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveSubmissionMinorMapping, tresorPresArchiveSubmissionMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveUpdateResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveUpdateMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveUpdateMinorMapping, tresorPresArchiveUpdateMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveRetrievalResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveRetrievalMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveRetrievalMinorMapping, tresorPresArchiveRetrievalMajorOfMinor);
 	}
 
 	public void assertClientResultOk(ArchiveEvidenceResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveEvidenceMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveEvidenceMinorMapping, tresorPresArchiveEvidenceMajorOfMinor);
 	}
 
 	public void assertClientResultDeletionOk(de.bund.bsi.tr_esor.api._1.ResponseType clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveDeletionMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresArchiveDeletionMinorMapping, tresorPresArchiveDeletionMajorOfMinor);
 	}
 
 	public void assertClientResultVerifyOk(ResponseBaseType clientRes, ResponseType presRes) throws OutputAssertionFailed {
-		assertClientResultOkInt(clientRes, presRes, tresorPresVerifyMinorMapping);
+		assertClientResultOkInt(clientRes, presRes, tresorPresVerifyMinorMapping, tresorPresVerifyMajorOfMinor);
 	}
 
 	void assertClientResultOk(ArchiveDataResponse archRes, SearchResponseType res) throws OutputAssertionFailed {
-		assertClientResultOkInt(archRes, res, tresorPresArchiveDataMinorMapping);
+		assertClientResultOkInt(archRes, res, tresorPresArchiveDataMinorMapping, tresorPresArchiveDataMajorOfMinor);
 	}
 
 
-	private void assertClientResultOkInt(ResponseBaseType clientRes, ResponseType presRes, Map<String, String> codeMap) throws OutputAssertionFailed {
+	private void assertClientResultOkInt(ResponseBaseType clientRes, ResponseType presRes, Map<String, String> minorCodeMap, Map<String, ResultType.ResultMajor> majorOfMinor) throws OutputAssertionFailed {
 		var result = Optional.of(clientRes.getResult())
 				.filter(r -> r.isSetResultMajor())
 				.orElseThrow(() -> {
 					String msg = "No proper result received from TR-ESOR system.";
 					presRes.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+					    .withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					    .withResultMinor(PresCodes.INT_ERROR)
+					    .withResultMessage(makeMsg(msg))
+					    .build()
+					);
 					return new OutputAssertionFailed(msg);
 				});
 
@@ -547,18 +580,19 @@ public class PresUtils {
 				}
 
 				presRes.setResult(ResultType.builder()
-						.withResultMajor(resultMajor)
-						.withResultMinor(convertTresorMinor(result.getResultMinor(), codeMap, true))
-						.withResultMessage(convertMessage(result.getResultMessage()))
-						.build());
+					.withResultMajor(resultMajor)
+					.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, true))
+					.withResultMessage(convertMessage(result.getResultMessage()))
+					.build());
 
 			}
 		} else if (TresorCodes.ERROR.equals(result.getResultMajor())) {
+			var resultMajor = getMajorOfMinorOrDefault(majorOfMinor, result.getResultMinor(), ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
 			presRes.setResult(ResultType.builder()
-					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-					.withResultMinor(convertTresorMinor(result.getResultMinor(), codeMap, false))
-					.withResultMessage(convertMessage(result.getResultMessage()))
-					.build());
+				.withResultMajor(resultMajor)
+				.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, false))
+				.withResultMessage(convertMessage(result.getResultMessage()))
+				.build());
 			throw new OutputAssertionFailed(Optional.ofNullable(result.getResultMessage())
 					.map(v -> v.getValue())
 					.orElse("Error received from TR-ESOR system."));
@@ -571,6 +605,10 @@ public class PresUtils {
 					.build());
 			throw new OutputAssertionFailed(msg);
 		}
+	}
+
+	private ResultType.ResultMajor getMajorOfMinorOrDefault(Map<String, ResultType.ResultMajor> map, String minor, ResultType.ResultMajor defMajor) {
+		return map.getOrDefault(minor, defMajor);
 	}
 
 	private String convertTresorMinor(String resultMinor, Map<String, String> codeMap, boolean nullAllowed) {
@@ -631,7 +669,7 @@ public class PresUtils {
 				});
 
 		try {
-			Object resultObj = preservePoJaxbCtx.createUnmarshaller().unmarshal(new ByteArrayInputStream(binObj));
+			Object resultObj = preservePoJaxbCtx.createUnmarshaller().unmarshal(binObj.getInputStream());
 			boolean matches = typeChecks.stream()
 					.reduce((a, b) -> a.or(b))
 					.map(p -> p.test(resultObj))
@@ -656,7 +694,7 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new InputAssertionFailed(msg);
-		} catch (JAXBException ex) {
+		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional input.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
@@ -710,9 +748,10 @@ public class PresUtils {
 	public Optional<AnyType> convertPreservePoOutput(Object tresorOptOut, ResponseType res) throws OutputAssertionFailed {
 		try {
 			if (isWrappedType(tresorOptOut, VerificationReportType.class, new QName("urn:oasis:names:tc:dss-x:1.0:profiles:verificationreport:schema#", "VerificationReport"))) {
-				var out = new ByteArrayOutputStream();
-				preservePoJaxbCtx.createMarshaller().marshal(tresorOptOut, out);
-				return Optional.of(AnyType.builder().withValue(out.toByteArray()).build());
+				var ds = new TempFileDataSource(null);
+				preservePoJaxbCtx.createMarshaller().marshal(tresorOptOut, ds.getOutputStream());
+				ds.lock();
+				return Optional.of(AnyType.builder().withValue(new DataHandler(ds)).build());
 			} else {
 				LOG.warn("Ignoring unsupported optional output from S4 service.");
 				return Optional.empty();
@@ -725,7 +764,7 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new OutputAssertionFailed(msg);
-		} catch (JAXBException ex) {
+		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional output.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
@@ -874,7 +913,7 @@ public class PresUtils {
 		var binData = new BinaryDataType();
 		mimeType.ifPresent(binData::setMimeType);
 		binData.setValue(binValue);
-		return new de.bund.bsi.tr_esor.xaip._1.ObjectFactory().createBinaryData(binData);
+		return new de.bund.bsi.tr_esor.xaip.ObjectFactory().createBinaryData(binData);
 	}
 
 
@@ -907,11 +946,41 @@ public class PresUtils {
 
 	public AnyType convertXAIPData(XAIPDataType xaipData, ResponseType res) throws OutputAssertionFailed {
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			var ds = new TempFileDataSource(null);
 			var xaipDataObj = new de.bund.bsi.tr_esor.api._1.ObjectFactory().createXAIPData(xaipData);
-			preservePoJaxbCtx.createMarshaller().marshal(xaipDataObj, baos);
-			return AnyType.builder().withValue(baos.toByteArray()).build();
-		} catch (JAXBException ex) {
+			var m = preservePoJaxbCtx.createMarshaller();
+
+			var isSchemaCheck = clientConfig.schemaValidation()
+					.map(String::toLowerCase)
+					.map(v -> Set.of("both", "in", "response").contains(v))
+					.orElse(false);
+			if (isSchemaCheck) {
+				m.setSchema(trsesorDataSchema);
+			}
+
+			// There is a bug in JAXB, which prevents the marshalling directly into the stream (namespaces get confused)
+			// once this gets fixed, the statement after the block can be used instead of the detour over the DOM
+			{
+				var dbf = DocumentBuilderFactory.newInstance();
+				dbf.setNamespaceAware(true);
+				var db = dbf.newDocumentBuilder();
+				var doc = db.newDocument();
+				m.marshal(xaipDataObj, doc);
+
+				// Use a Transformer for output
+				var tFactory = TransformerFactory.newInstance();
+				var transformer = tFactory.newTransformer();
+
+				var source = new DOMSource(doc);
+				var result = new StreamResult(ds.getOutputStream());
+				transformer.transform(source, result);
+			}
+
+			//m.marshal(xaipDataObj, ds.getOutputStream());
+
+			ds.lock();
+			return AnyType.builder().withValue(new DataHandler(ds)).build();
+		} catch (IOException | JAXBException | TransformerException | ParserConfigurationException ex) {
 			String msg = "Failed to convert XPath object into DOM element.";
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
@@ -956,6 +1025,7 @@ public class PresUtils {
 			case TypeConstants.XADES_TYPE:
 			case TypeConstants.PADES_TYPE:
 			case TypeConstants.ASICE_TYPE:
+			case TypeConstants.ASICS_TYPE:
 			case TypeConstants.DIGESTLIST_TYPE:
 				return TypeConstants.BINARYDATA_TYPE;
 			default:
@@ -973,6 +1043,8 @@ public class PresUtils {
 				return Optional.of("application/pdf");
 			case TypeConstants.ASICE_TYPE:
 				return Optional.of("application/vnd.etsi.asic-e+zip");
+			case TypeConstants.ASICS_TYPE:
+				return Optional.of("application/vnd.etsi.asic-s+zip");
 			case TypeConstants.DIGESTLIST_TYPE:
 				return Optional.of("application/xml");
 			default:
@@ -987,7 +1059,7 @@ public class PresUtils {
 				 TypeConstants.DIGESTLIST_TYPE.equals(po.getFormatId()));
 	}
 
-	public Future<Void> convertXmlToBinary(POType po, ResponseType res) throws InputAssertionFailed {
+	public void convertXmlToBinary(POType po, ResponseType res) throws InputAssertionFailed {
 		if (! (po.isSetXmlData() && po.getXmlData().isSetAny())) {
 			String msg = "No XML data available in the PO.";
 			res.setResult(ResultType.builder()
@@ -1002,71 +1074,31 @@ public class PresUtils {
 			var binData = new POType.BinaryData();
 			Object xmlData = po.getXmlData().getAny();
 
-			// use piped stream in order to prevent having the complete serialized object in memory
-			var sourceStream = new PipedInputStream();
-			var sinkStream = new PipedOutputStream(sourceStream);
+			var tds = new TempFileDataSource(null);
 
-			var copyFuture = new FutureTask<Void>(() -> {
-				try (sinkStream) {
-					if (xmlData instanceof Element) {
-						var elem = ((Element) xmlData);
+			if (xmlData instanceof Element) {
 
-						var tf = TransformerFactory.newInstance();
-						tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-						var t = tf.newTransformer();
+				var tf = TransformerFactory.newInstance();
+				tf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+				var t = tf.newTransformer();
 
-						var ds = new DOMSource(elem);
-						t.transform(ds, new StreamResult(sinkStream));
-					} else {
-						var marshaller = preservePoJaxbCtx.createMarshaller();
-						marshaller.marshal(xmlData, sinkStream);
-					}
-
-					return null;
-				} catch (TransformerConfigurationException ex) {
-					String msg = "Error creating the XML transformer.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				} catch (IOException ex) {
-					String msg = "Error while processing serialized XML data.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				} catch (JAXBException | TransformerException ex) {
-					String msg = "Error while serializing XML data.";
-					LOG.error(msg, ex);
-					res.setResult(ResultType.builder()
-							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-							.withResultMinor(PresCodes.INT_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
-					throw new InputAssertionFailed(msg);
-				}
-			});
+				var ds = new DOMSource((Element) xmlData);
+				t.transform(ds, new StreamResult(tds.getOutputStream()));
+				tds.lock();
+			} else {
+				var marshaller = preservePoJaxbCtx.createMarshaller();
+				marshaller.marshal(xmlData, tds.getOutputStream());
+				tds.lock();
+			}
 
 			//var sourceStream = new ByteArrayInputStream(sinkStream.toByteArray());
-			DataSource ds = new AttachmentDataSource(null, sourceStream);
-
-			var dh = new DataHandler(ds);
+			var dh = new DataHandler(tds);
 			binData.setValue(dh);
 
 			// set binary and remove xml in exchange
 			po.setBinaryData(binData);
 			po.setXmlData(null);
 
-			// start thread and provide data
-			var copyThread = new Thread(copyFuture, "ConvertXmlToBinary");
-			copyThread.start();
-			return copyFuture;
 		} catch (IOException ex) {
 			String msg = "Error while processing serialized XML data.";
 			LOG.error(msg, ex);
@@ -1076,32 +1108,17 @@ public class PresUtils {
 					.withResultMessage(makeMsg(msg))
 					.build());
 			throw new InputAssertionFailed(msg);
-		}
-	}
-
-	public void checkTaskOutcome(Future<?> task, ResponseType res) throws InputAssertionFailed, OutputAssertionFailed {
-		try {
-			if (task != null) {
-				task.get();
-			}
-		} catch (ExecutionException ex) {
-			var cause = ex.getCause();
-			if (cause instanceof InputAssertionFailed) {
-				throw (InputAssertionFailed) cause;
-			} else if (cause instanceof OutputAssertionFailed) {
-				throw (OutputAssertionFailed) cause;
-			} else {
-				String msg = "Task failed for an unknown reason.";
-				LOG.error(msg, ex);
-				res.setResult(ResultType.builder()
-						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
-						.withResultMinor(PresCodes.INT_ERROR)
-						.withResultMessage(makeMsg(msg))
-						.build());
-				throw new InputAssertionFailed(msg);
-			}
-		} catch (InterruptedException ex) {
-			String msg = "Task interruption received while waiting for a result to complete.";
+		} catch (TransformerConfigurationException ex) {
+			String msg = "Error creating the XML transformer.";
+			LOG.error(msg, ex);
+			res.setResult(ResultType.builder()
+					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
+					.withResultMinor(PresCodes.INT_ERROR)
+					.withResultMessage(makeMsg(msg))
+					.build());
+			throw new InputAssertionFailed(msg);
+		} catch (JAXBException | TransformerException ex) {
+			String msg = "Error while serializing XML data.";
 			LOG.error(msg, ex);
 			res.setResult(ResultType.builder()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
@@ -1110,6 +1127,7 @@ public class PresUtils {
 					.build());
 			throw new InputAssertionFailed(msg);
 		}
+
 	}
 
 }

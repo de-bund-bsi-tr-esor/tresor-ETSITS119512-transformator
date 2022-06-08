@@ -13,9 +13,9 @@
 Imported schemes and their namespaces are rewritten!
 They are NOT compatible with the original schema!
 
-Version 2.0 of the DSS/X specification introduces a multi-syntax approach to
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
 support both JSON and XML. Therefore it is neccessary to limit the use of
-syntax elements to a common base. Another goal is to support implementors
+syntax elements to a common base. Another goal is to support implementors 
 using mapping frameworks.These requirements affect the XML syntax and resulted
 in the modification of existing scheme. These major topics are identified:
 
@@ -24,10 +24,10 @@ in the modification of existing scheme. These major topics are identified:
 - inline namespace declarations usede within XPath expressions
 - 'choice' constructs that maybe mapped by frameworks in an untyped way
 
-This schema is rewritten to fulfil the requirements mentioned above. The
-functionalities intended by the initial authors is preserved as good as
-possible. For details regarding the multi-syntax approach and the DSS-X
-specification in general see the OASIS DSS-X homepage at
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
+specification in general see the OASIS DSS-X homepage at 
 https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.
 
 -->
@@ -36,9 +36,9 @@ https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.
 Imported schemes and their namespaces are rewritten!
 They are NOT compatible with the original schema!
 
-Version 2.0 of the DSS/X specification introduces a multi-syntax approach to
+Version 2.0 of the DSS/X specification introduces a multi-syntax approach to 
 support both JSON and XML. Therefore it is neccessary to limit the use of
-syntax elements to a common base. Another goal is to support implementors
+syntax elements to a common base. Another goal is to support implementors 
 using mapping frameworks.These requirements affect the XML syntax and resulted
 in the modification of existing scheme. These major topics are identified:
 
@@ -47,10 +47,10 @@ in the modification of existing scheme. These major topics are identified:
 - inline namespace declarations usede within XPath expressions
 - 'choice' constructs that maybe mapped by frameworks in an untyped way
 
-This schema is rewritten to fulfil the requirements mentioned above. The
-functionalities intended by the initial authors is preserved as good as
-possible. For details regarding the multi-syntax approach and the DSS-X
-specification in general see the OASIS DSS-X homepage at
+This schema is rewritten to fulfil the requirements mentioned above. The 
+functionalities intended by the initial authors is preserved as good as 
+possible. For details regarding the multi-syntax approach and the DSS-X 
+specification in general see the OASIS DSS-X homepage at 
 https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=dss-x.
 
 -->

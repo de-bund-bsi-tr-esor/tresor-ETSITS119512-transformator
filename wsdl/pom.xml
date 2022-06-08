@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.bund.bsi.tr-esor</groupId>
 		<artifactId>tresor-etsi-ts119512-transformator</artifactId>
-		<version>1.1.1</version>
+		<version>2.0.0</version>
 	</parent>
 
 	<groupId>de.bund.bsi.tr-esor</groupId>
@@ -19,7 +19,6 @@
 			<plugin>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>${version.cxf}</version>
 				<configuration>
 					<disableDirectoryScan>true</disableDirectoryScan>
 					<disableDependencyScan>true</disableDependencyScan>
@@ -31,8 +30,8 @@
 						<wsdlOption>
 							<!--wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
 							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl-->
-							<wsdlLocation>/wsdl/19512-Preservation-API.wsdl</wsdlLocation>
-							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API.wsdl</wsdl>
+							<wsdlLocation>/wsdl/19512-Preservation-API_V.1.1.2.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/19512-Preservation-API_V.1.1.2.wsdl</wsdl>
 							<bindingFiles>
 								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
 								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
@@ -47,11 +46,12 @@
 						<wsdlOption>
 							<!--wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
 							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl-->
-							<wsdlLocation>/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdlLocation>
-							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.2+xmlmime.wsdl</wsdl>
+							<wsdlLocation>/wsdl/tr-esor-S-4-v1.3.wsdl</wsdlLocation>
+							<wsdl>${basedir}/src/main/resources/wsdl/tr-esor-S-4-v1.3.wsdl</wsdl>
 							<bindingFiles>
 								<bindingFile>${basedir}/src/main/resources/wsdl/time_binding.jxb</bindingFile>
 								<bindingFile>${basedir}/src/main/resources/wsdl/any_binding.jxb</bindingFile>
+								<bindingFile>${basedir}/src/main/resources/wsdl/ResultMajorRestriction_binding.jxb</bindingFile>
 							</bindingFiles>
 							<extraargs>
 								<extraarg>-xjc-Xfluent-builder</extraarg>
@@ -72,7 +72,7 @@
 					<dependency>
 						<groupId>net.codesup.util</groupId>
 						<artifactId>jaxb2-rich-contract-plugin</artifactId>
-						<version>2.0.1</version>
+						<version>2.1.0</version>
 					</dependency>
 					<dependency>
 						<groupId>org.jvnet.jaxb2_commons</groupId>
@@ -80,6 +80,16 @@
 						<version>0.12.0</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*_Service.class</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -98,16 +108,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${version.jee}</version>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-		    <groupId>javax.xml</groupId>
-		    <artifactId>webservices-api</artifactId>
-		    <version>2.0.1</version>
-		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.migesok</groupId>

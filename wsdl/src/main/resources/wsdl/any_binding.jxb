@@ -4,7 +4,7 @@
     xmlns:wildcard="http://jaxb2-commons.dev.java.net/basic/wildcard"
     jaxb:extensionBindingPrefixes="wildcard"
     version="2.1">
-    <jaxb:bindings schemaLocation="tr-esor-interfaces-v1.2+xmlmime.xsd">
+    <jaxb:bindings schemaLocation="tr-esor-interfaces-v1.3.xsd">
         <jaxb:bindings node="//xs:complexType [@name='ArchiveDataType']">
 			<wildcard:lax/>
         </jaxb:bindings>

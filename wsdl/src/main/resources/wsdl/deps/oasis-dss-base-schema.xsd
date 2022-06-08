@@ -8,13 +8,14 @@
      Latest version of narrative specification: http://docs.oasis-open.org/dss-x/dss-core/v2.0/dss-core-v2.0.html
      TC IPR Statement: https://www.oasis-open.org/committees/dss-x/ipr.php
 -->
-<xs:schema xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://docs.oasis-open.org/dss-x/ns/base" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:dsb="http://docs.oasis-open.org/dss-x/ns/base" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:nsl="http://docs.oasis-open.org/dss-x/ns/nsList" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds-rw="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://docs.oasis-open.org/dss-x/ns/base" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">This schema defines general structure used by the Digital Signature Service Core Protocols, Elements, and Bindings Committee Specification version 2.0 and other specifications</xs:documentation>
 	</xs:annotation>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:import namespace="http://docs.oasis-open.org/dss-x/ns/nsList" schemaLocation="oasis-dss-nslist-schema.xsd"/>
 	<xs:import namespace="http://docs.oasis-open.org/dss-x/ns/xmldsig/rewritten" schemaLocation="oasis-dss-rw-xmldsig-core-schema.xsd"/>
+	<xs:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmlmime.xsd" />
 	<!-- =================================== -->
 	<!-- Versatile structures separated from -->
 	<!-- the DSS-X core schema to be easily  -->
@@ -52,7 +53,7 @@
 	<xs:complexType name="Base64DataType">
 		<xs:sequence>
 			<xs:choice minOccurs="0">
-				<xs:element name="Value" type="xs:base64Binary"/>
+				<xs:element name="Value" xmime:expectedContentTypes="*/*" type="xs:base64Binary"/>
 				<xs:element name="AttRef" type="dsb:AttachmentReferenceType"/>
 			</xs:choice>
 			<xs:element name="Transforms" type="ds-rw:TransformsType" minOccurs="0"/>

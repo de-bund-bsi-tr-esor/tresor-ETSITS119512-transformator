@@ -1,5 +1,7 @@
+
+
 /****************************************************************************
- * Copyright (c) 2020 Federal Office for Information Security (BSI), ecsec GmbH
+ * Copyright (c) 2021 Federal Office for Information Security (BSI), ecsec GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +22,6 @@ package tresor.trans.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -47,43 +47,47 @@ public class ProfileSupplier {
 	private ProfileType profile;
 
 	@Inject
-	S4ClientConfig cfg;
+	ApplicationConfig cfg;
+	private boolean isTraceSupported = false;
+	private boolean isSearchSupported = false;
+	private String profileId;
 
 	@PostConstruct
 	void initJaxb() {
 		try {
+			var profileInputStream = new FileInputStream(new File(cfg.profileFilepath()));
 			ctx = JAXBContext.newInstance(ObjectFactory.class);
 
-			var profStream = getUserProfile().orElseGet(this::getDefaultProfile);
 			var unmarshaller = ctx.createUnmarshaller();
-			JAXBElement<ProfileType> res = (JAXBElement<ProfileType>) unmarshaller.unmarshal(profStream);
+			JAXBElement<ProfileType> res = (JAXBElement<ProfileType>) unmarshaller.unmarshal(profileInputStream);
 			profile = res.getValue();
+
+			isTraceSupported = profile.getOperation().stream().filter(o -> o.getName().equals("RetrieveTrace")).count() > 0;
+			isSearchSupported = profile.getOperation().stream().filter(o -> o.getName().equals("Search")).count() > 0;
+			profileId = profile.getProfileIdentifier();
+
+		} catch (FileNotFoundException ex) {
+			LOG.error("Configured 512-profile not found.");
+			throw new RuntimeException("Failed to load profile.", ex);
 		} catch (JAXBException ex) {
 			LOG.error("Failed to load profile.", ex);
 			throw new RuntimeException("Failed to load profile.", ex);
 		}
 	}
 
-	private Optional<InputStream> getUserProfile() {
-		return Optional.ofNullable(cfg.getProfileFile())
-				.map(v -> v.isBlank() ? null : v)
-				.map(File::new)
-				.map(f -> {
-					try {
-						return new FileInputStream(f);
-					} catch (FileNotFoundException ex) {
-						LOG.warn("User defined profile not found. Falling back to integrated profile definition.");
-						return null;
-					}
-				});
-	}
-
-	private InputStream getDefaultProfile() {
-		return getClass().getResourceAsStream("/config/profile.xml");
-	}
-
 	public ProfileType getProfile() {
 		return ProfileType.copyOf(profile).build();
+	}
+
+	boolean isTraceSupported() {
+		return this.isTraceSupported;
+	}
+
+	boolean isSearchSupported() {
+		return this.isSearchSupported;
+	}
+	String getProfileIdentifier() {
+		return this.profileId;
 	}
 
 }

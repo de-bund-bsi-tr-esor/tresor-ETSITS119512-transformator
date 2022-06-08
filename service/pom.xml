@@ -5,86 +5,108 @@
 	<parent>
 		<groupId>de.bund.bsi.tr-esor</groupId>
 		<artifactId>tresor-etsi-ts119512-transformator</artifactId>
-		<version>1.1.1</version>
+		<version>2.0.0</version>
 	</parent>
 
 	<groupId>de.bund.bsi.tr-esor</groupId>
 	<artifactId>tresor-etsi-ts119512-transformator-service</artifactId>
-	<packaging>war</packaging>
 	<name>Transformator Service</name>
 
+	<properties>
+		<quarkus.container-image.group>tresor</quarkus.container-image.group>
+		<quarkus.container-image.name>transformator</quarkus.container-image.name>
+		<quarkus.container-image.additional-tags>latest</quarkus.container-image.additional-tags>
+		<quarkus.jib.jvm-arguments>-Ddocker.build=true</quarkus.jib.jvm-arguments>
+		<quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:21.3.0-java17</quarkus.native.builder-image>
+		<quarkus.jib.base-jvm-image>registry.access.redhat.com/ubi8/openjdk-17-runtime:1.10</quarkus.jib.base-jvm-image>
+	</properties>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<attachClasses>true</attachClasses>
-					<archiveClasses>true</archiveClasses>
-					<warName>tresor-transformator-service</warName>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>io.github.zlika</groupId>
-				<artifactId>reproducible-build-maven-plugin</artifactId>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<extensions>true</extensions>
 				<executions>
 					<execution>
 						<goals>
-							<goal>strip-jar</goal>
+							<goal>build</goal>
+							<goal>generate-code</goal>
+							<goal>generate-code-tests</goal>
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+						<maven.home>${maven.home}</maven.home>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${version.jee}</version>
-			<scope>provided</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-arc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>${version.cxf}</version>
-			<scope>provided</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jsonb</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>${version.cxf}</version>
-			<scope>provided</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-features-logging</artifactId>
-			<version>${version.cxf}</version>
-			<scope>provided</scope>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.30</version>
-			<scope>provided</scope>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf-rt-features-logging</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>io.quarkiverse.cxf</groupId>
+			<artifactId>quarkus-cxf-rt-ws-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-container-image-jib</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>de.bund.bsi.tr-esor</groupId>
 			<artifactId>tresor-etsi-ts119512-transformator-wsdl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>com.typesafe</groupId>
-			<artifactId>config</artifactId>
-			<version>1.4.0</version>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-client-jackson</artifactId>
+		</dependency>
 	</dependencies>
-
 </project>
