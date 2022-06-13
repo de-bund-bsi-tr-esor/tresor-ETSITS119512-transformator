@@ -1,7 +1,7 @@
 # ETSI TS119512 TR-ESOR Transformator
 
 The ETSI TS119512 TR-ESOR Transformator (or short TR-ESOR Transformator) consists of a webservice according to ETSI TS 119 512, which is capable of transforming incoming ETSI TS 119 512 (V1.1.2) messages into TR-ESOR S4 (V1.3.0) messages which are sent to an attached TR-ESOR system.
-It allows a compliant TR-ESOR system to be used with a webservice client according to ETSI TS 119 512 and the BSI profile (`http://www.bsi.bund.de/tr-esor/V1.2.2/profile/preservation-api/V1.1.2`) without the need to change the TR-ESOR system.
+It allows a compliant TR-ESOR system to be used with a webservice client according to ETSI TS 119 512 and the BSI profile (`http://www.bsi.bund.de/tr-esor/V1.3/profile/preservation-api/V1.1.2`) without the need to change the TR-ESOR system.
 
 ## Prerequisites
 
