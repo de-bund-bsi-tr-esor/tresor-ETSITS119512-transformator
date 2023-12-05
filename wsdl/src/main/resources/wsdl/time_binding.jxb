@@ -1,11 +1,11 @@
 <jaxb:bindings
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
     jaxb:extensionBindingPrefixes="xjc"
-    version="2.1">
+    version="3.0">
     <jaxb:globalBindings generateIsSetMethod="true" fixedAttributeAsConstantProperty="true">
         <xjc:serializable />
-        <xjc:javaType name="java.time.OffsetDateTime" xmlType="xs:dateTime" adapter="com.migesok.jaxb.adapter.javatime.OffsetDateTimeXmlAdapter"/>
+        <xjc:javaType name="java.time.OffsetDateTime" xmlType="xs:dateTime" adapter="io.github.threetenjaxb.core.OffsetDateTimeXmlAdapter"/>
     </jaxb:globalBindings>
 </jaxb:bindings>

@@ -22,12 +22,12 @@ package tresor.trans.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
 import org.etsi.uri._19512.v1_1.ObjectFactory;
 import org.etsi.uri._19512.v1_1.ProfileType;
 import org.slf4j.Logger;
@@ -76,7 +76,7 @@ public class ProfileSupplier {
 	}
 
 	public ProfileType getProfile() {
-		return ProfileType.copyOf(profile).build();
+		return (ProfileType) profile.clone();
 	}
 
 	boolean isTraceSupported() {

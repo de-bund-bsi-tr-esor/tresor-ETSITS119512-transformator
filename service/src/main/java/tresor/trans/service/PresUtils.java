@@ -41,17 +41,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
-import javax.activation.DataHandler;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbException;
+import jakarta.activation.DataHandler;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbException;
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshalException;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -117,7 +117,7 @@ public class PresUtils {
 	Map<String, String> tresorPresRetrieveInfoMinorMapping;
 	Map<String, String> tresorPresRetrieveTraceMinorMapping;
 
-	//major of minor mapping 
+	//major of minor mapping
 	//this can be used to change the preservation major result w.r.t. the minor result given by S4
 	Map<String, ResultType.ResultMajor> tresorPresArchiveSubmissionMajorOfMinor = Collections.EMPTY_MAP;
 	Map<String, ResultType.ResultMajor> tresorPresArchiveUpdateMajorOfMinor = Collections.EMPTY_MAP;
@@ -258,11 +258,10 @@ public class PresUtils {
 		return Optional.ofNullable(poid)
 				.orElseThrow(() -> {
 					String msg = "No POID present.";
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 							.withResultMinor(PresCodes.PARAM_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+							.withResultMessage(makeMsg(msg)));
 					return new InputAssertionFailed(msg);
 				});
 	}
@@ -270,11 +269,10 @@ public class PresUtils {
 	public POType assertOnePo(List<POType> pos, ResponseType res) throws InputAssertionFailed {
 		if (pos.size() != 1) {
 			String msg = "Not exactly one PO requested.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
-					.withResultMessage(makeMsg(msg))
-					.build());
+					.withResultMessage(makeMsg(msg)));
 			throw new InputAssertionFailed(msg);
 		} else {
 			return pos.get(0);
@@ -284,11 +282,10 @@ public class PresUtils {
 	public POType assertOneDeltaPOC(List<POType> pos, ResponseType res) throws InputAssertionFailed {
 		if (pos.size() != 1) {
 			String msg = "Not exactly one DeltaPOC requested.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
-					.withResultMessage(makeMsg(msg))
-					.build());
+					.withResultMessage(makeMsg(msg)));
 			throw new InputAssertionFailed(msg);
 		} else {
 			return pos.get(0);
@@ -363,20 +360,18 @@ public class PresUtils {
 					.filter(v -> allowedTypes.contains(v))
 					.orElseThrow(() -> {
 				String msg = String.format("Format (%s) is not one of the allowed types.", formatId);
-						res.setResult(ResultType.builder()
+						res.setResult(new ResultType()
 								.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 								.withResultMinor(unknownFormatMinorCode.value)
-								.withResultMessage(makeMsg(msg))
-								.build());
+								.withResultMessage(makeMsg(msg)));
 						return new InputAssertionFailed(msg);
 					});
 		} catch (NullPointerException ex) {
 			String msg = "Format is not defined.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
-					.withResultMessage(makeMsg(msg))
-					.build());
+					.withResultMessage(makeMsg(msg)));
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -455,11 +450,10 @@ public class PresUtils {
 				.map(xd -> xd.getAny())
 				.orElseThrow(() -> {
 					String msg = String.format("No %s data object present.", targetClass.getName());
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(majorError)
 							.withResultMinor(PresCodes.PARAM_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+							.withResultMessage(makeMsg(msg)));
 					return new InputAssertionFailed(msg);
 				});
 
@@ -468,11 +462,10 @@ public class PresUtils {
 			return jbxaip;
 		} else {
 			String msg = String.format("Data type is not a %s (actual: %s).", targetClass.getName(), targetObj.getClass().getName());
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(majorError)
 					.withResultMinor(PresCodes.PO_FORMAT_ERROR)
-					.withResultMessage(makeMsg(msg))
-					.build());
+					.withResultMessage(makeMsg(msg)));
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -482,11 +475,10 @@ public class PresUtils {
 				.map(bd -> bd.getAny())
 				.orElseThrow(() -> {
 					String msg = "No XML data object present.";
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 							.withResultMinor(PresCodes.PARAM_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+							.withResultMessage(makeMsg(msg)));
 					return new InputAssertionFailed(msg);
 				});
 	}
@@ -496,11 +488,10 @@ public class PresUtils {
 				.map(bd -> bd.getValue())
 				.orElseThrow(() -> {
 					String msg = "No binary data object present.";
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 							.withResultMinor(PresCodes.PARAM_ERROR)
-							.withResultMessage(makeMsg(msg))
-							.build());
+							.withResultMessage(makeMsg(msg)));
 					return new InputAssertionFailed(msg);
 				});
 	}
@@ -514,10 +505,9 @@ public class PresUtils {
 	}
 
 	public InternationalStringType makeMsg(String msg, String lang) {
-		return InternationalStringType.builder()
+		return new InternationalStringType()
 				.withLang(lang)
-				.withValue(msg)
-				.build();
+				.withValue(msg);
 	}
 
 	public void assertClientResultOk(RetrieveInfoResponse clientRes, ResponseType presRes) throws OutputAssertionFailed {
@@ -559,14 +549,13 @@ public class PresUtils {
 
 	private void assertClientResultOkInt(ResponseBaseType clientRes, ResponseType presRes, Map<String, String> minorCodeMap, Map<String, ResultType.ResultMajor> majorOfMinor) throws OutputAssertionFailed {
 		var result = Optional.of(clientRes.getResult())
-				.filter(r -> r.isSetResultMajor())
+				.filter(r -> r.getResultMajor() != null)
 				.orElseThrow(() -> {
 					String msg = "No proper result received from TR-ESOR system.";
-					presRes.setResult(ResultType.builder()
+					presRes.setResult(new ResultType()
 					    .withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					    .withResultMinor(PresCodes.INT_ERROR)
 					    .withResultMessage(makeMsg(msg))
-					    .build()
 					);
 					return new OutputAssertionFailed(msg);
 				});
@@ -579,30 +568,30 @@ public class PresUtils {
 					resultMajor = ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR;
 				}
 
-				presRes.setResult(ResultType.builder()
+				presRes.setResult(new ResultType()
 					.withResultMajor(resultMajor)
 					.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, true))
 					.withResultMessage(convertMessage(result.getResultMessage()))
-					.build());
+				);
 
 			}
 		} else if (TresorCodes.ERROR.equals(result.getResultMajor())) {
 			var resultMajor = getMajorOfMinorOrDefault(majorOfMinor, result.getResultMinor(), ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR);
-			presRes.setResult(ResultType.builder()
+			presRes.setResult(new ResultType()
 				.withResultMajor(resultMajor)
 				.withResultMinor(convertTresorMinor(result.getResultMinor(), minorCodeMap, false))
 				.withResultMessage(convertMessage(result.getResultMessage()))
-				.build());
+			);
 			throw new OutputAssertionFailed(Optional.ofNullable(result.getResultMessage())
 					.map(v -> v.getValue())
 					.orElse("Error received from TR-ESOR system."));
 		} else {
 			String msg = "No known resultmajor received from TR-ESOR system.";
-			presRes.setResult(ResultType.builder()
+			presRes.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
@@ -619,10 +608,9 @@ public class PresUtils {
 
 	private InternationalStringType convertMessage(oasis.names.tc.dss._1_0.core.schema.InternationalStringType resultMessage) {
 		return Optional.ofNullable(resultMessage)
-				.map(v -> InternationalStringType.builder()
+				.map(v -> new InternationalStringType()
 				.withLang(v.getLang())
-				.withValue(v.getValue())
-				.build())
+				.withValue(v.getValue()))
 				.orElse(null);
 	}
 
@@ -660,11 +648,11 @@ public class PresUtils {
 		var binObj = Optional.ofNullable(optIn.getValue())
 				.orElseThrow(() -> {
 					String msg = "No binary data object present in optional input.";
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 							.withResultMinor(PresCodes.PARAM_ERROR)
 							.withResultMessage(makeMsg(msg))
-							.build());
+					);
 					return new InputAssertionFailed(msg);
 				});
 
@@ -677,30 +665,30 @@ public class PresUtils {
 			if (! matches) {
 				// unsupported object
 				String msg = "Unsupported optional input given.";
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 						.withResultMinor(PresCodes.NOT_SUPPORTED)
 						.withResultMessage(makeMsg(msg))
-						.build());
+				);
 				throw new InputAssertionFailed(msg);
 			}
 
 			return resultObj;
 		} catch (UnmarshalException ex) {
 			String msg = "Failed to unmarshal optional input.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional input.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -722,17 +710,16 @@ public class PresUtils {
 			er.setAsn1EvidenceRecord(readER);
 			er.setAOID(aoid);
 			er.setVersionID(vID);
-			return oasis.names.tc.dss._1_0.core.schema.AnyType.builder()
-				.withAny(new ObjectFactory().createEvidenceRecord(er))
-				.build();
+			return new oasis.names.tc.dss._1_0.core.schema.AnyType()
+				.withAny(new ObjectFactory().createEvidenceRecord(er));
 		} catch (IOException ex) {
 			String msg = "Failed to read binary ERS.";
 			LOG.error(msg, ex);
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 				.withResultMinor(PresCodes.INT_ERROR)
 				.withResultMessage(makeMsg(msg))
-				.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -740,9 +727,8 @@ public class PresUtils {
 	public oasis.names.tc.dss._1_0.core.schema.AnyType convertEvidenceRecord(ietf.params.xml.ns.ers.EvidenceRecordType evRec, ResponseType res, String aoid, String vID) throws InputAssertionFailed {
 		var er = new EvidenceRecordType();
 		er.setXmlEvidenceRecord(evRec);
-		return oasis.names.tc.dss._1_0.core.schema.AnyType.builder()
-				.withAny(new ObjectFactory().createEvidenceRecord(er))
-				.build();
+		return new oasis.names.tc.dss._1_0.core.schema.AnyType()
+				.withAny(new ObjectFactory().createEvidenceRecord(er));
 	}
 
 	public Optional<AnyType> convertPreservePoOutput(Object tresorOptOut, ResponseType res) throws OutputAssertionFailed {
@@ -751,37 +737,36 @@ public class PresUtils {
 				var ds = new TempFileDataSource(null);
 				preservePoJaxbCtx.createMarshaller().marshal(tresorOptOut, ds.getOutputStream());
 				ds.lock();
-				return Optional.of(AnyType.builder().withValue(new DataHandler(ds)).build());
+				return Optional.of(new AnyType().withValue(new DataHandler(ds)));
 			} else {
 				LOG.warn("Ignoring unsupported optional output from S4 service.");
 				return Optional.empty();
 			}
 		} catch (UnmarshalException ex) {
 			String msg = "Failed to marshal optional output.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		} catch (IOException | JAXBException ex) {
 			String msg = "Failed to process optional output.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
 
 	public Optional<POType> convertValidateEvidenceOutput(Object tresorOptOut, ResponseType res) throws OutputAssertionFailed {
 			if (isVerificationReport(tresorOptOut)) {
-				var po = POType.builder()
-						.withXmlData(POType.XmlData.builder()
-								.withAny(tresorOptOut)
-								.build())
-						.build();
+				var po = new POType()
+					.withXmlData(
+						new POType.XmlData().withAny(tresorOptOut)
+					);
 				return Optional.of(po);
 			} else {
 				LOG.warn("Ignoring unsupported optional output from S4 service.");
@@ -823,21 +808,21 @@ public class PresUtils {
 				.flatMap(v -> Optional.ofNullable(v.getAOID()))
 				.orElseThrow(() -> {
 					String msg = "No AOID present in XAIP.";
-					res.setResult(ResultType.builder()
+					res.setResult(new ResultType()
 							.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 							.withResultMinor(PresCodes.PARAM_ERROR)
 							.withResultMessage(makeMsg(msg))
-							.build());
+					);
 					return new InputAssertionFailed(msg);
 				});
 
 		if (!xaipAoid.equals(aoid)) {
 			String msg = "Given AOID and AOID in XAIP differ.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR_DELTA_POC)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -850,11 +835,11 @@ public class PresUtils {
 		switch (sr) {
 			case P_OWITH_DETACHED_EVIDENCE: {
 				String msg = "Unsupported SubjectOfRetrieval received.";
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 						.withResultMinor(PresCodes.NOT_SUPPORTED)
 						.withResultMessage(makeMsg(msg))
-						.build());
+				);
 				throw new InputAssertionFailed(msg);
 			}
 			default:
@@ -869,11 +854,11 @@ public class PresUtils {
 
 		if (! vals.isEmpty()) {
 			String msg = "Optional output values present where none are allowed.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
@@ -885,11 +870,11 @@ public class PresUtils {
 
 		if (! vals.isEmpty()) {
 			String msg = "Optional input values present where none are allowed.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -900,11 +885,11 @@ public class PresUtils {
 
 		if (mode != DeletionModeType.SUB_D_OS_AND_EVIDENCE) {
 			String msg = "Invalid DeletionMode received.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 	}
@@ -918,13 +903,13 @@ public class PresUtils {
 
 
 	public SearchFilter assertAndConvertFilter(SearchType req, ResponseType res) throws InputAssertionFailed {
-		if (false == req.isSetFilter()) {
+		if (req.getFilter() == null) {
 			String msg = "Filter element missing";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 
@@ -934,11 +919,11 @@ public class PresUtils {
 			return jb.fromJson(filter, SearchFilter.class);
 		} catch (JsonbException ex) {
 			String msg = "Filter object not valid";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 
@@ -979,26 +964,26 @@ public class PresUtils {
 			//m.marshal(xaipDataObj, ds.getOutputStream());
 
 			ds.lock();
-			return AnyType.builder().withValue(new DataHandler(ds)).build();
+			return new AnyType().withValue(new DataHandler(ds));
 		} catch (IOException | JAXBException | TransformerException | ParserConfigurationException ex) {
 			String msg = "Failed to convert XPath object into DOM element.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
 
 	public void assertXaipDataPresent(ArchiveDataResponse archRes, SearchResponseType res) throws InputAssertionFailed {
-		if (false == archRes.isSetXAIPData()) {
+		if (archRes.getXAIPData().isEmpty()) {
 			String msg = "Failed to convert XPath object into DOM element.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 
@@ -1054,19 +1039,19 @@ public class PresUtils {
 
 
 	public boolean isXmlXadesOrDigestList(POType po, ResponseType res) {
-		return po.isSetXmlData() &&
+		return po.getXmlData() != null &&
 				(TypeConstants.XADES_TYPE.equals(po.getFormatId()) ||
 				 TypeConstants.DIGESTLIST_TYPE.equals(po.getFormatId()));
 	}
 
 	public void convertXmlToBinary(POType po, ResponseType res) throws InputAssertionFailed {
-		if (! (po.isSetXmlData() && po.getXmlData().isSetAny())) {
+		if (! (po.getXmlData() != null && po.getXmlData().getAny() != null)) {
 			String msg = "No XML data available in the PO.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.PARAM_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 
@@ -1102,29 +1087,29 @@ public class PresUtils {
 		} catch (IOException ex) {
 			String msg = "Error while processing serialized XML data.";
 			LOG.error(msg, ex);
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		} catch (TransformerConfigurationException ex) {
 			String msg = "Error creating the XML transformer.";
 			LOG.error(msg, ex);
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		} catch (JAXBException | TransformerException ex) {
 			String msg = "Error while serializing XML data.";
 			LOG.error(msg, ex);
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
 					.withResultMessage(makeMsg(msg))
-					.build());
+			);
 			throw new InputAssertionFailed(msg);
 		}
 

@@ -20,8 +20,8 @@
 package tresor.trans.service.client;
 
 import de.bund.bsi.tr_esor.api._1_3.S4;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.cxf.annotations.SchemaValidation;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;

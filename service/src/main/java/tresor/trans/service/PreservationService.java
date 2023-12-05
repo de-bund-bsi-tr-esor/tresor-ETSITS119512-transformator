@@ -38,11 +38,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.jws.WebService;
-import javax.xml.bind.JAXBElement;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
+import jakarta.jws.WebService;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import oasis.names.tc.dss._1_0.core.schema.AnyType;
 import oasis.names.tc.dss._1_0.core.schema.Base64Data;
 import oasis.names.tc.dss._1_0.core.schema.Base64Signature;
@@ -135,9 +135,9 @@ public class PreservationService implements Preservation {
 		LOG.debug("RetrieveInfo called.");
 
 		var res = new RetrieveInfoResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		List<ProfileType> profiles = new ArrayList<ProfileType>();
@@ -151,7 +151,7 @@ public class PreservationService implements Preservation {
 		}
 
 		//filter for requested
-		if (req.isSetProfile()) {
+		if (req.getProfile() != null) {
 			profiles = profiles.stream()
 				.filter(p -> p.getProfileIdentifier().equals(req.getProfile().strip()))
 				.collect(Collectors.toList());
@@ -159,10 +159,10 @@ public class PreservationService implements Preservation {
 		//if non left
 		if (profiles.isEmpty()) {
 			res = new RetrieveInfoResponseType();
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 				.withResultMinor(PresCodes.NOT_SUPPORTED)
-				.build());
+			);
 			res.setRequestID(req.getRequestID());
 
 		}
@@ -177,18 +177,18 @@ public class PreservationService implements Preservation {
 	public PreservePOResponseType preservePO(PreservePOType req) {
 		LOG.debug("PreservePO called.");
 		var res = new PreservePOResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		try {
 			//check profile
-			if (req.isSetProfile() && !req.getProfile().equals(profileSupplier.getProfileIdentifier())) {
-				res.setResult(ResultType.builder()
+			if (req.getProfile() != null && !req.getProfile().equals(profileSupplier.getProfileIdentifier())) {
+				res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 					.withResultMinor(PresCodes.NOT_SUPPORTED)
-					.build());
+				);
 				res.setRequestID(req.getRequestID());
 				return res;
 			}
@@ -228,7 +228,7 @@ public class PreservationService implements Preservation {
 			}
 
 			// process optional inputs
-			if (req.isSetOptionalInputs()) {
+			if (req.getOptionalInputs() != null) {
 				var oin = req.getOptionalInputs();
 				var others = oin.getOther();
 				var tresorOptIn = new AnyType();
@@ -240,7 +240,7 @@ public class PreservationService implements Preservation {
 				}
 
 				// add only if there are inputoptions
-				if (tresorOptIn.isSetAny()) {
+				if (! tresorOptIn.getAny().isEmpty()) {
 					archReq.setOptionalInputs(tresorOptIn);
 				}
 			}
@@ -256,7 +256,7 @@ public class PreservationService implements Preservation {
 				res.setPOID(archRes.getAOID());
 
 				// process optional outputs
-				if (archRes.isSetOptionalOutputs()) {
+				if (archRes.getOptionalOutputs() != null) {
 					var tresorOptOut = archRes.getOptionalOutputs();
 					var optOut = new OptionalOutputsType();
 
@@ -266,17 +266,17 @@ public class PreservationService implements Preservation {
 					}
 
 					// add only if there are outputoptions
-					if (optOut.isSetOther()) {
+					if (! optOut.getOther().isEmpty()) {
 						res.setOptionalOutputs(optOut);
 					}
 				}
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
@@ -300,9 +300,9 @@ public class PreservationService implements Preservation {
 	public UpdatePOCResponseType updatePOC(UpdatePOCType req) {
 		LOG.debug("UpdatePOC called.");
 		var res = new UpdatePOCResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		try {
@@ -321,7 +321,7 @@ public class PreservationService implements Preservation {
 			archReq.setDXAIP(dxaip);
 
 			// process optional inputs
-			if (req.isSetOptionalInputs()) {
+			if (req.getOptionalInputs() != null) {
 				var oin = req.getOptionalInputs();
 				var others = oin.getOther();
 				var tresorOptIn = new AnyType();
@@ -333,7 +333,7 @@ public class PreservationService implements Preservation {
 				}
 
 				// add only if there are inputoptions
-				if (tresorOptIn.isSetAny()) {
+				if (! tresorOptIn.getAny().isEmpty()) {
 					archReq.setOptionalInputs(tresorOptIn);
 				}
 			}
@@ -349,7 +349,7 @@ public class PreservationService implements Preservation {
 				res.setVersionID(archRes.getVersionID());
 
 				// process optional outputs
-				if (archRes.isSetOptionalOutputs()) {
+				if (archRes.getOptionalOutputs() != null) {
 					var tresorOptOut = archRes.getOptionalOutputs();
 					var optOut = new OptionalOutputsType();
 
@@ -359,17 +359,17 @@ public class PreservationService implements Preservation {
 					}
 
 					// add only if there are outputoptions
-					if (optOut.isSetOther()) {
+					if (! optOut.getOther().isEmpty()) {
 						res.setOptionalOutputs(optOut);
 					}
 				}
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
@@ -392,9 +392,9 @@ public class PreservationService implements Preservation {
 	public ValidateEvidenceResponseType validateEvidence(ValidateEvidenceType req) {
 		LOG.debug("ValidateEvidence called.");
 		var res = new ValidateEvidenceResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		try {
@@ -435,7 +435,7 @@ public class PreservationService implements Preservation {
 			}
 
 			// convert evidence
-			if (req.isSetEvidence()) {
+			if (req.getEvidence() != null) {
 				var evidence = req.getEvidence();
 				var formatID = utils.assertAdmissibleFormat(evidence, res);
 				evidence.setFormatId(formatID);
@@ -453,15 +453,15 @@ public class PreservationService implements Preservation {
 					}
 				} else {
 					var ersBin = utils.assertBinaryPresent(evidence, res);
-					sigObj.setBase64Signature(Base64Signature.builder()
+					sigObj.setBase64Signature(new Base64Signature()
 							.withType(TypeConstants.CADES_ERS)
 							.withValue(ersBin.getInputStream().readAllBytes())
-							.build());
+					);
 				}
 			}
 
 			// process optional inputs
-			if (req.isSetOptionalInputs()) {
+			if (req.getOptionalInputs() != null) {
 				var oin = req.getOptionalInputs();
 				var others = oin.getOther();
 				var tresorOptIn = new AnyType();
@@ -473,7 +473,7 @@ public class PreservationService implements Preservation {
 				}
 
 				// add only if there are inputoptions
-				if (tresorOptIn.isSetAny()) {
+				if (! tresorOptIn.getAny().isEmpty()) {
 					archReq.setOptionalInputs(tresorOptIn);
 				}
 			}
@@ -486,7 +486,7 @@ public class PreservationService implements Preservation {
 				utils.assertClientResultVerifyOk(archRes, res);
 
 				// process optional outputs
-				if (archRes.isSetOptionalOutputs()) {
+				if (archRes.getOptionalOutputs() != null) {
 					var tresorOptOut = archRes.getOptionalOutputs();
 
 					for (Object next : tresorOptOut.getAny()) {
@@ -504,19 +504,19 @@ public class PreservationService implements Preservation {
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
 		} catch (IOException ex) {
 			LOG.error("Failed to copy input object.", ex);
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
-					.build());
+			);
 			return res;
 		} catch (InputAssertionFailed ex) {
 			LOG.warn("Assertion about input data failed: {}", ex.getMessage());
@@ -537,9 +537,9 @@ public class PreservationService implements Preservation {
 	public ResponseType deletePO(DeletePOType req) {
 		LOG.debug("DeletePO called.");
 		var res = new ResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		try {
@@ -556,15 +556,13 @@ public class PreservationService implements Preservation {
 				archReq.setAOID(aoid);
 				if (claimedRequestor.isPresent() || reason.isPresent()) {
 					var optInReason = new ReasonOfDeletion();
-					claimedRequestor.map(v -> NameIDType.builder()
-							.withValue(v)
-							.build())
+					claimedRequestor.map(v -> new NameIDType()
+							.withValue(v))
 							.ifPresent(v -> optInReason.setRequestorName(v));
 					reason.ifPresent(v -> optInReason.setRequestInfo(v));
 					// add to request
-					archReq.setOptionalInputs(AnyType.builder()
-							.withAny(optInReason)
-							.build());
+					archReq.setOptionalInputs(new AnyType()
+							.withAny(optInReason));
 				}
 
 				// call service
@@ -577,10 +575,10 @@ public class PreservationService implements Preservation {
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
@@ -603,9 +601,9 @@ public class PreservationService implements Preservation {
 	public RetrievePOResponseType retrievePO(RetrievePOType req) {
 		LOG.debug("RetrievePO called.");
 		var res = new RetrievePOResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		try {
@@ -616,13 +614,13 @@ public class PreservationService implements Preservation {
 			var evidenceFormat = req.getEvidenceFormat();
 
 			// process optional inputs
-			if (req.isSetOptionalInputs() && req.getOptionalInputs().isSetOther()) {
+			if (req.getOptionalInputs() != null && ! req.getOptionalInputs().getOther().isEmpty()) {
 				String msg = "Unsupported optional input given.";
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 						.withResultMinor(PresCodes.NOT_SUPPORTED)
 						.withResultMessage(utils.makeMsg(msg))
-						.build());
+				);
 				throw new InputAssertionFailed(msg);
 			}
 
@@ -642,10 +640,10 @@ public class PreservationService implements Preservation {
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
@@ -697,19 +695,18 @@ public class PreservationService implements Preservation {
 		utils.assertClientResultOk(archRes, res);
 
 		// convert response back
-		if (archRes.isSetXAIP()) {
-			var po = POType.builder()
+		if (archRes.getXAIP() != null) {
+			var po = new POType()
 					.withFormatId(poFormat)
 					.withMimeType("application/xml")
-					.withXmlData(POType.XmlData.builder()
-					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createXAIP(archRes.getXAIP())).build())
-					.build();
+					.withXmlData(new POType.XmlData()
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createXAIP(archRes.getXAIP())));
 			utils.assertReturnedXaipPresent(po, res);
 			res.getPO().add(po);
 		}
 
 		// process optional outputs
-		if (archRes.isSetOptionalOutputs()) {
+		if (archRes.getOptionalOutputs() != null) {
 			var tresorOptOut = archRes.getOptionalOutputs();
 			var optOut = new OptionalOutputsType();
 
@@ -719,13 +716,13 @@ public class PreservationService implements Preservation {
 			}
 		}
 
-		if (! res.isSetPO()) {
+		if (res.getPO().isEmpty()) {
 			String msg = "No archive returned from S4.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
 					.withResultMinor(PresCodes.PARTLY_SUCCESSFUL)
 					.withResultMessage(utils.makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
@@ -758,20 +755,19 @@ public class PreservationService implements Preservation {
 
 		// convert response back
 		archRes.getEvidenceRecord().stream()
-				.map(e -> POType.builder()
+				.map(e -> new POType()
 					.withFormatId(defaultedEvidenceFormat)
-					.withXmlData(POType.XmlData.builder()
-					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createEvidenceRecord(e)).build())
-					.build())
+					.withXmlData(new POType.XmlData()
+					.withAny(new de.bund.bsi.tr_esor.xaip.ObjectFactory().createEvidenceRecord(e))))
 				.forEachOrdered(res.getPO()::add);
 
-		if (! res.isSetPO()) {
+		if (res.getPO().isEmpty()) {
 			String msg = "No evidence returned from S4.";
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.PARTLY_SUCCESSFUL)
 					.withResultMessage(utils.makeMsg(msg))
-					.build());
+			);
 			throw new OutputAssertionFailed(msg);
 		}
 	}
@@ -780,16 +776,16 @@ public class PreservationService implements Preservation {
 	public RetrieveTraceResponseType retrieveTrace(RetrieveTraceType req) {
 		LOG.debug("RetrieveTrace called.");
 		var res = new RetrieveTraceResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 			.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-			.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		if (!profileSupplier.isTraceSupported()) {
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 				.withResultMinor(PresCodes.NOT_SUPPORTED)
-				.build());
+			);
 			res.setRequestID(req.getRequestID());
 			return res;
 		}
@@ -809,10 +805,10 @@ public class PreservationService implements Preservation {
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 					.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 					.withResultMinor(PresCodes.INT_ERROR)
-					.build());
+				);
 			}
 		} catch (InputAssertionFailed ex) {
 			LOG.warn("Assertion about input data failed: {}", ex.getMessage());
@@ -836,16 +832,16 @@ public class PreservationService implements Preservation {
 	public SearchResponseType search(SearchType req) {
 		LOG.debug("Search called.");
 		var res = new SearchResponseType();
-		res.setResult(ResultType.builder()
+		res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_SUCCESS)
-				.build());
+		);
 		res.setRequestID(req.getRequestID());
 
 		if (!profileSupplier.isSearchSupported()) {
-			res.setResult(ResultType.builder()
+			res.setResult(new ResultType()
 				.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_REQUESTER_ERROR)
 				.withResultMinor(PresCodes.NOT_SUPPORTED)
-				.build());
+			);
 			res.setRequestID(req.getRequestID());
 			return res;
 		}
@@ -880,16 +876,16 @@ public class PreservationService implements Preservation {
 					var xaipDataAny = utils.convertXAIPData(x, res);
 					optOut.getOther().add(xaipDataAny);
 				}
-				if (optOut.isSetOther()) {
+				if (! optOut.getOther().isEmpty()) {
 					res.setOptionalOutputs(optOut);
 				}
 
 			} catch (SOAPFaultException ex) {
 				LOG.error("Failed to invoked remote service.", ex);
-				res.setResult(ResultType.builder()
+				res.setResult(new ResultType()
 						.withResultMajor(ResultType.ResultMajor.URN_OASIS_NAMES_TC_DSS_1_0_RESULTMAJOR_RESPONDER_ERROR)
 						.withResultMinor(PresCodes.INT_ERROR)
-						.build());
+				);
 			}
 
 			return res;
